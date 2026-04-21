@@ -1,0 +1,401 @@
+/* =========================================================
+   ZINE EFFECTS · Classes utility que constroem a estética
+   "xerox trêmulo", "cut-paste", marcador, carimbo, rasgo.
+   ========================================================= */
+
+/* ---- GRÃO DE FILME GLOBAL ----
+   Overlay fixo na tela inteira com ruído SVG procedural.
+   Nenhum arquivo de imagem externa.
+*/
+.grain-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: var(--z-grain);
+    opacity: 0.32;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size: 200px 200px;
+    /* animação imperceptível de "vibração" do grão */
+    animation: grain-shift 8s steps(8) infinite;
+}
+
+@keyframes grain-shift {
+    0%   { transform: translate(0, 0); }
+    10%  { transform: translate(-2%, -1%); }
+    20%  { transform: translate(1%, 2%); }
+    30%  { transform: translate(-1%, 3%); }
+    40%  { transform: translate(2%, -2%); }
+    50%  { transform: translate(-3%, 1%); }
+    60%  { transform: translate(1%, -3%); }
+    70%  { transform: translate(-2%, 2%); }
+    80%  { transform: translate(3%, -1%); }
+    90%  { transform: translate(-1%, -2%); }
+    100% { transform: translate(0, 0); }
+}
+
+.edicao-especial .grain-overlay {
+    opacity: 0.18;
+}
+
+/* ---- XEROX TRÊMULO ----
+   Leve sombra de texto duplicada simulando registro mal alinhado.
+*/
+.xerox-tremor {
+    filter: contrast(1.12) brightness(0.99);
+    text-shadow:
+        0.3px 0 0 rgba(0,0,0,0.35),
+        -0.3px 0 0 rgba(0,0,0,0.18),
+        0 0.3px 0 rgba(0,0,0,0.25);
+}
+
+/* ---- CARD DE PAPEL ----
+   Retângulo off-white com sombra dura deslocada (estética de papel colado).
+*/
+.paper-card {
+    background-color: var(--zine-paper-2);
+    border: var(--border-black);
+    padding: var(--sp-5);
+    box-shadow: var(--shadow-paper);
+    position: relative;
+    transition:
+        transform var(--dur-snap) var(--ease-snap),
+        box-shadow var(--dur-snap) var(--ease-snap);
+}
+
+.paper-card-2 {
+    background-color: var(--zine-paper-3);
+}
+
+.paper-card-dark {
+    background-color: var(--zine-ink);
+    color: var(--zine-paper);
+    border-color: var(--zine-red);
+    box-shadow: var(--shadow-hard-red);
+}
+
+/* ---- CUT-PASTE ----
+   Elementos parecem colados com fita crepe, rotação quebrada.
+   Variações pra usar em cards adjacentes e criar caos controlado.
+*/
+.taped {
+    position: relative;
+    transform: rotate(-1.8deg);
+}
+.taped-alt {
+    position: relative;
+    transform: rotate(1.4deg);
+}
+.taped-hard {
+    position: relative;
+    transform: rotate(-3deg);
+}
+
+/* fita crepe visível no topo (pseudo-element) */
+.taped::before,
+.taped-alt::before,
+.taped-hard::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-4deg);
+    width: 72px;
+    height: 20px;
+    background: rgba(245, 230, 180, 0.62);
+    border-left: 1px dashed rgba(0,0,0,0.15);
+    border-right: 1px dashed rgba(0,0,0,0.15);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.taped-alt::before {
+    transform: translateX(-50%) rotate(6deg);
+    left: 30%;
+    width: 52px;
+}
+
+.taped-hard::before {
+    transform: translateX(-50%) rotate(-11deg);
+    left: 70%;
+}
+
+/* ---- ROTAÇÕES QUEBRADAS (utility direto) ---- */
+.rot-n3 { transform: rotate(-3deg); }
+.rot-n2 { transform: rotate(-2deg); }
+.rot-n1 { transform: rotate(-1deg); }
+.rot-p1 { transform: rotate(1deg); }
+.rot-p2 { transform: rotate(2deg); }
+.rot-p3 { transform: rotate(3deg); }
+
+/* ---- MARCADOR PILOT ----
+   Destaque vermelho tipo pincelada de marcador permanente.
+   A irregularidade nas bordas vem de um stop abrupto no gradient.
+*/
+.marker-highlight {
+    background: linear-gradient(
+        105deg,
+        transparent 2%,
+        var(--zine-red) 2%,
+        var(--zine-red) 98%,
+        transparent 98%
+    );
+    padding: 2px 8px;
+    color: var(--zine-paper);
+    font-weight: 700;
+    display: inline-block;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    /* leve inclinação proposital */
+    transform: skewX(-2deg);
+}
+
+.marker-highlight-yellow {
+    background: linear-gradient(
+        105deg,
+        transparent 2%,
+        var(--zine-highlight) 2%,
+        var(--zine-highlight) 98%,
+        transparent 98%
+    );
+    color: var(--zine-black);
+    padding: 2px 8px;
+    font-weight: 700;
+    display: inline-block;
+    box-decoration-break: clone;
+    transform: skewX(-1deg);
+}
+
+/* marca-texto do usuário em highlights (usa style inline pra cor) */
+.user-highlight {
+    padding: 0 2px;
+    border-radius: 1px;
+    cursor: pointer;
+    transition: filter var(--dur-quick) var(--ease-snap);
+}
+.user-highlight:hover {
+    filter: brightness(0.92);
+}
+
+/* ---- CARIMBO DE BORRACHA ----
+   Selo vermelho rotacionado, opacidade < 1 pra parecer tinta envelhecida.
+*/
+.rubber-stamp {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: var(--fs-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--zine-red-deep);
+    padding: var(--sp-2) var(--sp-4);
+    border: 4px solid var(--zine-red-deep);
+    transform: rotate(-8deg);
+    opacity: 0.85;
+    background: transparent;
+    /* borda irregular via box-shadow inset */
+    box-shadow: inset 0 0 0 2px transparent, 0 0 0 1px rgba(138, 22, 21, 0.2);
+    /* efeito "tinta não uniforme" */
+    position: relative;
+}
+
+.rubber-stamp::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 20% 30%, transparent 1.5px, rgba(236,217,179,0.4) 1.5px, rgba(236,217,179,0.4) 2.5px, transparent 2.5px),
+        radial-gradient(circle at 70% 60%, transparent 1px, rgba(236,217,179,0.3) 1px, rgba(236,217,179,0.3) 2px, transparent 2px),
+        radial-gradient(circle at 45% 80%, transparent 1.5px, rgba(236,217,179,0.35) 1.5px, rgba(236,217,179,0.35) 3px, transparent 3px);
+    background-size: 18px 18px, 23px 23px, 31px 31px;
+    mix-blend-mode: lighten;
+    pointer-events: none;
+}
+
+.rubber-stamp-sm {
+    font-size: var(--fs-small);
+    padding: 3px var(--sp-3);
+    border-width: 3px;
+}
+
+.rubber-stamp-lg {
+    font-size: var(--fs-display-md);
+    padding: var(--sp-3) var(--sp-5);
+    border-width: 5px;
+}
+
+/* ---- HALFTONE ----
+   Filtro pra imagens que simula impressão ponto-a-ponto.
+*/
+.halftone {
+    filter: grayscale(1) contrast(1.5) brightness(0.92);
+    position: relative;
+}
+.halftone::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, transparent 0.8px, rgba(0,0,0,0.12) 0.8px);
+    background-size: 4px 4px;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+/* ---- RASGO (torn edge) ----
+   Bordas superior/inferior com "rasgo" via clip-path.
+   Usar em separadores de seção pra dar ritmo de zine.
+*/
+.torn-bottom {
+    clip-path: polygon(
+        0 0, 100% 0,
+        100% calc(100% - 4px), 97% 100%, 94% calc(100% - 5px),
+        90% 100%, 86% calc(100% - 3px), 82% calc(100% - 6px),
+        77% 100%, 73% calc(100% - 4px), 69% calc(100% - 7px),
+        64% 100%, 60% calc(100% - 3px), 55% calc(100% - 5px),
+        50% 100%, 45% calc(100% - 4px), 41% calc(100% - 6px),
+        36% 100%, 32% calc(100% - 3px), 27% calc(100% - 5px),
+        22% 100%, 18% calc(100% - 4px), 13% calc(100% - 7px),
+        9% 100%, 5% calc(100% - 3px), 0 calc(100% - 5px)
+    );
+}
+
+.torn-top {
+    clip-path: polygon(
+        0 5px, 5% 2px, 9% 6px, 13% 1px, 18% 4px, 22% 7px,
+        27% 2px, 32% 5px, 36% 1px, 41% 6px, 45% 3px, 50% 7px,
+        55% 2px, 60% 5px, 64% 1px, 69% 6px, 73% 3px, 77% 7px,
+        82% 2px, 86% 5px, 90% 1px, 94% 6px, 97% 3px, 100% 5px,
+        100% 100%, 0 100%
+    );
+}
+
+/* ---- LINHAS DE DIVISÃO TIPO ZINE ---- */
+.divider-thick {
+    height: 5px;
+    background: var(--zine-black);
+    border: none;
+    margin: var(--sp-5) 0;
+}
+.divider-dashed {
+    border: none;
+    border-top: 3px dashed var(--zine-black);
+    margin: var(--sp-5) 0;
+}
+.divider-double {
+    height: 11px;
+    background:
+        var(--zine-black) 0 / 100% 3px no-repeat,
+        var(--zine-black) 0 100% / 100% 3px no-repeat,
+        transparent;
+    border: none;
+    margin: var(--sp-5) 0;
+}
+
+/* ---- ANIMAÇÕES REUTILIZÁVEIS ---- */
+
+/* shake — papel sendo mexido */
+@keyframes shake-paper {
+    0%, 100% { transform: rotate(var(--rot, 0deg)); }
+    25%      { transform: rotate(calc(var(--rot, 0deg) + 0.6deg)); }
+    75%      { transform: rotate(calc(var(--rot, 0deg) - 0.6deg)); }
+}
+
+/* flash — flash de câmera analógica */
+@keyframes flash-white {
+    0%, 100% { background-color: transparent; }
+    50%      { background-color: rgba(255, 255, 255, 0.85); }
+}
+
+/* cut-paste — elemento entrando como papel jogado */
+@keyframes cut-paste-in {
+    0% {
+        opacity: 0;
+        transform: rotate(-12deg) scale(0.6) translateY(-40px);
+    }
+    60% {
+        opacity: 1;
+        transform: rotate(3deg) scale(1.05) translateY(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(var(--rot, 0deg)) scale(1) translateY(0);
+    }
+}
+
+/* cut-paste-out — saindo */
+@keyframes cut-paste-out {
+    0%   { opacity: 1; transform: rotate(var(--rot, 0deg)) scale(1); }
+    100% { opacity: 0; transform: rotate(8deg) scale(0.8) translateY(30px); }
+}
+
+/* scan-line — linha de xerox passando (loading) */
+@keyframes scan-line {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+/* stamp — estampa aparecendo */
+@keyframes stamp-down {
+    0%   { transform: rotate(-20deg) scale(0); opacity: 0; }
+    60%  { transform: rotate(-8deg) scale(1.15); opacity: 1; }
+    100% { transform: rotate(-8deg) scale(1); opacity: 0.85; }
+}
+
+/* classes que aplicam as animações */
+.anim-cut-in {
+    animation: cut-paste-in var(--dur-slide) var(--ease-cut) both;
+}
+
+.anim-cut-out {
+    animation: cut-paste-out var(--dur-snap) var(--ease-snap) both;
+}
+
+.anim-stamp {
+    animation: stamp-down 400ms var(--ease-cut) both;
+}
+
+/* stagger via css custom property --i */
+.stagger > * {
+    animation: cut-paste-in var(--dur-slide) var(--ease-cut) both;
+    animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+/* flash overlay (usado em cliques) */
+.flash-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0);
+    mix-blend-mode: screen;
+    transition: background-color var(--dur-flash) var(--ease-snap);
+}
+.flash-overlay.active {
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+/* loading scan-line */
+.scan-loader {
+    position: relative;
+    overflow: hidden;
+}
+.scan-loader::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(10, 10, 10, 0.4),
+        transparent
+    );
+    animation: scan-line 1.2s linear infinite;
+    pointer-events: none;
+}
+
+/* redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+    .grain-overlay { animation: none; }
+    .anim-cut-in, .anim-cut-out, .stagger > *, .scan-loader::before {
+        animation: none;
+    }
+}

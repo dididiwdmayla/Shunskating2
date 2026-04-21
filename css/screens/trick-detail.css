@@ -1,0 +1,306 @@
+/* =========================================================
+   SCREEN · DETALHE DA MANOBRA
+   ========================================================= */
+
+.screen-trick-detail {
+    padding: var(--sp-4) var(--sp-4) var(--sp-7);
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+}
+
+/* ---- HEADER ---- */
+.detail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-4);
+}
+
+.detail-back {
+    flex-shrink: 0;
+}
+
+.detail-favorite {
+    flex-shrink: 0;
+}
+
+/* ---- NOME DA MANOBRA ---- */
+.detail-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    line-height: 0.85;
+    color: var(--zine-black);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    transform: skewX(-7deg);
+    display: inline-block;
+    margin: var(--sp-4) 0 var(--sp-2);
+    word-break: break-word;
+    text-shadow: 3px 3px 0 var(--zine-red);
+}
+
+.detail-subtitle {
+    display: flex;
+    gap: var(--sp-3);
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: var(--font-typewrite);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: var(--fs-small);
+    color: var(--zine-ink-soft);
+    margin-bottom: var(--sp-4);
+}
+
+.detail-subtitle .sep {
+    color: var(--zine-red);
+}
+
+.detail-difficulty {
+    display: inline-flex;
+    gap: 3px;
+    align-items: center;
+}
+
+.detail-difficulty .difficulty-dot {
+    width: 8px;
+    height: 8px;
+    border-width: 1.5px;
+}
+
+/* ---- ÁREA DE CONTEÚDO (dicas renderizadas de HTML) ---- */
+
+.detail-content {
+    background-color: var(--zine-paper-2);
+    border: var(--border-black);
+    box-shadow: var(--shadow-hard-sm);
+    padding: var(--sp-5);
+    margin-top: var(--sp-4);
+    position: relative;
+    overflow: hidden;
+}
+
+.detail-content.swiping {
+    transition: transform var(--dur-snap) var(--ease-snap);
+}
+
+/* tipografia interna do HTML de dicas */
+.detail-content h2,
+.detail-content h3,
+.detail-content h4 {
+    margin-top: var(--sp-5);
+    margin-bottom: var(--sp-3);
+    color: var(--zine-black);
+}
+
+.detail-content h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    border-bottom: 3px solid var(--zine-black);
+    padding-bottom: var(--sp-1);
+    transform: skewX(-3deg);
+    display: inline-block;
+}
+
+.detail-content h3 {
+    font-family: var(--font-typewrite);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    position: relative;
+    padding-left: var(--sp-4);
+}
+.detail-content h3::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--zine-red);
+    font-family: var(--font-display);
+}
+
+.detail-content h4 {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--zine-red-deep);
+}
+
+.detail-content p {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: var(--sp-3);
+    color: var(--zine-ink);
+}
+
+.detail-content strong {
+    font-weight: 700;
+    color: var(--zine-black);
+    background: linear-gradient(transparent 60%, var(--zine-highlight) 60%);
+    padding: 0 2px;
+}
+
+.detail-content em {
+    font-style: italic;
+    color: var(--zine-ink-soft);
+}
+
+.detail-content mark {
+    background: var(--zine-highlight);
+    padding: 0 3px;
+    color: var(--zine-black);
+}
+
+.detail-content ul,
+.detail-content ol {
+    margin: var(--sp-3) 0 var(--sp-4) var(--sp-4);
+    padding-left: var(--sp-3);
+}
+
+.detail-content li {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: var(--sp-2);
+    position: relative;
+}
+
+.detail-content ul li {
+    list-style: none;
+}
+.detail-content ul li::before {
+    content: '►';
+    position: absolute;
+    left: -20px;
+    color: var(--zine-red);
+    font-size: 0.75rem;
+    top: 4px;
+}
+
+.detail-content ol {
+    counter-reset: step-counter;
+}
+.detail-content ol li {
+    list-style: none;
+    counter-increment: step-counter;
+    padding-left: var(--sp-5);
+}
+.detail-content ol li::before {
+    content: counter(step-counter) '.';
+    position: absolute;
+    left: 0;
+    font-family: var(--font-display);
+    color: var(--zine-red);
+    font-size: 1.1rem;
+}
+
+/* tabela de diagnóstico de erros */
+.detail-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--sp-4) 0;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    border: 3px solid var(--zine-black);
+    background-color: var(--zine-paper);
+}
+
+.detail-content th,
+.detail-content td {
+    padding: var(--sp-3);
+    text-align: left;
+    border-bottom: 2px solid var(--zine-black);
+    border-right: 2px solid var(--zine-black);
+    vertical-align: top;
+}
+
+.detail-content th {
+    background-color: var(--zine-black);
+    color: var(--zine-paper);
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom-color: var(--zine-red);
+}
+
+.detail-content tr:last-child td {
+    border-bottom: none;
+}
+
+.detail-content td:last-child,
+.detail-content th:last-child {
+    border-right: none;
+}
+
+.detail-content blockquote {
+    margin: var(--sp-4) 0;
+    padding: var(--sp-4) var(--sp-5);
+    background: var(--zine-ink);
+    color: var(--zine-paper);
+    border-left: 6px solid var(--zine-red);
+    font-family: var(--font-typewrite);
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    position: relative;
+}
+
+.detail-content blockquote::before {
+    content: '"';
+    position: absolute;
+    left: var(--sp-2);
+    top: -10px;
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--zine-red);
+    line-height: 1;
+}
+
+.detail-content code {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 2px 5px;
+    background: var(--zine-paper-4);
+    border: 1px solid var(--zine-ink-soft);
+}
+
+/* ---- BLOCO DE PROGRESSO ---- */
+.detail-section {
+    margin-top: var(--sp-5);
+    padding: var(--sp-4);
+    background-color: var(--zine-paper-3);
+    border: var(--border-black-thin);
+    box-shadow: var(--shadow-hard-sm);
+}
+
+.detail-section-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: var(--sp-3);
+    color: var(--zine-black);
+    transform: skewX(-3deg);
+    display: inline-block;
+    border-bottom: 3px solid var(--zine-red);
+    padding-bottom: 2px;
+}
+
+.detail-progress-label {
+    display: block;
+    margin-top: var(--sp-3);
+    font-family: var(--font-typewrite);
+    font-size: var(--fs-small);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--zine-red-deep);
+    font-weight: 700;
+    text-align: center;
+}
+
+/* ---- TOOLBAR DE HIGHLIGHT ATIVA ---- */
+.highlight-toolbar[hidden] { display: none; }

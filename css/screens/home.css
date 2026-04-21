@@ -1,0 +1,163 @@
+/* =========================================================
+   SCREEN · HOME (capa do zine)
+   ========================================================= */
+
+.screen-home {
+    padding: var(--sp-5) var(--sp-4) var(--sp-7);
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+}
+
+/* ---- MASTHEAD (cabeçalho tipo revista) ---- */
+.masthead {
+    border-bottom: 5px solid var(--zine-black);
+    padding-bottom: var(--sp-3);
+    margin-bottom: var(--sp-5);
+}
+
+.masthead-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-typewrite);
+    font-size: var(--fs-tiny);
+    color: var(--zine-ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: var(--sp-2);
+}
+
+.masthead-logo {
+    font-family: var(--font-display);
+    font-size: var(--fs-display-xl);
+    line-height: 0.85;
+    color: var(--zine-black);
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    transform: skewX(-7deg);
+    display: inline-block;
+    text-shadow: 4px 4px 0 var(--zine-red), 4px 4px 0 var(--zine-red);
+    /* pequena ilusão de tinta mal distribuída */
+    filter: contrast(1.1);
+    cursor: pointer;
+    user-select: none;
+}
+
+.masthead-sub {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-3);
+    margin-top: var(--sp-2);
+    font-family: var(--font-typewrite);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: var(--fs-small);
+    color: var(--zine-ink);
+}
+
+.masthead-sub .kanji {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--zine-red);
+    transform: rotate(-3deg);
+    display: inline-block;
+}
+
+/* ---- GRID DE SEÇÕES (as 4 áreas do app) ---- */
+.home-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-4);
+    margin-top: var(--sp-5);
+}
+
+@media (max-width: 380px) {
+    .home-grid { grid-template-columns: 1fr; }
+}
+
+.home-card {
+    padding: var(--sp-5) var(--sp-4);
+    background-color: var(--zine-paper-2);
+    border: var(--border-black);
+    box-shadow: var(--shadow-hard-md);
+    position: relative;
+    cursor: pointer;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform var(--dur-quick) var(--ease-snap);
+}
+
+.home-card:nth-child(1) { transform: rotate(-2deg); }
+.home-card:nth-child(2) { transform: rotate(1.5deg); background-color: var(--zine-ink); color: var(--zine-paper); }
+.home-card:nth-child(3) { transform: rotate(-1deg); background-color: var(--zine-paper-3); }
+.home-card:nth-child(4) { transform: rotate(2.5deg); background-color: var(--zine-red); color: var(--zine-paper); border-color: var(--zine-red-deep); }
+
+.home-card:hover {
+    transform: rotate(0deg) translateY(-4px);
+    box-shadow: 8px 8px 0 var(--zine-black);
+}
+
+.home-card:active {
+    transform: rotate(0deg) translateY(2px);
+    box-shadow: 2px 2px 0 var(--zine-black);
+}
+
+.home-card-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    transform: skewX(-4deg);
+}
+
+.home-card-stat {
+    font-family: var(--font-typewrite);
+    font-size: var(--fs-small);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.home-card-arrow {
+    align-self: flex-end;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin-top: var(--sp-3);
+}
+
+/* ---- CITAÇÃO NO RODAPÉ ---- */
+.home-quote {
+    margin-top: var(--sp-7);
+    padding: var(--sp-5);
+    border-top: 3px dashed var(--zine-black);
+    border-bottom: 3px dashed var(--zine-black);
+    font-family: var(--font-typewrite);
+    font-size: var(--fs-body);
+    font-style: italic;
+    color: var(--zine-ink);
+    text-align: center;
+    position: relative;
+}
+
+.home-quote::before {
+    content: '"';
+    position: absolute;
+    left: var(--sp-3);
+    top: -5px;
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--zine-red);
+    line-height: 1;
+}
+
+.home-quote-author {
+    display: block;
+    margin-top: var(--sp-3);
+    font-family: var(--font-marker);
+    font-style: normal;
+    font-size: var(--fs-body);
+    color: var(--zine-red-deep);
+}
