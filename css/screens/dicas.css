@@ -1,0 +1,375 @@
+/* =========================================================
+   SCREEN · DICAS
+   Accordion de seções colapsáveis. Estética de fanzine.
+   ========================================================= */
+
+.screen-dicas {
+    padding: var(--sp-4) var(--sp-4) calc(var(--nav-height) + var(--sp-5));
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+}
+
+/* ---- HEADER ---- */
+
+.dicas-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 10vw, 4.5rem);
+    line-height: 0.85;
+    color: var(--zine-black);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    transform: skewX(-5deg);
+    display: inline-block;
+    margin: var(--sp-3) 0 var(--sp-2);
+    text-shadow: 4px 4px 0 var(--zine-red);
+}
+
+.dicas-subtitle {
+    font-family: var(--font-typewrite);
+    font-size: var(--fs-small);
+    line-height: 1.5;
+    color: var(--zine-ink-soft);
+    margin: 0 0 var(--sp-5);
+}
+
+.dicas-subtitle em {
+    color: var(--zine-red-deep);
+    font-style: italic;
+    font-weight: 700;
+}
+
+/* ---- ACCORDION ---- */
+
+.dicas-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+}
+
+/* ---- SEÇÃO INDIVIDUAL ---- */
+
+.dicas-section {
+    background-color: var(--zine-paper-2);
+    border: var(--border-black);
+    box-shadow: var(--shadow-hard-sm);
+    transition: box-shadow var(--dur-quick) var(--ease-snap);
+}
+
+.dicas-section.is-open {
+    box-shadow: var(--shadow-hard-md);
+}
+
+/* rotações leves diferentes por seção — sensação zine */
+.dicas-section:nth-child(1) { transform: rotate(-0.4deg); }
+.dicas-section:nth-child(2) { transform: rotate(0.3deg); }
+.dicas-section:nth-child(3) { transform: rotate(-0.2deg); }
+.dicas-section:nth-child(4) { transform: rotate(0.4deg); }
+.dicas-section:nth-child(5) { transform: rotate(-0.3deg); }
+.dicas-section:nth-child(6) { transform: rotate(0.2deg); }
+.dicas-section:nth-child(7) { transform: rotate(-0.4deg); }
+
+/* ---- HEADER CLICÁVEL ---- */
+
+.dicas-section-header {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    width: 100%;
+    padding: var(--sp-4);
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color var(--dur-quick) ease-out;
+    font: inherit;
+}
+
+.dicas-section-header:hover {
+    background-color: var(--zine-paper-3);
+}
+
+.dicas-section-header:focus-visible {
+    outline: 3px solid var(--zine-red);
+    outline-offset: -3px;
+}
+
+.dicas-section.is-open .dicas-section-header {
+    background-color: var(--zine-ink);
+    color: var(--zine-paper);
+}
+
+.dicas-section.is-open .dicas-section-header:hover {
+    background-color: var(--zine-black);
+}
+
+/* ícone */
+.dicas-section-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    background-color: var(--zine-paper);
+    border: 2px solid var(--zine-black);
+    box-shadow: 2px 2px 0 var(--zine-black);
+}
+
+.dicas-section.is-open .dicas-section-icon {
+    background-color: var(--zine-red);
+    border-color: var(--zine-red-deep);
+}
+
+/* texto (título + sumário) */
+.dicas-section-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.dicas-section-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 3.5vw, 1.35rem);
+    letter-spacing: 0.02em;
+    margin: 0 0 2px;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: inherit;
+}
+
+.dicas-section-summary {
+    font-family: var(--font-typewrite);
+    font-size: 0.8rem;
+    margin: 0;
+    line-height: 1.3;
+    color: var(--zine-ink-soft);
+    font-style: italic;
+}
+
+.dicas-section.is-open .dicas-section-summary {
+    color: var(--zine-paper-2);
+}
+
+/* chevron */
+.dicas-section-chevron {
+    flex-shrink: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--zine-red);
+    transition: transform var(--dur-quick) var(--ease-snap);
+}
+
+.dicas-section.is-open .dicas-section-chevron {
+    transform: rotate(90deg);
+    color: var(--zine-highlight);
+}
+
+/* ---- CONTEÚDO DA SEÇÃO ---- */
+
+.dicas-section-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--dur-slide) var(--ease-snap);
+}
+
+.dicas-section.is-open .dicas-section-content {
+    max-height: 5000px; /* suficiente pra qualquer seção */
+    transition: max-height 600ms var(--ease-snap);
+}
+
+.dicas-article {
+    padding: var(--sp-5) var(--sp-4);
+    background-color: var(--zine-paper);
+    border-top: 3px solid var(--zine-black);
+    animation: dicas-content-in 400ms var(--ease-snap);
+}
+
+@keyframes dicas-content-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* tipografia interna (reusa padrões do trick-detail pra consistência) */
+
+.dicas-article h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    margin: 0 0 var(--sp-3);
+    color: var(--zine-black);
+    border-bottom: 3px solid var(--zine-black);
+    padding-bottom: var(--sp-1);
+    transform: skewX(-3deg);
+    display: inline-block;
+}
+
+.dicas-article h3 {
+    font-family: var(--font-typewrite);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--zine-black);
+    margin: var(--sp-5) 0 var(--sp-3);
+    padding-left: var(--sp-4);
+    position: relative;
+}
+
+.dicas-article h3::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--zine-red);
+    font-family: var(--font-display);
+}
+
+.dicas-article p {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--zine-ink);
+    margin: 0 0 var(--sp-3);
+}
+
+.dicas-article p:last-child { margin-bottom: 0; }
+
+.dicas-article strong {
+    font-weight: 700;
+    color: var(--zine-black);
+    background: linear-gradient(transparent 60%, var(--zine-highlight) 60%);
+    padding: 0 2px;
+}
+
+.dicas-article em {
+    font-style: italic;
+    color: var(--zine-ink-soft);
+}
+
+.dicas-article mark {
+    background: var(--zine-highlight);
+    padding: 0 3px;
+    color: var(--zine-black);
+}
+
+.dicas-article ul,
+.dicas-article ol {
+    margin: var(--sp-3) 0 var(--sp-4) var(--sp-4);
+    padding-left: var(--sp-3);
+}
+
+.dicas-article li {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--zine-ink);
+    margin-bottom: var(--sp-2);
+    position: relative;
+}
+
+.dicas-article ul li { list-style: none; }
+
+.dicas-article ul li::before {
+    content: '►';
+    position: absolute;
+    left: -20px;
+    color: var(--zine-red);
+    font-size: 0.75rem;
+    top: 4px;
+}
+
+.dicas-article ol {
+    counter-reset: step-counter;
+}
+
+.dicas-article ol li {
+    list-style: none;
+    counter-increment: step-counter;
+    padding-left: var(--sp-5);
+}
+
+.dicas-article ol li::before {
+    content: counter(step-counter) '.';
+    position: absolute;
+    left: 0;
+    font-family: var(--font-display);
+    color: var(--zine-red);
+    font-size: 1.1rem;
+}
+
+.dicas-article blockquote {
+    margin: var(--sp-4) 0;
+    padding: var(--sp-4) var(--sp-5);
+    background: var(--zine-ink);
+    color: var(--zine-paper);
+    border-left: 6px solid var(--zine-red);
+    font-family: var(--font-typewrite);
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.55;
+    position: relative;
+}
+
+.dicas-article blockquote::before {
+    content: '"';
+    position: absolute;
+    left: var(--sp-2);
+    top: -10px;
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--zine-red);
+    line-height: 1;
+}
+
+.dicas-article blockquote small {
+    display: block;
+    margin-top: var(--sp-2);
+    font-size: 0.78rem;
+    color: var(--zine-highlight);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-style: normal;
+    font-weight: 700;
+}
+
+/* ---- RESPONSIVE ---- */
+
+@media (max-width: 380px) {
+    .dicas-section-header {
+        padding: var(--sp-3);
+    }
+    .dicas-section-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1.2rem;
+    }
+    .dicas-article {
+        padding: var(--sp-4) var(--sp-3);
+    }
+}
+
+/* ---- REDUCED MOTION ---- */
+
+@media (prefers-reduced-motion: reduce) {
+    .dicas-section-content,
+    .dicas-article,
+    .dicas-section-chevron {
+        transition: none;
+        animation: none;
+    }
+}
+
+/* ---- FOOTER ---- */
+
+.dicas-footer {
+    margin-top: var(--sp-7);
+    text-align: center;
+    font-family: var(--font-typewrite);
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    color: var(--zine-ink-faded);
+}
+
+.dicas-footer em {
+    font-style: italic;
+    color: var(--zine-red);
+}

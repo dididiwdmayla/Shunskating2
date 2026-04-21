@@ -84,12 +84,12 @@ function render(container) {
         {
             title:   'Metas',
             stat:    'DIÁRIA · SEMANAL',
-            action:  () => showComingSoon('metas')
+            action:  () => navigate('metas')
         },
         {
             title:   'Dicas',
             stat:    'FUNDAMENTOS',
-            action:  () => showComingSoon('dicas')
+            action:  () => navigate('dicas')
         }
     ];
 
