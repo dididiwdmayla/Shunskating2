@@ -1,0 +1,230 @@
+/* =========================================================
+   SCREEN · MÍDIA (Links e Vídeos por manobra/stance)
+   ========================================================= */
+
+.media-section {
+    /* herda .detail-section do trick-detail.css */
+}
+
+.media-hint {
+    font-family: var(--font-typewrite);
+    font-size: var(--fs-small);
+    letter-spacing: 0.04em;
+    color: var(--zine-ink-soft);
+    margin: 0 0 var(--sp-3);
+    line-height: 1.5;
+}
+
+.media-empty {
+    font-family: var(--font-typewrite);
+    font-size: var(--fs-small);
+    letter-spacing: 0.1em;
+    text-transform: lowercase;
+    color: var(--zine-ink-faded);
+    text-align: center;
+    padding: var(--sp-4) 0;
+    margin: 0;
+    font-style: italic;
+}
+
+.media-size-info {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--zine-ink-faded);
+    margin: var(--sp-2) 0 0;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------
+   BOTÃO "ADICIONAR" / "GRAVAR"
+   --------------------------------------------------------- */
+
+.media-add-btn {
+    display: block;
+    width: 100%;
+    padding: var(--sp-3) var(--sp-4);
+    margin-top: var(--sp-3);
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--zine-paper);
+    background-color: var(--zine-black);
+    border: var(--border-black);
+    box-shadow: 3px 3px 0 var(--zine-black);
+    cursor: pointer;
+    transition: transform var(--dur-quick) var(--ease-snap),
+                box-shadow var(--dur-quick) var(--ease-snap);
+    transform: skewX(-3deg);
+}
+
+.media-add-btn:hover {
+    transform: skewX(-3deg) translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--zine-black);
+}
+
+.media-add-btn:active {
+    transform: skewX(-3deg) translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--zine-black);
+}
+
+.media-record-btn {
+    background-color: var(--zine-red);
+    border-color: var(--zine-red-deep);
+}
+
+.media-record-btn:hover { box-shadow: 5px 5px 0 var(--zine-red-deep); }
+.media-record-btn:active { box-shadow: 1px 1px 0 var(--zine-red-deep); }
+
+/* ---------------------------------------------------------
+   LISTA DE LINKS
+   --------------------------------------------------------- */
+
+.links-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+}
+
+.link-item {
+    display: flex;
+    align-items: stretch;
+    gap: var(--sp-2);
+    background-color: var(--zine-paper);
+    border: var(--border-black-thin);
+    box-shadow: 2px 2px 0 var(--zine-black);
+    overflow: hidden;
+}
+
+.link-open {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--sp-3);
+    text-decoration: none;
+    color: inherit;
+    min-width: 0; /* permite truncar filhos */
+}
+
+.link-open:hover {
+    background-color: var(--zine-highlight);
+}
+
+.link-host {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--zine-red-deep);
+    font-weight: 700;
+}
+
+.link-title {
+    font-family: var(--font-typewrite);
+    font-size: 0.9rem;
+    color: var(--zine-ink);
+    line-height: 1.3;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------
+   LISTA DE VÍDEOS
+   --------------------------------------------------------- */
+
+.videos-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+}
+
+.video-item {
+    background-color: var(--zine-paper);
+    border: var(--border-black);
+    box-shadow: 3px 3px 0 var(--zine-black);
+    padding: var(--sp-2);
+}
+
+.video-item-header {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-1) var(--sp-2);
+    margin-bottom: var(--sp-2);
+    border-bottom: 2px dashed var(--zine-black);
+    padding-bottom: var(--sp-2);
+}
+
+.video-date {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--zine-black);
+    text-transform: uppercase;
+}
+
+.video-meta {
+    flex: 1 1 auto;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--zine-ink-faded);
+    text-transform: uppercase;
+}
+
+.video-player {
+    width: 100%;
+    display: block;
+    background-color: var(--zine-black);
+    border: 2px solid var(--zine-black);
+    max-height: 420px;
+}
+
+.video-error {
+    font-family: var(--font-typewrite);
+    font-size: var(--fs-small);
+    color: var(--zine-red-deep);
+    padding: var(--sp-3);
+    margin: 0;
+    text-align: center;
+}
+
+/* ---------------------------------------------------------
+   BOTÃO DE DELETAR (compartilhado entre link e vídeo)
+   --------------------------------------------------------- */
+
+.media-delete-btn {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--zine-paper);
+    background-color: var(--zine-black);
+    border: 2px solid var(--zine-black);
+    cursor: pointer;
+    align-self: center;
+    margin-right: var(--sp-2);
+    transition: background-color var(--dur-quick) ease-out,
+                transform var(--dur-quick) var(--ease-snap);
+}
+
+.video-item-header .media-delete-btn {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.media-delete-btn:hover {
+    background-color: var(--zine-red);
+    transform: rotate(90deg);
+}
+
+.media-delete-btn:focus-visible {
+    outline: 2px solid var(--zine-red);
+    outline-offset: 2px;
+}

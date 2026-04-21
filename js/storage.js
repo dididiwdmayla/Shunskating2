@@ -12,7 +12,8 @@ export const STORAGE_KEYS = {
     favorites:  `${STORAGE_VERSION}.favorites`,  // [trickId, ...]
     highlights: `${STORAGE_VERSION}.highlights`, // { [`${trickId}|${stance}`]: [{ start, end, color, text }] }
     settings:   `${STORAGE_VERSION}.settings`,    // { audioEnabled, reducedMotion, ... }
-    bombUseful: `${STORAGE_VERSION}.bombUseful`  // { [trickId]: [ideaText, ...] }
+    bombUseful: `${STORAGE_VERSION}.bombUseful`, // { [trickId]: [ideaText, ...] }
+    links:      `${STORAGE_VERSION}.links`       // { [`${trickId}|${stance}`]: [{ url, title, addedAt }] }
 };
 
 /**
@@ -206,4 +207,38 @@ export function toggleBombUseful(trickId, ideaText) {
     }
     set(STORAGE_KEYS.bombUseful, all);
     return list.includes(ideaText);
+}
+
+/* ---------- Links por manobra/stance ---------- */
+
+/** Retorna array de links [{ url, title, addedAt }] para (trickId, stance). */
+export function getLinks(trickId, stance) {
+    const all = get(STORAGE_KEYS.links, {});
+    return all[`${trickId}|${stance}`] || [];
+}
+
+/** Adiciona um link. Retorna a lista atualizada. */
+export function addLink(trickId, stance, url, title = '') {
+    const all = get(STORAGE_KEYS.links, {});
+    const k = `${trickId}|${stance}`;
+    if (!all[k]) all[k] = [];
+    all[k].push({
+        id: 'lnk_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+        url,
+        title: title || url,
+        addedAt: new Date().toISOString()
+    });
+    set(STORAGE_KEYS.links, all);
+    return all[k];
+}
+
+/** Remove link por id. Retorna a nova lista. */
+export function removeLink(trickId, stance, linkId) {
+    const all = get(STORAGE_KEYS.links, {});
+    const k = `${trickId}|${stance}`;
+    if (!all[k]) return [];
+    all[k] = all[k].filter(l => l.id !== linkId);
+    if (all[k].length === 0) delete all[k];
+    set(STORAGE_KEYS.links, all);
+    return all[k] || [];
 }

@@ -24,6 +24,10 @@ import { getBombUseful, toggleBombUseful } from '../storage.js';
 const IDEAS_PER_EXPLOSION = 3;
 const MAX_EXPLOSION_ATTEMPTS = 50; // safety pra sorteio sem repetição
 
+// estado do módulo
+let currentOverlay = null;
+let lastIdeasTexts = new Set(); // evita repetir na mesma sessão
+
 /* =========================================================
    BOTÃO-BOMBA (renderizado ao lado das tabs de stance)
    ========================================================= */
@@ -39,7 +43,7 @@ export function renderBombButton(trick, tricksData) {
         type: 'button',
         'aria-label': 'Bomba de ideias — sugestões pra destravar essa manobra',
         title: 'BOMBA DE IDEIAS',
-        onClick: () => openBombOverlay(trick, tricksData)
+        onClick: () => triggerBomb(btn, trick, tricksData)
     });
 
     // ícone bomba SVG — desenho rabiscado, não geométrico
@@ -68,6 +72,35 @@ export function renderBombButton(trick, tricksData) {
     `;
 
     return btn;
+}
+
+/* =========================================================
+   FASE "PAVIO QUEIMANDO" — trema o botão, explode no fim
+   ========================================================= */
+
+const FUSE_DURATION_MS = 500;
+let isFusing = false;
+
+function triggerBomb(btn, trick, tricksData) {
+    // evita duplo clique
+    if (isFusing || currentOverlay) return;
+    isFusing = true;
+
+    // respeita reduced motion: pula direto pro overlay
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+        isFusing = false;
+        openBombOverlay(trick, tricksData);
+        return;
+    }
+
+    btn.classList.add('is-fusing');
+
+    setTimeout(() => {
+        btn.classList.remove('is-fusing');
+        isFusing = false;
+        openBombOverlay(trick, tricksData);
+    }, FUSE_DURATION_MS);
 }
 
 /* =========================================================
@@ -176,9 +209,6 @@ function shuffle(arr) {
 /* =========================================================
    OVERLAY DE EXPLOSÃO
    ========================================================= */
-
-let currentOverlay = null;
-let lastIdeasTexts = new Set(); // evita repetir na mesma sessão
 
 function openBombOverlay(trick, tricksData) {
     // se já tem overlay aberta, fecha antes (defensivo)
@@ -300,7 +330,7 @@ function renderShards(container, ideas, trick) {
     ideas.forEach((idea, idx) => {
         const rotation = randomInRange(-4, 4);
         const offsetX = randomInRange(-8, 8);
-        const delay = idx * 80;
+        const delay = idx * 180; // cascata visível entre estilhaços
 
         const useful = getBombUseful(trick.id);
         const isUseful = useful.includes(idea.text);

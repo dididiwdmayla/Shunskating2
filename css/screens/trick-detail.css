@@ -197,15 +197,40 @@
     font-size: 1.1rem;
 }
 
+/* wrapper scrollável pra tabela (envolvido via JS em wrapTablesForScroll) */
+.detail-content .table-scroll {
+    margin: var(--sp-4) 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 3px solid var(--zine-black);
+    background-color: var(--zine-paper);
+    /* gradiente lateral sutil como pista visual de scroll */
+    background-image:
+        linear-gradient(to right, var(--zine-paper) 30%, rgba(236, 217, 179, 0)),
+        linear-gradient(to right, rgba(10, 10, 10, 0.15), rgba(236, 217, 179, 0) 20px),
+        linear-gradient(to left, var(--zine-paper) 30%, rgba(236, 217, 179, 0)),
+        linear-gradient(to left, rgba(10, 10, 10, 0.15), rgba(236, 217, 179, 0) 20px);
+    background-position: left center, left center, right center, right center;
+    background-repeat: no-repeat;
+    background-size: 40px 100%, 20px 100%, 40px 100%, 20px 100%;
+    background-attachment: local, scroll, local, scroll;
+}
+
+.detail-content .table-scroll:focus-visible {
+    outline: 3px solid var(--zine-red);
+    outline-offset: 2px;
+}
+
 /* tabela de diagnóstico de erros */
 .detail-content table {
     width: 100%;
+    min-width: 520px; /* força largura em mobile — ativa o scroll */
     border-collapse: collapse;
-    margin: var(--sp-4) 0;
+    margin: 0;
     font-family: var(--font-mono);
     font-size: 0.88rem;
-    border: 3px solid var(--zine-black);
-    background-color: var(--zine-paper);
+    border: none;
+    background-color: transparent;
 }
 
 .detail-content th,

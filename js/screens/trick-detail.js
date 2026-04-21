@@ -12,6 +12,7 @@ import {
     getHighlights, setHighlights
 } from '../storage.js';
 import { renderBombButton } from './bomb-ideas.js';
+import { renderLinksSection, renderVideosSection } from './media-refs.js';
 
 let tricksData = null;
 const STANCES = ['regular', 'switch', 'fakie', 'nollie'];
@@ -116,6 +117,9 @@ function renderStanceContent(screen, state) {
     });
     host.appendChild(content);
 
+    // envolve cada tabela num wrapper scrollável horizontal
+    wrapTablesForScroll(content);
+
     // reaplicar highlights salvos
     applyHighlights(content, state);
 
@@ -127,6 +131,32 @@ function renderStanceContent(screen, state) {
 
     // notas
     host.appendChild(renderNotesSection(state));
+
+    // links (URLs externas úteis para a manobra/stance)
+    host.appendChild(renderLinksSection(state));
+
+    // vídeos (gravações próprias via câmera)
+    host.appendChild(renderVideosSection(state));
+}
+
+/* ---------------- WRAP DE TABELAS PRA SCROLL LATERAL ----------------
+ * Em mobile, a tabela de diagnóstico fica apertada. Envolver em div
+ * com overflow-x:auto permite scroll lateral SÓ na tabela, sem
+ * estourar o layout da tela inteira. */
+function wrapTablesForScroll(contentEl) {
+    const tables = contentEl.querySelectorAll('table');
+    tables.forEach((table) => {
+        // evita re-wrap se já está dentro
+        if (table.parentElement && table.parentElement.classList.contains('table-scroll')) return;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'table-scroll';
+        // indica acessibilmente que é scrollável
+        wrapper.setAttribute('role', 'region');
+        wrapper.setAttribute('aria-label', 'Tabela com rolagem horizontal');
+        wrapper.tabIndex = 0;
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+    });
 }
 
 /* ---------------- FAVORITO ---------------- */
