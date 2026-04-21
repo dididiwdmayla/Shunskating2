@@ -1,0 +1,196 @@
+/* =========================================================
+   SCREEN · CATÁLOGO DE MANOBRAS
+   ========================================================= */
+
+.screen-tricks {
+    padding: var(--sp-5) var(--sp-4) var(--sp-7);
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+}
+
+/* ---- HEADER ---- */
+.tricks-header {
+    border-bottom: 4px solid var(--zine-black);
+    padding-bottom: var(--sp-3);
+    margin-bottom: var(--sp-4);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+}
+
+.tricks-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-display-lg);
+    line-height: 0.9;
+    color: var(--zine-black);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    transform: skewX(-6deg);
+}
+
+.tricks-count {
+    font-family: var(--font-typewrite);
+    font-size: var(--fs-small);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--zine-ink-soft);
+    white-space: nowrap;
+}
+
+.tricks-count strong {
+    color: var(--zine-red);
+    font-weight: 700;
+}
+
+/* ---- BUSCA ---- */
+.tricks-search {
+    margin-bottom: var(--sp-4);
+}
+
+/* ---- FILTROS DE CATEGORIA ---- */
+.tricks-filters {
+    display: flex;
+    gap: var(--sp-2);
+    overflow-x: auto;
+    padding: var(--sp-3) 0;
+    margin-bottom: var(--sp-4);
+    /* esconde scrollbar */
+    scrollbar-width: none;
+}
+.tricks-filters::-webkit-scrollbar { display: none; }
+
+.tricks-filters .chip {
+    flex-shrink: 0;
+}
+
+/* ---- GRID DE MANOBRAS ---- */
+.tricks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--sp-4) var(--sp-3);
+    padding-top: var(--sp-2);
+}
+
+.trick-card {
+    padding: var(--sp-4);
+    background-color: var(--zine-paper-2);
+    border: var(--border-black);
+    box-shadow: var(--shadow-hard-sm);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    min-height: 160px;
+    position: relative;
+    transition:
+        transform var(--dur-quick) var(--ease-snap),
+        box-shadow var(--dur-quick) var(--ease-snap);
+}
+
+/* rotações alternadas por posição */
+.trick-card:nth-child(4n+1) { transform: rotate(-1.5deg); }
+.trick-card:nth-child(4n+2) { transform: rotate(1deg); }
+.trick-card:nth-child(4n+3) { transform: rotate(2deg); }
+.trick-card:nth-child(4n+4) { transform: rotate(-0.5deg); }
+
+.trick-card:hover {
+    transform: rotate(0) translateY(-3px);
+    box-shadow: 6px 6px 0 var(--zine-black);
+    z-index: 2;
+}
+
+.trick-card.is-favorite {
+    background-color: var(--zine-highlight);
+}
+
+.trick-card.is-favorite::after {
+    content: '★';
+    position: absolute;
+    top: var(--sp-2);
+    right: var(--sp-3);
+    font-size: 1.3rem;
+    color: var(--zine-black);
+    filter: drop-shadow(1.5px 1.5px 0 var(--zine-red));
+}
+
+.trick-name {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    line-height: 1;
+    color: var(--zine-black);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    transform: skewX(-3deg);
+    word-break: break-word;
+}
+
+.trick-category-tag {
+    display: inline-block;
+    padding: 2px var(--sp-2);
+    font-family: var(--font-typewrite);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--zine-paper);
+    background-color: var(--zine-black);
+    align-self: flex-start;
+}
+
+.trick-card.is-favorite .trick-category-tag {
+    background-color: var(--zine-red);
+}
+
+/* dificuldade: 5 pontos, preenchidos conforme nível */
+.trick-difficulty {
+    display: flex;
+    gap: 4px;
+    margin-top: auto;
+}
+
+.difficulty-dot {
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--zine-black);
+    background-color: transparent;
+}
+.difficulty-dot.is-filled {
+    background-color: var(--zine-black);
+}
+
+/* barra de progresso mini no card */
+.trick-progress-mini {
+    display: flex;
+    gap: 2px;
+    margin-top: var(--sp-2);
+}
+
+.trick-progress-mini-seg {
+    flex: 1;
+    height: 5px;
+    background-color: var(--zine-paper-4);
+    border: 1px solid var(--zine-black);
+}
+.trick-progress-mini-seg.is-filled {
+    background-color: var(--zine-red);
+}
+
+/* estado vazio */
+.tricks-empty {
+    text-align: center;
+    padding: var(--sp-9) var(--sp-4);
+    font-family: var(--font-typewrite);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--zine-ink-soft);
+}
+
+.tricks-empty-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--zine-black);
+    transform: skewX(-5deg);
+    display: inline-block;
+    margin-bottom: var(--sp-3);
+}
