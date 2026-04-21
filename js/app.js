@@ -10,11 +10,13 @@ import { getSettings } from './storage.js';
 import home from './screens/home.js';
 import tricks from './screens/tricks.js';
 import trickDetail from './screens/trick-detail.js';
+import metas from './screens/metas.js';
 
 /* --- registra telas --- */
 registerScreen('home', home);
 registerScreen('tricks', tricks);
 registerScreen('trickDetail', trickDetail);
+registerScreen('metas', metas);
 
 /* --- monta bottom nav --- */
 function buildBottomNav() {
@@ -25,7 +27,7 @@ function buildBottomNav() {
         { id: 'home',   label: 'Capa',    icon: iconHome },
         { id: 'tricks', label: 'Catálogo', icon: iconBook },
         { id: 'game',   label: 'Game',    icon: iconGame,  disabled: true },
-        { id: 'metas',  label: 'Metas',   icon: iconTarget, disabled: true },
+        { id: 'metas',  label: 'Metas',   icon: iconTarget },
         { id: 'dicas',  label: 'Dicas',   icon: iconLamp,   disabled: true }
     ];
 

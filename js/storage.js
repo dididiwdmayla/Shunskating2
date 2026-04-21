@@ -13,7 +13,8 @@ export const STORAGE_KEYS = {
     highlights: `${STORAGE_VERSION}.highlights`, // { [`${trickId}|${stance}`]: [{ start, end, color, text }] }
     settings:   `${STORAGE_VERSION}.settings`,    // { audioEnabled, reducedMotion, ... }
     bombUseful: `${STORAGE_VERSION}.bombUseful`, // { [trickId]: [ideaText, ...] }
-    links:      `${STORAGE_VERSION}.links`       // { [`${trickId}|${stance}`]: [{ url, title, addedAt }] }
+    links:      `${STORAGE_VERSION}.links`,      // { [`${trickId}|${stance}[|${side}]`]: [{ url, title, addedAt }] }
+    goals:      `${STORAGE_VERSION}.goals`       // [ { id, type, createdAt, expiresAt, trickIds, completed, note } ]
 };
 
 /**
@@ -87,47 +88,64 @@ export function importAll(backup) {
     return true;
 }
 
-/* ---------- helpers de alto nível ---------- */
+/* ---------- helpers de alto nível ----------
+ *
+ * Nota sobre `side`: manobras de slide/grind que têm FS e BS usam
+ * chaves `${stance}|${side}` (ex: regular|fs, regular|bs). Para
+ * manobras sem sides (flatground, manuals), side vem undefined e
+ * a chave volta a ser só o stance. Isso mantém compatibilidade
+ * com dados antigos.
+ */
 
-/** Progresso: lê nível de uma combinação (trickId, stance). */
-export function getProgress(trickId, stance) {
+function stanceKey(stance, side) {
+    return side ? `${stance}|${side}` : stance;
+}
+
+/** Progresso: lê nível de (trickId, stance, side?). */
+export function getProgress(trickId, stance, side) {
     const all = get(STORAGE_KEYS.progress, {});
-    return (all[trickId] && all[trickId][stance]) || 0;
+    const k = stanceKey(stance, side);
+    return (all[trickId] && all[trickId][k]) || 0;
 }
 
 /** Progresso: grava nível. */
-export function setProgress(trickId, stance, level) {
+export function setProgress(trickId, stance, level, side) {
+    // Compatibilidade: chamadas antigas vinham como (trickId, stance, level)
+    // novas podem vir como (trickId, stance, level, side).
     const all = get(STORAGE_KEYS.progress, {});
     if (!all[trickId]) all[trickId] = {};
-    all[trickId][stance] = level;
+    all[trickId][stanceKey(stance, side)] = level;
     set(STORAGE_KEYS.progress, all);
 }
 
-/** Progresso: retorna média dos 4 stances (para cards do catálogo). */
+/** Progresso: média pra cards do catálogo (considera todas as variações salvas). */
 export function getProgressAverage(trickId) {
     const all = get(STORAGE_KEYS.progress, {});
     const t = all[trickId];
     if (!t) return 0;
-    const values = ['regular', 'switch', 'fakie', 'nollie'].map((s) => t[s] || 0);
+    const values = Object.values(t).filter(v => typeof v === 'number');
+    if (values.length === 0) return 0;
     const sum = values.reduce((a, b) => a + b, 0);
-    return Math.round(sum / 4);
+    return Math.round(sum / values.length);
 }
 
-/** Notas: lê nota de (trickId, stance). */
-export function getNote(trickId, stance) {
+/** Notas: lê nota de (trickId, stance, side?). */
+export function getNote(trickId, stance, side) {
     const all = get(STORAGE_KEYS.notes, {});
-    return (all[trickId] && all[trickId][stance]) || '';
+    const k = stanceKey(stance, side);
+    return (all[trickId] && all[trickId][k]) || '';
 }
 
 /** Notas: grava nota (texto vazio remove). */
-export function setNote(trickId, stance, text) {
+export function setNote(trickId, stance, text, side) {
     const all = get(STORAGE_KEYS.notes, {});
+    const k = stanceKey(stance, side);
     if (!all[trickId]) all[trickId] = {};
     if (!text) {
-        delete all[trickId][stance];
+        delete all[trickId][k];
         if (Object.keys(all[trickId]).length === 0) delete all[trickId];
     } else {
-        all[trickId][stance] = text;
+        all[trickId][k] = text;
     }
     set(STORAGE_KEYS.notes, all);
 }
@@ -150,20 +168,21 @@ export function toggleFavorite(trickId) {
     return favs.includes(trickId);
 }
 
-/** Highlights: lê highlights de (trickId, stance). */
-export function getHighlights(trickId, stance) {
+/** Highlights: lê highlights de (trickId, stance, side?). */
+export function getHighlights(trickId, stance, side) {
     const all = get(STORAGE_KEYS.highlights, {});
-    return all[`${trickId}|${stance}`] || [];
+    const full = side ? `${trickId}|${stance}|${side}` : `${trickId}|${stance}`;
+    return all[full] || [];
 }
 
-/** Highlights: grava lista completa (substituindo anterior). */
-export function setHighlights(trickId, stance, list) {
+/** Highlights: grava lista. */
+export function setHighlights(trickId, stance, list, side) {
     const all = get(STORAGE_KEYS.highlights, {});
-    const k = `${trickId}|${stance}`;
+    const full = side ? `${trickId}|${stance}|${side}` : `${trickId}|${stance}`;
     if (!list || list.length === 0) {
-        delete all[k];
+        delete all[full];
     } else {
-        all[k] = list;
+        all[full] = list;
     }
     set(STORAGE_KEYS.highlights, all);
 }
@@ -209,18 +228,22 @@ export function toggleBombUseful(trickId, ideaText) {
     return list.includes(ideaText);
 }
 
-/* ---------- Links por manobra/stance ---------- */
+/* ---------- Links por manobra/stance/side ---------- */
 
-/** Retorna array de links [{ url, title, addedAt }] para (trickId, stance). */
-export function getLinks(trickId, stance) {
+function linkKey(trickId, stance, side) {
+    return side ? `${trickId}|${stance}|${side}` : `${trickId}|${stance}`;
+}
+
+/** Retorna array de links para (trickId, stance, side?). */
+export function getLinks(trickId, stance, side) {
     const all = get(STORAGE_KEYS.links, {});
-    return all[`${trickId}|${stance}`] || [];
+    return all[linkKey(trickId, stance, side)] || [];
 }
 
 /** Adiciona um link. Retorna a lista atualizada. */
-export function addLink(trickId, stance, url, title = '') {
+export function addLink(trickId, stance, url, title = '', side) {
     const all = get(STORAGE_KEYS.links, {});
-    const k = `${trickId}|${stance}`;
+    const k = linkKey(trickId, stance, side);
     if (!all[k]) all[k] = [];
     all[k].push({
         id: 'lnk_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
@@ -233,12 +256,109 @@ export function addLink(trickId, stance, url, title = '') {
 }
 
 /** Remove link por id. Retorna a nova lista. */
-export function removeLink(trickId, stance, linkId) {
+export function removeLink(trickId, stance, linkId, side) {
     const all = get(STORAGE_KEYS.links, {});
-    const k = `${trickId}|${stance}`;
+    const k = linkKey(trickId, stance, side);
     if (!all[k]) return [];
     all[k] = all[k].filter(l => l.id !== linkId);
     if (all[k].length === 0) delete all[k];
     set(STORAGE_KEYS.links, all);
     return all[k] || [];
+}
+
+/* ---------- Metas (diária/semanal/mensal) ---------- */
+
+/**
+ * Calcula timestamp de expiração baseado no tipo.
+ * - diária: fim do dia atual
+ * - semanal: fim de domingo da semana atual
+ * - mensal: último dia do mês atual
+ */
+function computeExpiresAt(type, now = new Date()) {
+    const d = new Date(now);
+    if (type === 'daily') {
+        d.setHours(23, 59, 59, 999);
+    } else if (type === 'weekly') {
+        // fim de domingo (dia 0 em JS; domingo da semana corrente)
+        const day = d.getDay(); // 0=dom,1=seg,...,6=sab
+        const daysUntilSunday = day === 0 ? 0 : 7 - day;
+        d.setDate(d.getDate() + daysUntilSunday);
+        d.setHours(23, 59, 59, 999);
+    } else if (type === 'monthly') {
+        // último dia do mês corrente
+        d.setMonth(d.getMonth() + 1, 0);
+        d.setHours(23, 59, 59, 999);
+    }
+    return d.toISOString();
+}
+
+/** Retorna todas as metas (ativas + histórico). */
+export function getGoals() {
+    return get(STORAGE_KEYS.goals, []);
+}
+
+/** Retorna apenas metas ativas (não expiradas). */
+export function getActiveGoals() {
+    const now = Date.now();
+    return getGoals().filter(g => new Date(g.expiresAt).getTime() >= now);
+}
+
+/** Retorna metas expiradas há no máximo N dias (histórico recente). */
+export function getRecentGoals(maxDaysAfterExpiry = 7) {
+    const now = Date.now();
+    const cutoff = now - maxDaysAfterExpiry * 24 * 60 * 60 * 1000;
+    return getGoals().filter(g => {
+        const exp = new Date(g.expiresAt).getTime();
+        return exp < now && exp >= cutoff;
+    });
+}
+
+/** Cria nova meta. Retorna a meta criada. */
+export function addGoal(type, trickIds, note = '') {
+    if (!['daily', 'weekly', 'monthly'].includes(type)) {
+        throw new Error('Tipo de meta inválido: ' + type);
+    }
+    const now = new Date();
+    const goal = {
+        id: 'goal_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+        type,
+        createdAt: now.toISOString(),
+        expiresAt: computeExpiresAt(type, now),
+        trickIds: trickIds.slice(),
+        completed: [],
+        note: note || ''
+    };
+    const all = getGoals();
+    all.push(goal);
+    set(STORAGE_KEYS.goals, all);
+    return goal;
+}
+
+/** Atualiza completed: marca/desmarca trickId em uma meta. */
+export function toggleGoalTrickCompletion(goalId, trickId) {
+    const all = getGoals();
+    const g = all.find(x => x.id === goalId);
+    if (!g) return null;
+    const idx = g.completed.indexOf(trickId);
+    if (idx === -1) g.completed.push(trickId);
+    else g.completed.splice(idx, 1);
+    set(STORAGE_KEYS.goals, all);
+    return g;
+}
+
+/** Deleta meta. */
+export function deleteGoal(goalId) {
+    const all = getGoals().filter(g => g.id !== goalId);
+    set(STORAGE_KEYS.goals, all);
+}
+
+/** Limpa metas expiradas há mais de N dias (manutenção). */
+export function purgeOldGoals(maxDaysAfterExpiry = 14) {
+    const now = Date.now();
+    const cutoff = now - maxDaysAfterExpiry * 24 * 60 * 60 * 1000;
+    const all = getGoals().filter(g => {
+        const exp = new Date(g.expiresAt).getTime();
+        return exp >= cutoff; // mantém ativas + as expiradas recentes
+    });
+    set(STORAGE_KEYS.goals, all);
 }

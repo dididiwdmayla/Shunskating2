@@ -44,6 +44,7 @@ async function render(container, params) {
     const state = {
         trick,
         stance: STANCES[0],
+        side: trick.hasSides ? 'fs' : null,
         isFav: getFavorites().includes(trick.id)
     };
 
@@ -88,6 +89,22 @@ async function render(container, params) {
 
     screen.appendChild(actionsRow);
 
+    /* --- TOGGLE FS/BS (apenas quando hasSides) --- */
+    if (trick.hasSides) {
+        const sideToggle = el('div', { className: 'side-toggle', role: 'radiogroup', 'aria-label': 'Lado da manobra' });
+        ['fs', 'bs'].forEach((s) => {
+            const label = s === 'fs' ? 'FRONTSIDE' : 'BACKSIDE';
+            sideToggle.appendChild(el('button', {
+                className: `side-toggle-btn side-toggle-${s}${s === state.side ? ' is-active' : ''}`,
+                role: 'radio',
+                'aria-checked': s === state.side ? 'true' : 'false',
+                dataset: { side: s },
+                onClick: () => switchSide(screen, state, s)
+            }, label));
+        });
+        screen.appendChild(sideToggle);
+    }
+
     /* --- CONTEÚDO DE DICAS --- */
     const contentHost = el('div', { id: 'detail-content-host' });
     screen.appendChild(contentHost);
@@ -104,11 +121,20 @@ function renderStanceContent(screen, state) {
     if (!host) return;
     host.innerHTML = '';
 
-    const { trick, stance } = state;
+    const { trick, stance, side } = state;
 
-    // qual HTML renderizar: regular/switch = tips, fakie/nollie = tipsFakie (fallback em tips)
+    // qual HTML renderizar:
+    // - manobras com hasSides: tipsFS/tipsBS (regular/switch) ou tipsFakie (fakie/nollie)
+    // - manobras sem sides: tips (regular/switch) ou tipsFakie (fakie/nollie)
     const useFakie = stance === 'fakie' || stance === 'nollie';
-    const tipsHtml = useFakie ? (trick.tipsFakie || trick.tips || '') : (trick.tips || '');
+    let tipsHtml;
+    if (useFakie) {
+        tipsHtml = trick.tipsFakie || (trick.hasSides ? (side === 'bs' ? trick.tipsBS : trick.tipsFS) : trick.tips) || '';
+    } else if (trick.hasSides) {
+        tipsHtml = (side === 'bs' ? trick.tipsBS : trick.tipsFS) || '';
+    } else {
+        tipsHtml = trick.tips || '';
+    }
 
     // conteúdo das dicas
     const content = el('article', {
@@ -197,11 +223,24 @@ function switchStance(screen, state, stance) {
     renderStanceContent(screen, state);
 }
 
+/* ---------------- TROCA DE SIDE (FS/BS) ---------------- */
+
+function switchSide(screen, state, side) {
+    if (state.side === side) return;
+    state.side = side;
+    screen.querySelectorAll('.side-toggle-btn').forEach((t) => {
+        const is = t.dataset.side === side;
+        t.classList.toggle('is-active', is);
+        t.setAttribute('aria-checked', is ? 'true' : 'false');
+    });
+    renderStanceContent(screen, state);
+}
+
 /* ---------------- PROGRESSO ---------------- */
 
 function renderProgressSection(state) {
-    const { trick, stance } = state;
-    const current = getProgress(trick.id, stance);
+    const { trick, stance, side } = state;
+    const current = getProgress(trick.id, stance, side);
 
     const section = el('div', { className: 'detail-section' });
     section.appendChild(el('h3', { className: 'detail-section-title' }, 'PROGRESSO'));
@@ -212,7 +251,7 @@ function renderProgressSection(state) {
         'aria-valuemin': '0',
         'aria-valuemax': '5',
         'aria-valuenow': String(current),
-        'aria-label': `Progresso em ${stance}`
+        'aria-label': `Progresso em ${stance}${side ? ' ' + side : ''}`
     });
     for (let i = 1; i <= 5; i++) {
         bar.appendChild(el('button', {
@@ -243,10 +282,10 @@ function renderProgressSection(state) {
 
 function handleProgressClick(e, state, section) {
     const level = parseInt(e.currentTarget.dataset.level, 10);
-    const current = getProgress(state.trick.id, state.stance);
+    const current = getProgress(state.trick.id, state.stance, state.side);
     // clique no mesmo nível atual zera; senão seta o nível clicado
     const newLevel = level === current ? 0 : level;
-    setProgress(state.trick.id, state.stance, newLevel);
+    setProgress(state.trick.id, state.stance, newLevel, state.side);
 
     // atualiza visual sem re-renderizar tudo
     const segs = section.querySelectorAll('.progress-seg');
@@ -267,19 +306,19 @@ function handleProgressClick(e, state, section) {
 /* ---------------- NOTAS ---------------- */
 
 function renderNotesSection(state) {
-    const { trick, stance } = state;
+    const { trick, stance, side } = state;
     const section = el('div', { className: 'detail-section' });
     section.appendChild(el('h3', { className: 'detail-section-title' }, 'ANOTAÇÕES'));
 
     const textarea = el('textarea', {
         className: 'textarea-notebook',
         placeholder: 'o que você descobriu sobre essa manobra...',
-        'aria-label': `Anotação pessoal em ${stance}`
+        'aria-label': `Anotação pessoal em ${stance}${side ? ' ' + side : ''}`
     });
-    textarea.value = getNote(trick.id, stance);
+    textarea.value = getNote(trick.id, stance, side);
 
     const saveDebounced = debounce((v) => {
-        setNote(trick.id, stance, v);
+        setNote(trick.id, stance, v, side);
         statusEl.textContent = 'salvo.';
         setTimeout(() => { statusEl.textContent = ''; }, 1800);
     }, 500);
@@ -379,9 +418,9 @@ function applySelectionHighlight(contentEl, state, color) {
     });
 
     // salva
-    const all = getHighlights(state.trick.id, state.stance);
+    const all = getHighlights(state.trick.id, state.stance, state.side);
     all.push({ start, end, color: color.id, text });
-    setHighlights(state.trick.id, state.stance, all);
+    setHighlights(state.trick.id, state.stance, all, state.side);
 
     // fecha seleção e toolbar
     sel.removeAllRanges();
@@ -401,7 +440,7 @@ function getRangeOffsets(contentEl, range) {
 
 /** Reaplica highlights salvos no DOM já renderizado. */
 function applyHighlights(contentEl, state) {
-    const list = getHighlights(state.trick.id, state.stance);
+    const list = getHighlights(state.trick.id, state.stance, state.side);
     if (!list || list.length === 0) return;
 
     // ordena do maior offset pro menor pra não invalidar os seguintes ao modificar DOM
@@ -489,7 +528,7 @@ function saveHighlightsFromDom(contentEl, state) {
             text: span.textContent
         });
     });
-    setHighlights(state.trick.id, state.stance, list);
+    setHighlights(state.trick.id, state.stance, list, state.side);
 }
 
 /* ---------------- HELPERS ---------------- */

@@ -60,17 +60,21 @@ function writeMeta(meta) {
 
 /* ---------- API pública ---------- */
 
-/** Retorna lista de videoMeta para (trickId, stance). */
-export function getVideoMetas(trickId, stance) {
+function metaKey(trickId, stance, side) {
+    return side ? `${trickId}|${stance}|${side}` : `${trickId}|${stance}`;
+}
+
+/** Retorna lista de videoMeta para (trickId, stance, side?). */
+export function getVideoMetas(trickId, stance, side) {
     const meta = readMeta();
-    return meta[`${trickId}|${stance}`] || [];
+    return meta[metaKey(trickId, stance, side)] || [];
 }
 
 /**
  * Salva um blob de vídeo.
  * @returns {Promise<object>} videoMeta salvo
  */
-export async function saveVideo(trickId, stance, blob, durationSec = null) {
+export async function saveVideo(trickId, stance, blob, durationSec = null, side) {
     const db = await openDb();
     const id = 'vid_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
 
@@ -85,6 +89,7 @@ export async function saveVideo(trickId, stance, blob, durationSec = null) {
         id,
         trickId,
         stance,
+        side: side || null,
         sizeBytes: blob.size,
         mimeType: blob.type || 'video/mp4',
         durationSec,
@@ -92,7 +97,7 @@ export async function saveVideo(trickId, stance, blob, durationSec = null) {
     };
 
     const meta = readMeta();
-    const key = `${trickId}|${stance}`;
+    const key = metaKey(trickId, stance, side);
     if (!meta[key]) meta[key] = [];
     meta[key].push(videoMeta);
     writeMeta(meta);
@@ -119,7 +124,7 @@ export async function getVideoBlob(videoId) {
 /**
  * Deleta vídeo (IDB + metadata).
  */
-export async function deleteVideo(trickId, stance, videoId) {
+export async function deleteVideo(trickId, stance, videoId, side) {
     const db = await openDb();
     await new Promise((resolve, reject) => {
         const tx = db.transaction(STORE, 'readwrite');
@@ -129,7 +134,7 @@ export async function deleteVideo(trickId, stance, videoId) {
     });
 
     const meta = readMeta();
-    const key = `${trickId}|${stance}`;
+    const key = metaKey(trickId, stance, side);
     if (meta[key]) {
         meta[key] = meta[key].filter(v => v.id !== videoId);
         if (meta[key].length === 0) delete meta[key];

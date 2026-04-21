@@ -53,8 +53,8 @@ export function renderLinksSection(state) {
 }
 
 function refreshLinksList(listEl, emptyEl, state) {
-    const { trick, stance } = state;
-    const links = getLinks(trick.id, stance);
+    const { trick, stance, side } = state;
+    const links = getLinks(trick.id, stance, side);
 
     listEl.innerHTML = '';
 
@@ -89,7 +89,7 @@ function refreshLinksList(listEl, emptyEl, state) {
             title: 'Remover',
             onClick: () => {
                 if (!confirm(`Remover este link?\n\n${lnk.title}`)) return;
-                removeLink(trick.id, stance, lnk.id);
+                removeLink(trick.id, stance, lnk.id, side);
                 refreshLinksList(listEl, emptyEl, state);
             }
         }, '×');
@@ -100,7 +100,7 @@ function refreshLinksList(listEl, emptyEl, state) {
 }
 
 function promptAddLink(state, listEl, emptyEl) {
-    const { trick, stance } = state;
+    const { trick, stance, side } = state;
     const url = prompt('Cola a URL do link:\n(ex: https://youtube.com/...)');
     if (!url || !url.trim()) return;
 
@@ -111,7 +111,7 @@ function promptAddLink(state, listEl, emptyEl) {
     }
 
     const title = prompt('Título do link (opcional — deixa em branco pra usar a URL):', '');
-    addLink(trick.id, stance, cleaned, title ? title.trim() : '');
+    addLink(trick.id, stance, cleaned, title ? title.trim() : '', side);
     refreshLinksList(listEl, emptyEl, state);
 }
 
@@ -170,7 +170,7 @@ async function handleVideoRecorded(event, state, listEl, emptyEl) {
     const durationSec = await extractVideoDuration(file).catch(() => null);
 
     try {
-        await saveVideo(state.trick.id, state.stance, file, durationSec);
+        await saveVideo(state.trick.id, state.stance, file, durationSec, state.side);
         const section = listEl.closest('.media-section');
         const sizeInfo = section ? section.querySelector('.media-size-info') : null;
         refreshVideosList(listEl, emptyEl, sizeInfo, state);
@@ -198,8 +198,8 @@ function extractVideoDuration(fileOrBlob) {
 }
 
 async function refreshVideosList(listEl, emptyEl, sizeInfoEl, state) {
-    const { trick, stance } = state;
-    const videos = getVideoMetas(trick.id, stance);
+    const { trick, stance, side } = state;
+    const videos = getVideoMetas(trick.id, stance, side);
 
     // limpa blob URLs anteriores pra não vazar memória
     listEl.querySelectorAll('video[src^="blob:"]').forEach(v => {
@@ -255,7 +255,7 @@ async function renderVideoItem(meta, state, listEl, emptyEl, sizeInfoEl) {
         onClick: async () => {
             if (!confirm('Remover este vídeo? Não tem como desfazer.')) return;
             try {
-                await deleteVideo(state.trick.id, state.stance, meta.id);
+                await deleteVideo(state.trick.id, state.stance, meta.id, state.side);
                 refreshVideosList(listEl, emptyEl, sizeInfoEl, state);
             } catch (err) {
                 console.error(err);

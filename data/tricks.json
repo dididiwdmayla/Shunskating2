@@ -1,5 +1,5 @@
 {
-    "version": "2.0",
+    "version": "2.1",
     "updated": "2026-04-21",
     "categories": [
         {
@@ -186,50 +186,6 @@
             ]
         },
         {
-            "id": "tre-flip",
-            "name": "Tre Flip (360 Flip)",
-            "category": "flatground",
-            "difficulty": 4,
-            "prerequisites": [
-                "ollie",
-                "shove-it",
-                "kickflip"
-            ],
-            "tags": [
-                "flip",
-                "rotação dupla",
-                "avançado"
-            ],
-            "tips": "<h2>360 Flip (Tre Flip)</h2><p>O 360 flip é o teste definitivo de flatground. Combina a rotação horizontal de 360° do shove com a rotação vertical de um kickflip. Dominar um tre flip consistente é o que separa quem \"sabe skatar\" de quem \"ENTENDE\" skate.</p><h3>Biomecânica</h3><p>O pé traseiro faz um scoop diagonal — <mark>não é o scoop reto do shove comum</mark>. É um scoop em direção aos dedos do pé (pra fora), com força vertical maior que horizontal. O pé dianteiro raspa numa diagonal semelhante ao kickflip, mas <em>ligeiramente mais pra dentro</em>.</p><p>As duas rotações têm que acontecer com timing SINCRONIZADO. Se o scoop vem antes do flick, o shape roda sem flipar. Se o flick vem antes do scoop, vira kickflip com shove mal-feito.</p><h3>Viradas de chave</h3><ul><li><strong>Scoop diagonal — canto do tail ao dedo mindinho.</strong> Não scoop reto. Vai em diagonal, como se chutasse um canto do tail com o dedão.</li><li><strong>Flick raspa pra dentro.</strong> No kickflip o flick vai pra fora; no tre, vai levemente pra dentro. Isso coordena as duas rotações.</li><li><strong>PULA ALTO.</strong> Tre flip precisa de altura. Baixo não dá tempo da rotação dupla acontecer.</li><li><strong>Catch com os dois pés depois da rotação completa.</strong> Se tentar pegar cedo, bloqueia a rotação.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape roda mas não flipa</td><td>Flick fraco ou saiu fora</td><td>Reforça o flick — mas mantém o scoop</td></tr><tr><td>Shape flipa mas não completa rotação</td><td>Scoop fraco</td><td>Scoop mais diagonal, mais força vertical</td></tr><tr><td>Shape sai voando pra longe</td><td>Scoop reto (como shove normal)</td><td>Scoop DIAGONAL, não pra trás</td></tr><tr><td>Pousa torto / late</td><td>Altura insuficiente</td><td>Pop mais alto. Compressão mais profunda</td></tr></tbody></table><h3>Progressão</h3><ol><li>Shove-it consistente (ambos lados).</li><li>Kickflip consistente.</li><li>360 shove (só rotação dupla horizontal, sem flip).</li><li>Tre flip parado, sem rolar — 100 tentativas até o primeiro land.</li><li>Tre flip em movimento lento.</li><li>Velocidade normal.</li></ol><blockquote>Tre flip não é uma manobra — é uma coordenação. Até você \"sentir\" a diagonal do scoop, vai parecer impossível. Depois que sente, vira gravidade.</blockquote>",
-            "tipsFakie": "<h2>Fakie/Nollie Tre Flip</h2><p>Fakie tre flip é uma das manobras mais estilosas do skate flatground — o shape gira 360° a favor do seu movimento enquanto flipa. <mark>Dificuldade média se você já tem tre regular.</mark></p><p>Nollie tre flip é pesado. Scoop do nose, flick do pé traseiro, rotação dupla contra o movimento. Poucos skatistas tem ela consistente.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie tre:</strong> menos força no scoop — o momentum ajuda. O truque é conter a força, não aumentar.</li><li><strong>Nollie tre:</strong> pop do nose mais forte que o de um nollie normal, porque precisa gerar altura pra rotação dupla.</li></ul>",
-            "bombIdeas": [
-                {
-                    "category": "pe",
-                    "text": "Pé de trás bem no canto do tail, dedão apontando pro canto externo"
-                },
-                {
-                    "category": "reframe",
-                    "text": "Não é shove + flip — é um movimento diagonal único do pé de trás"
-                },
-                {
-                    "category": "reframe",
-                    "text": "Pensa num shove onde você chuta o canto do tail com o dedão do pé, não o centro"
-                },
-                {
-                    "category": "erro",
-                    "text": "Se roda mas não flipa, flick do pé da frente tá fraco — reforça o flick mas mantém o scoop"
-                },
-                {
-                    "category": "erro",
-                    "text": "Se flipa mas não completa a rotação, scoop tá reto — tem que ir diagonal"
-                },
-                {
-                    "category": "experimento",
-                    "text": "Filma do lado — dá pra ver se o problema é o scoop ou o flick em 1 vídeo"
-                }
-            ]
-        },
-        {
             "id": "kickflip",
             "name": "Kickflip",
             "category": "flatground",
@@ -276,19 +232,67 @@
             ]
         },
         {
-            "id": "bs-noseslide",
-            "name": "BS Noseslide",
-            "category": "slides",
-            "difficulty": 2,
+            "id": "tre-flip",
+            "name": "Tre Flip (360 Flip)",
+            "category": "flatground",
+            "difficulty": 4,
             "prerequisites": [
-                "ollie"
+                "ollie",
+                "shove-it",
+                "kickflip"
             ],
             "tags": [
-                "slide",
-                "backside",
-                "obstáculo"
+                "flip",
+                "rotação dupla",
+                "avançado"
             ],
-            "tips": "<h2>Backside Noseslide</h2><p>BS Noseslide é onde o skate de rua começa pra muita gente. É a primeira manobra que te ensina a ler um obstáculo, escolher a linha de ataque e confiar no deslize.</p><h3>Biomecânica</h3><p>Aproximação em paralelo ao obstáculo, cerca de 30-45° de ataque. Ollie para subir + rotação leve de BS 90° para posicionar o nose em cima do obstáculo. <mark>O peso fica 70% no nose, 30% no tail</mark> — senão o shape escapa pra trás.</p><p>A saída é uma rotação de volta ao regular — FS 90° reversa.</p><h3>Viradas de chave</h3><ul><li><strong>Olha o final do obstáculo.</strong> Não olhe onde vai subir — olhe onde vai sair. Seu corpo mira onde os olhos miram.</li><li><strong>Peso no calcanhar.</strong> O equilíbrio do slide vem do calcanhar do pé dianteiro. Dedão relaxado.</li><li><strong>Quadril alinhado com o obstáculo.</strong> Se o quadril desalinhar, o shape gira.</li><li><strong>Saída: olha pra fora do obstáculo antes de sair.</strong> Isso pré-ativa a rotação de saída.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Nose cai pro lado do obstáculo</td><td>Peso muito pra frente</td><td>Redistribui: 60/40, não 80/20</td></tr><tr><td>Shape escapa e você cai pra trás</td><td>Peso no tail</td><td>70% no nose obrigatório</td></tr><tr><td>Não desliza — para</td><td>Aproximação muito perpendicular</td><td>30-45° de ataque, não 90°</td></tr><tr><td>Sai de costas pro obstáculo</td><td>Não pré-ativou rotação de saída</td><td>Olha pra saída no meio do slide</td></tr></tbody></table><h3>Progressão</h3><ol><li>Ollie em cima de curb baixinho (sem deslizar).</li><li>Noseslide parado em meio-fio, só para sentir o peso.</li><li>Deslize curto (15cm) em velocidade baixa.</li><li>Deslize completo em curb maior.</li><li>Saída limpa rolando regular.</li></ol>",
+            "tips": "<h2>360 Flip (Tre Flip)</h2><p>O 360 flip é o teste definitivo de flatground. Combina a rotação horizontal de 360° do shove com a rotação vertical de um kickflip. Dominar um tre flip consistente é o que separa quem \"sabe skatar\" de quem \"ENTENDE\" skate.</p><h3>Biomecânica</h3><p>O pé traseiro faz um scoop diagonal — <mark>não é o scoop reto do shove comum</mark>. É um scoop em direção aos dedos do pé (pra fora), com força vertical maior que horizontal. O pé dianteiro raspa numa diagonal semelhante ao kickflip, mas <em>ligeiramente mais pra dentro</em>.</p><p>As duas rotações têm que acontecer com timing SINCRONIZADO. Se o scoop vem antes do flick, o shape roda sem flipar. Se o flick vem antes do scoop, vira kickflip com shove mal-feito.</p><h3>Viradas de chave</h3><ul><li><strong>Scoop diagonal — canto do tail ao dedo mindinho.</strong> Não scoop reto. Vai em diagonal, como se chutasse um canto do tail com o dedão.</li><li><strong>Flick raspa pra dentro.</strong> No kickflip o flick vai pra fora; no tre, vai levemente pra dentro. Isso coordena as duas rotações.</li><li><strong>PULA ALTO.</strong> Tre flip precisa de altura. Baixo não dá tempo da rotação dupla acontecer.</li><li><strong>Catch com os dois pés depois da rotação completa.</strong> Se tentar pegar cedo, bloqueia a rotação.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape roda mas não flipa</td><td>Flick fraco ou saiu fora</td><td>Reforça o flick — mas mantém o scoop</td></tr><tr><td>Shape flipa mas não completa rotação</td><td>Scoop fraco</td><td>Scoop mais diagonal, mais força vertical</td></tr><tr><td>Shape sai voando pra longe</td><td>Scoop reto (como shove normal)</td><td>Scoop DIAGONAL, não pra trás</td></tr><tr><td>Pousa torto / late</td><td>Altura insuficiente</td><td>Pop mais alto. Compressão mais profunda</td></tr></tbody></table><h3>Progressão</h3><ol><li>Shove-it consistente (ambos lados).</li><li>Kickflip consistente.</li><li>360 shove (só rotação dupla horizontal, sem flip).</li><li>Tre flip parado, sem rolar — 100 tentativas até o primeiro land.</li><li>Tre flip em movimento lento.</li><li>Velocidade normal.</li></ol><blockquote>Tre flip não é uma manobra — é uma coordenação. Até você \"sentir\" a diagonal do scoop, vai parecer impossível. Depois que sente, vira gravidade.</blockquote>",
+            "tipsFakie": "<h2>Fakie/Nollie Tre Flip</h2><p>Fakie tre flip é uma das manobras mais estilosas do skate flatground — o shape gira 360° a favor do seu movimento enquanto flipa. <mark>Dificuldade média se você já tem tre regular.</mark></p><p>Nollie tre flip é pesado. Scoop do nose, flick do pé traseiro, rotação dupla contra o movimento. Poucos skatistas tem ela consistente.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie tre:</strong> menos força no scoop — o momentum ajuda. O truque é conter a força, não aumentar.</li><li><strong>Nollie tre:</strong> pop do nose mais forte que o de um nollie normal, porque precisa gerar altura pra rotação dupla.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé de trás bem no canto do tail, dedão apontando pro canto externo"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não é shove + flip — é um movimento diagonal único do pé de trás"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa num shove onde você chuta o canto do tail com o dedão do pé, não o centro"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se roda mas não flipa, flick do pé da frente tá fraco — reforça o flick mas mantém o scoop"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se flipa mas não completa a rotação, scoop tá reto — tem que ir diagonal"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Filma do lado — dá pra ver se o problema é o scoop ou o flick em 1 vídeo"
+                }
+            ]
+        },
+        {
+            "id": "noseslide",
+            "name": "Noseslide",
+            "category": "slides",
+            "difficulty": 2,
+            "hasSides": true,
+            "prerequisites": [
+                "ollie",
+                "fs-180",
+                "bs-180"
+            ],
+            "tags": [
+                "fundamental",
+                "slide",
+                "borda"
+            ],
+            "tipsFS": "<h2>Frontside Noseslide</h2>\n<p>No <strong>FS noseslide</strong>, o shape atravessa a borda com o <em>peito abrindo pra fora</em>. É mais técnico que o BS porque você fica de frente pra borda durante o slide — menos referência visual do que tá atrás.</p>\n<h3>Biomecânica</h3>\n<p>Entrada: aproximação paralela à borda com o ombro da frente apontando pra ela. O ollie + rotação de 90° frontside acontecem simultâneos. O <mark>peso na parte dianteira do shape</mark> é o que trava o nose no obstáculo. Pé traseiro fica relaxado — só guia.</p>\n<h3>Viradas de chave</h3>\n<ul>\n<li><strong>Abre o peito.</strong> A diferença mental pro BS: no FS você precisa abrir o corpo em direção à borda, não fechar. Pensa em \"mostrar o peito\" pro obstáculo.</li>\n<li><strong>Olho na borda até pousar.</strong> No FS você vê a borda o tempo todo — use isso. Cravar o olhar no ponto onde o nose vai pousar faz o corpo calibrar sozinho.</li>\n<li><strong>Saída:</strong> para sair do slide, um shove inverso suave do pé traseiro + virada de ombros devolve pra frente. Ou pula saindo em fakie se ainda tá aprendendo.</li>\n</ul>\n<h3>Diagnóstico de erros</h3>\n<table>\n<thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead>\n<tbody>\n<tr><td>Nose não trava e escorrega</td><td>Rotação incompleta (chegou a 70°)</td><td>Abre mais os ombros no pop, mira quebrar 90°</td></tr>\n<tr><td>Cai pra trás (heel side)</td><td>Peso no pé traseiro</td><td>Joga o quadril pra frente durante o slide</td></tr>\n<tr><td>Entra mas trava de cara</td><td>Cera insuficiente ou ângulo errado</td><td>Ataca mais paralelo à borda, não perpendicular</td></tr>\n<tr><td>Sai rotacionando demais</td><td>Ombro da frente continuou girando</td><td>Trava os ombros no instante do lock</td></tr>\n</tbody></table>\n<h3>Fakie/Nollie</h3>\n<p>Fakie FS noseslide vira essencialmente um <em>fakie 5-0 com cara de noseslide</em> — pouca gente faz. Nollie FS noseslide é pop do nose + rotação frontside de 90° com pouso em switch — avançadíssimo.</p>\n<h3>Progressão</h3>\n<ol>\n<li>FS 90 no chão consistente (o movimento de corpo isolado).</li>\n<li>FS noseslide parado numa quina baixa.</li>\n<li>Velocidade mínima de aproximação.</li>\n<li>Deslize real, saindo no fakie.</li>\n<li>Saindo pra frente (shove-out).",
+            "tipsBS": "<h2>Backside Noseslide</h2><p>BS Noseslide é onde o skate de rua começa pra muita gente. É a primeira manobra que te ensina a ler um obstáculo, escolher a linha de ataque e confiar no deslize.</p><h3>Biomecânica</h3><p>Aproximação em paralelo ao obstáculo, cerca de 30-45° de ataque. Ollie para subir + rotação leve de BS 90° para posicionar o nose em cima do obstáculo. <mark>O peso fica 70% no nose, 30% no tail</mark> — senão o shape escapa pra trás.</p><p>A saída é uma rotação de volta ao regular — FS 90° reversa.</p><h3>Viradas de chave</h3><ul><li><strong>Olha o final do obstáculo.</strong> Não olhe onde vai subir — olhe onde vai sair. Seu corpo mira onde os olhos miram.</li><li><strong>Peso no calcanhar.</strong> O equilíbrio do slide vem do calcanhar do pé dianteiro. Dedão relaxado.</li><li><strong>Quadril alinhado com o obstáculo.</strong> Se o quadril desalinhar, o shape gira.</li><li><strong>Saída: olha pra fora do obstáculo antes de sair.</strong> Isso pré-ativa a rotação de saída.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Nose cai pro lado do obstáculo</td><td>Peso muito pra frente</td><td>Redistribui: 60/40, não 80/20</td></tr><tr><td>Shape escapa e você cai pra trás</td><td>Peso no tail</td><td>70% no nose obrigatório</td></tr><tr><td>Não desliza — para</td><td>Aproximação muito perpendicular</td><td>30-45° de ataque, não 90°</td></tr><tr><td>Sai de costas pro obstáculo</td><td>Não pré-ativou rotação de saída</td><td>Olha pra saída no meio do slide</td></tr></tbody></table><h3>Progressão</h3><ol><li>Ollie em cima de curb baixinho (sem deslizar).</li><li>Noseslide parado em meio-fio, só para sentir o peso.</li><li>Deslize curto (15cm) em velocidade baixa.</li><li>Deslize completo em curb maior.</li><li>Saída limpa rolando regular.</li></ol>",
             "tipsFakie": "<h2>Fakie/Nollie Noseslide</h2><p>Fakie noseslide é extremamente confortável depois que você tem o BS regular — o movimento é a favor do momentum. <strong>Saída é em regular, então o pouso é natural.</strong></p><p>Nollie noseslide é uma das manobras mais estilosas do skate. Sobe no obstáculo com nollie, desliza no nose, sai em switch. Requer nollie consistente.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> quase não precisa de rotação de subida — o shape já entra quase paralelo.</li><li><strong>Nollie:</strong> o nollie precisa ter altura suficiente pra posicionar o nose limpo em cima. Altura é a chave.</li></ul>",
             "bombIdeas": [
                 {
@@ -322,19 +326,145 @@
             ]
         },
         {
+            "id": "boardslide",
+            "name": "Boardslide",
+            "category": "slides",
+            "difficulty": 2,
+            "hasSides": true,
+            "prerequisites": [
+                "ollie",
+                "fs-180",
+                "bs-180"
+            ],
+            "tags": [
+                "fundamental",
+                "slide",
+                "borda"
+            ],
+            "tipsFS": "<h2>Frontside Boardslide</h2><p>O boardslide mais comum — corpo fica voltado pro obstáculo durante o deslize, o shape atravessa perpendicular. Primeiro slide de corrimão pra maioria.</p><h3>Biomecânica</h3><p>Aproximação frontal ao obstáculo. Ollie + rotação FS 90° que posiciona o shape perpendicular ao obstáculo. <mark>O ponto de contato é o MEIO do shape</mark>, entre os trucks. Peso centralizado, ombros paralelos ao obstáculo.</p><p>A saída é uma rotação FS de 90° adicional, saindo em fakie — OU rotação reversa voltando em regular.</p><h3>Viradas de chave</h3><ul><li><strong>Peito pro obstáculo.</strong> Posição natural do boardslide — você fica de frente pro corrimão.</li><li><strong>Peso no meio, não nas pontas.</strong> Se desloca pro nose, vira noseslide; pro tail, vira tailslide (mais difícil).</li><li><strong>Olha a saída.</strong> Como em todo slide.</li><li><strong>Medo real: cair no corrimão.</strong> O shape tem que atravessar acima do corrimão, não subir de lado.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape sai pro lado antes de slide</td><td>Rotação não completou 90°</td><td>Pré-rotação dos ombros antes do pop</td></tr><tr><td>Shape vira noseslide</td><td>Peso muito pra frente</td><td>Centraliza o peso entre trucks</td></tr><tr><td>Cai durante o slide</td><td>Peito não alinhado com obstáculo</td><td>Peito quadrado pro corrimão</td></tr></tbody></table><h3>Progressão</h3><ol><li>FS 180 consistente.</li><li>FS boardslide em curb baixo, velocidade baixa.</li><li>Em corrimão de 2-3 degraus.</li><li>Corrimões maiores progressivamente.</li></ol><blockquote>Primeiro boardslide em corrimão muda algo em você. É o momento que seu cérebro aceita que o shape pode deslizar por cima de metal.</blockquote>",
+            "tipsBS": "<h2>Backside Boardslide</h2>\n<p>O <strong>BS boardslide</strong> é a forma mais \"segura\" de aprender a deslizar com o shape cruzado — muita gente aprende BS boardslide antes do FS. Você chega pelo lado heel, o shape atravessa a borda por baixo de você, e você aterrissa com as costas pro sentido original do movimento.</p>\n<h3>Biomecânica</h3>\n<p>Aproximação diagonal em relação à borda. O ollie acontece com <em>rotação de 90° backside</em> — a mesma rotação do BS 180, só que interrompida na metade. <mark>O shape atravessa a borda no meio do comprimento (entre os parafusos)</mark>, não no nose nem no tail. Peso centralizado; pés paralelos ao shape.</p>\n<h3>Viradas de chave</h3>\n<ul>\n<li><strong>Ataca de longe, não de perto.</strong> Aproximação perpendicular faz você bater na borda. Aproximação diagonal (30-45°) dá tempo da rotação acontecer.</li>\n<li><strong>É um BS 90, não um BS 180.</strong> Seu corpo gira até o shape travar na borda — e ali para. Não continua rodando.</li>\n<li><strong>Peito virado pra FRENTE no slide.</strong> No BS boardslide você enxerga pra onde tá indo. Usa isso: olha onde quer sair.</li>\n<li><strong>Hack do primeiro BS boardslide:</strong> se tá com medo, faz num obstáculo baixo (meio-fio) e zero pop — só entra atravessado e deixa o shape arrastar.</li>\n</ul>\n<h3>Diagnóstico de erros</h3>\n<table>\n<thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead>\n<tbody>\n<tr><td>Shape atravessa torto e sai</td><td>Aproximação muito perpendicular</td><td>Ataca mais paralelo à borda</td></tr>\n<tr><td>Cai pra dentro (pra cima da borda)</td><td>Peso pro lado do heel</td><td>Centraliza sobre o shape, ombros neutros</td></tr>\n<tr><td>Shape gira demais e sai em fakie</td><td>Continuou o scoop do BS 180</td><td>Corta o movimento no 90° — trava ombros</td></tr>\n<tr><td>Cai pra trás (toe side)</td><td>Peso pra fora</td><td>Inclina o tronco por cima da borda</td></tr>\n</tbody></table>\n<h3>Fakie/Nollie</h3>\n<p>Half-cab BS boardslide é surpreendentemente acessível se você já tem half-cab — a rotação vem natural, quase sozinha. Nollie BS boardslide é avançado, pede pop de nose + rotação BS precisa.</p>\n<h3>Progressão</h3>\n<ol>\n<li>BS 90 consistente no chão.</li>\n<li>BS boardslide numa quina bem baixa, parado.</li>\n<li>Aproximação lenta, deslize mínimo.</li>\n<li>Deslize completo numa guia de altura moderada.</li>\n<li>Saindo pra frente (regular) ou fakie conforme preferência.</li>\n</ol>\n<blockquote>BS boardslide é contraintuitivo no começo — a sensação é de que você vai cair pra trás. Não vai. O shape segura. Confia.</blockquote>",
+            "tipsFakie": "<h2>Fakie / Nollie FS Boardslide</h2><p>Menos comum, mas possível. Nollie FS boardslide em corrimão é extremamente técnico.</p>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé da frente no meio do shape, entre os parafusos — não adianta pôr no nose"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não é 'atravessar' a borda — é 'pousar em cima dela com o shape cruzado'"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa num FS 90 em cima da borda — metade da rotação, pouso centrado"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se sai fora, seu peso foi pro lado de fora — inclina o tronco por cima da borda"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se rotaciona demais, você continuou girando depois de pousar — trava o corpo no pouso"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Pratica FS 90 no chão primeiro — só a rotação, sem obstáculo"
+                }
+            ]
+        },
+        {
+            "id": "noseblunt",
+            "name": "Noseblunt Slide",
+            "category": "slides",
+            "difficulty": 5,
+            "hasSides": true,
+            "prerequisites": [
+                "noseslide",
+                "fs-180",
+                "bs-180"
+            ],
+            "tags": [
+                "blunt",
+                "avançado",
+                "slide",
+                "lock-vertical"
+            ],
+            "tipsFS": "<h2>Frontside Noseblunt Slide</h2>\n<p>O <strong>FS noseblunt</strong> é ainda mais técnico que o BS pra muita gente — você entra de frente pra borda, e o corpo tem que <em>fechar</em> pra trancar no noseblunt. Menos intuitivo, mais assustador no começo.</p>\n<h3>Biomecânica</h3>\n<p>Você aborda a borda de frente, com o peito voltado pra ela. A entrada é um FS noseslide \"mais vertical\" — o shape tranca com os trucks dianteiros em cima da borda, mas o peito agora tá fechando em direção à rotação.</p>\n<p>A diferença grande: no <strong>FS noseblunt</strong>, você <em>vê a borda o tempo todo</em> — e isso pode ser um problema, porque seu instinto manda compensar demais. O segredo é confiar na rotação.</p>\n<h3>Viradas de chave</h3>\n<ul>\n<li><strong>Trava os ombros no 90°.</strong> Pior erro: continuar rodando depois do lock. Os ombros \"comprometem\" em 90° e ficam parados.</li>\n<li><strong>Peso SOBRE os trucks da frente, não pra frente deles.</strong> Mesma regra do BS, mas aqui tentação de \"pousar o nose\" é maior porque você tá vendo a borda.</li>\n<li><strong>Pouso mais leve.</strong> FS noseblunt pede entrada mais delicada que o BS — você tá vendo tudo, e o instinto de \"cravar\" faz você aterrissar com peso demais.</li>\n</ul>\n<h3>Diagnóstico de erros</h3>\n<table>\n<thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead>\n<tbody>\n<tr><td>Passa direto sem travar</td><td>Rotação baixa ou peso impreciso</td><td>Rotação mais afirmativa, peso central</td></tr>\n<tr><td>Trava mas cai pra frente</td><td>Peito fechou demais na rotação</td><td>Ombros travam em 90°, não continua</td></tr>\n<tr><td>Sai rotacionando em FS 180</td><td>Não parou a rotação</td><td>Compromete o 90° mentalmente antes do pop</td></tr>\n</tbody></table>\n<h3>Hacks de treino</h3>\n<p>Mesmo princípio do BS: <strong>noseblunt stall no chão</strong>, <strong>meia-guia cerada</strong>, <strong>filmar do lado</strong>. A principal diferença é que no FS o stall em obstáculo baixo é ainda mais importante — você precisa sentir o peso vertical antes de confiar em fazer deslizando.</p>\n<h3>Progressão realista</h3>\n<ol>\n<li>FS noseslide consistente.</li>\n<li>FS 90 curto na quina de caixa.</li>\n<li>Noseblunt stall em obstáculo baixo, parado.</li>\n<li>Meia-guia cerada, velocidade mínima.</li>\n<li>Altura padrão.</li>\n</ol>",
+            "tipsBS": "<h2>Backside Noseblunt Slide</h2>\n<p>O <strong>BS noseblunt</strong> é uma das manobras mais cobiçadas do skate moderno. Silas Baxter-Neal chamou de \"joia da família dos blunts\" — e com razão: combina a entrada do BS noseslide, o lock vertical do blunt, e exige precisão cirúrgica no peso e no ângulo.</p>\n<p>Chris Cole e Nyjah Huston ensinam que quem acerta esse trick entende algo novo sobre peso corporal — é onde skatistas técnicos \"desbloqueiam\" um novo nível.</p>\n<h3>Biomecânica</h3>\n<p>O <em>noseblunt</em> é tecnicamente o shape em pé apoiado pelos <mark>trucks da frente</mark> (não o nose em si) em cima da borda, com o tail pendurado pra fora. O peso fica <strong>verticalmente em cima dos trucks dianteiros</strong> — ombros alinhados com a borda, peito voltado levemente pra cima da guia.</p>\n<p>No BS, você entra fazendo um BS 180 interrompido a 90° — mesmo princípio do BS noseslide, mas com o shape mais vertical e o peso absolutamente em cima dos trucks da frente, não do nose.</p>\n<h3>Viradas de chave</h3>\n<ul>\n<li><strong>Aborda MAIS LONGE do que parece certo.</strong> Chris Cole insiste nisso: quem erra noseblunt quase sempre ataca perto demais. Anda mais pra trás na aproximação, dá tempo da rotação e da altura acontecerem.</li>\n<li><strong>Cabeça no lugar certo.</strong> Nyjah fala que sua cabeça precisa estar <em>verticalmente alinhada com o parafuso dianteiro</em> em cima da borda. Se a cabeça tá atrás, você sai pro fakie; se tá pra frente, você vai pro chão.</li>\n<li><strong>Drive the nose.</strong> Não é \"pousar o nose\" — é \"empurrar o nose em direção à borda\". A energia é pra frente e pra baixo, ao mesmo tempo.</li>\n<li><strong>Lock the safe way.</strong> Conceito do Chris Cole: você aterrissa com o <strong>nose levemente mais alto que o tail</strong>, não paralelo. Assim o truck trava e o tail fica livre, se safe vira shove-out.</li>\n<li><strong>Peito paralelo à borda.</strong> Ombros paralelos, não virados. Se você abre o peito, o shape escapa de lado.</li>\n</ul>\n<h3>Diagnóstico de erros</h3>\n<table>\n<thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead>\n<tbody>\n<tr><td>Nose trava mas você cai pro chão</td><td>Cabeça/peso foi pra frente do parafuso</td><td>Imagine sentar no shape — peso atrás dos trucks da frente</td></tr>\n<tr><td>Shape escapa pra dentro (atropela a borda)</td><td>Rotação passou de 90°</td><td>Pare a rotação ANTES do que seu instinto manda</td></tr>\n<tr><td>Nose não trava, só desliza</td><td>Shape entrou horizontal, não vertical</td><td>Levante mais o tail na entrada — shape mais \"em pé\"</td></tr>\n<tr><td>Sai no fakie sem querer</td><td>Cabeça ficou atrás na entrada</td><td>Projeta a cabeça pra frente ANTES do pop</td></tr>\n<tr><td>Trava seco e cai de cara</td><td>Velocidade insuficiente + rotação excessiva</td><td>Mais velocidade + rotação menor</td></tr>\n</tbody></table>\n<h3>Hacks de treino progressivo</h3>\n<p>BS noseblunt é caro de aprender — muita queda, pouca chance de acerto por sessão. Dicas pra aumentar a densidade de aprendizado:</p>\n<ul>\n<li><strong>Noseblunt NO CHÃO (parado).</strong> Coloca o shape vertical apoiado nos trucks da frente, numa rachadura do chão. Pula em cima, tenta ficar 1 segundo. É uma manobra em si, chamada \"noseblunt stall\". Te ensina o equilíbrio vertical sem medo.</li>\n<li><strong>Noseblunt stall em obstáculo baixo.</strong> Meio-fio ou caixa de skate bem baixa. Mesma coisa mas com borda real — você para, fica 1 segundo, desce. Sem deslize. Só o lock.</li>\n<li><strong>Meia-guia MUITO cerada.</strong> O primeiro slide real vai ser com cera pesada, pra guia estar quase viscosa. Se não deslizar, o lock nem acontece.</li>\n<li><strong>Entra de costas (fakie) primeiro.</strong> Fakie BS noseblunt é, paradoxalmente, mais fácil que o regular — a rotação ajuda. Muita gente aprende fakie primeiro e depois \"descobre\" o regular.</li>\n<li><strong>Filma do lado de fora.</strong> Você não vai saber onde sua cabeça tá por dentro. Filma 5 tentativas de lado e analisa — vai ser óbvio se a cabeça tá atrás ou na frente.</li>\n<li><strong>Sessão curta, repetida.</strong> Não queima uma sessão de 3 horas no noseblunt. Faz 20 tentativas com intervalo, descansa, tenta de novo outro dia. A densidade de acertos aumenta quando a perna tá fresca.</li>\n</ul>\n<h3>Fakie/Nollie</h3>\n<p>Como mencionado acima, <strong>fakie BS noseblunt</strong> costuma ser mais acessível que o regular. Mesmo mindset, mesmas viradas de chave — mas a rotação vem a favor do movimento. Nollie BS noseblunt é um dos tricks mais técnicos que existem; envolvendo pop de nose + rotação perfeita + lock vertical.</p>\n<h3>Progressão realista</h3>\n<ol>\n<li><strong>BS 180 consistente.</strong> Fundamento absoluto.</li>\n<li><strong>BS noseslide consistente em várias guias.</strong> O noseblunt é um BS noseslide \"mais vertical\".</li>\n<li><strong>Noseblunt stall em obstáculo baixo.</strong> Só travar, sem deslizar. 30+ sessões até travar com confiança.</li>\n<li><strong>Meia-guia muito cerada, velocidade lenta.</strong> Primeiro deslize real.</li>\n<li><strong>Aceita que vai cair MUITO.</strong> Taxa de acerto <5% no primeiro mês é normal. Pro skatista Nyjah chamou de \"um dos melhores tricks do skate\" exatamente porque é difícil pra todo mundo.</li>\n<li><strong>Saída em shove-out</strong> (regular) só quando o lock tá consistente. No começo, saída fakie ou pop-out simples.</li>\n</ol>\n<blockquote>Chris Cole diz: \"quando você acerta o primeiro BS noseblunt, não acredita. Quando acerta o segundo, entende que o primeiro não foi sorte. Quando acerta o terceiro, aprendeu a manobra.\" Menos que 3, ainda não é seu.</blockquote>",
+            "tipsFakie": "<h2>Fakie/Nollie Noseblunt</h2>\n<p>Conforme mencionado nas dicas de BS e FS: <strong>fakie BS noseblunt é frequentemente mais acessível que o BS regular.</strong> A rotação acompanha o movimento natural do fakie, e o pouso em regular é mais confortável.</p>\n<p>Nollie noseblunt (tanto FS quanto BS) é um dos tricks mais difíceis do skate flatground+slide combinado. Envolve pop de nose poderoso, rotação precisa, e lock vertical — tudo em switch. Não é pra ser objetivo do primeiro ano de noseblunt.</p>\n<h3>Virada de chave</h3>\n<ul>\n<li><strong>Fakie BS noseblunt:</strong> tenta logo no começo do aprendizado. Você pode travar ele antes do regular — é um atalho.</li>\n<li><strong>Nollie noseblunt:</strong> só depois de 6+ meses com o regular dominado.</li>\n</ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé da frente EXATAMENTE no parafuso dianteiro — nem mais, nem menos"
+                },
+                {
+                    "category": "pe",
+                    "text": "Pé de trás quase no ar — peso mínimo nele durante o lock"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não é 'pousar o nose' — é 'empurrar o nose em direção à borda'"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa que você tá fazendo um BS noseslide, mas com o shape em pé"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Cabeça verticalmente em cima do parafuso dianteiro — nem atrás, nem na frente"
+                },
+                {
+                    "category": "ritmo",
+                    "text": "Ataca MAIS longe do que parece certo — você sempre tá perto demais"
+                },
+                {
+                    "category": "ritmo",
+                    "text": "Aborda mais devagar — velocidade não é o segredo aqui"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se cai pra frente, cabeça foi pra frente do parafuso — puxa pra trás"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se sai fakie sem querer, cabeça ficou atrás — projeta pra frente na entrada"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se não trava, rotação foi insuficiente — compromete o 90°"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Treina noseblunt stall no chão sem deslizar por uma semana"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Filma do lado — vai ser óbvio onde tua cabeça tá errada"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Cera MUITO a guia — viscosidade ajuda a sentir o lock"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Tenta fakie BS noseblunt antes do regular — pode travar primeiro"
+                }
+            ]
+        },
+        {
             "id": "50-50",
-            "name": "50-50 Grind",
+            "name": "50-50",
             "category": "grinds",
             "difficulty": 2,
+            "hasSides": true,
             "prerequisites": [
                 "ollie"
             ],
             "tags": [
-                "grind",
-                "trucks",
-                "fundamental"
+                "fundamental",
+                "grind"
             ],
-            "tips": "<h2>50-50 Grind</h2><p>Primeiro grind que todo skatista aprende. Os dois trucks sobem e deslizam em cima do obstáculo. <strong>É o grind mais estável</strong> porque tem dupla referência — os dois eixos se apoiam.</p><h3>Biomecânica</h3><p>Aproximação em paralelo ao obstáculo, 20-30° de ataque. Ollie que posiciona <mark>o shape inteiro em cima do obstáculo, não só parte dele</mark>. Peso centralizado, ombros alinhados com o obstáculo.</p><p>O som é a referência: um 50-50 limpo faz barulho contínuo dos dois trucks raspando. Se o som é \"ti-ti-ti\", você está com só um truck.</p><h3>Viradas de chave</h3><ul><li><strong>Sobe com o shape INTEIRO.</strong> Não é \"ollie pro nose\", é \"ollie pro meio do shape sobre o obstáculo\".</li><li><strong>Olha o final.</strong> Como no noseslide — olha a saída.</li><li><strong>Joelhos flexionados no grind.</strong> Perna rígida faz o shape vibrar. Joelho macio absorve.</li><li><strong>Saída: ollie leve.</strong> Não precisa pular alto — só destravar os trucks.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Só um truck trava</td><td>Ollie inclinou o shape</td><td>Pop reto, shape plano em cima</td></tr><tr><td>Para no meio do grind</td><td>Velocidade baixa ou peso atrás</td><td>Mais velocidade, peso no centro</td></tr><tr><td>Cai pra frente na saída</td><td>Sem ollie de saída</td><td>Pop leve pra destravar</td></tr><tr><td>Sai cortado</td><td>Quadril desalinhou</td><td>Mantém ombros paralelos ao obstáculo</td></tr></tbody></table><h3>Progressão</h3><ol><li>Ollie em cima de curb baixo, sem deslizar.</li><li>50-50 parado em curb (pular em cima e parar).</li><li>50-50 em velocidade baixa, deslize curto.</li><li>Distâncias progressivas.</li><li>Em corrimão (só depois de muita curb).</li></ol><blockquote>O 50-50 é a matemática básica dos grinds. Dominar ele não te faz avançado — não dominar ele trava todos os outros.</blockquote>",
+            "tipsFS": "<h2>Frontside 50-50</h2>\n<p>No <strong>FS 50-50</strong>, você sobe na guia com a borda do seu lado heel — pé da frente vai em direção à borda. Aproximação com o peito aberto pra ela.</p>\n<h3>Biomecânica</h3>\n<p>Entrada paralela à borda, do lado heel. O ollie é feito com <em>leve inclinação do corpo pra dentro da borda</em>, fazendo os dois trucks pousarem simultâneos no topo. <mark>Peso 55% pé de trás, 45% pé da frente</mark> — a maioria distribui igual e o truck da frente escorrega.</p>\n<h3>Viradas de chave</h3>\n<ul>\n<li><strong>Ollie reto pra cima, não pra dentro.</strong> O erro clássico é \"pular em cima\" — você tem que pular reto e deixar a aproximação paralela te levar pra cima.</li>\n<li><strong>Ombros sempre paralelos à borda.</strong> Se os ombros viram, o shape vira junto e um truck sai.</li>\n<li><strong>Olha pra onde vai SAIR.</strong> Não pro ponto de entrada. O corpo se prepara pra saída automática.</li>\n<li><strong>Saída em FS:</strong> fim da guia, pop pequeno do tail + leve inclinação pra fora = sai limpo. Se travar, pula de lado saindo.</li>\n</ul>\n<h3>Diagnóstico de erros</h3>\n<table>\n<thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead>\n<tbody>\n<tr><td>Só um truck engrena</td><td>Aterrissou com ombros em ângulo</td><td>Trava ombros paralelos à borda antes do pop</td></tr>\n<tr><td>Shape sai pro lado de fora</td><td>Peso muito no heel</td><td>Centraliza sobre a borda, tronco por cima</td></tr>\n<tr><td>Ollie não alcança a altura</td><td>Pop feito tarde</td><td>Pop 1 passo antes da guia, não em cima</td></tr>\n<tr><td>Trava e para</td><td>Cera insuficiente ou velocidade baixa</td><td>Mais velocidade de entrada</td></tr>\n</tbody></table>\n<h3>Fakie/Nollie</h3>\n<p>Fakie FS 50-50 vira um BS 50-50 invertido — a mecânica muda. Half-cab 50-50 (fakie rodado pra regular no grind) é comum em parques. Nollie FS 50-50 exige pop de nose + entrada paralela — avançado.</p>\n<h3>Progressão</h3>\n<ol>\n<li>Ollie em cima de caixa baixa (só o pouso plano).</li>\n<li>FS 50-50 em caixa baixa, sem velocidade, aterrissando mas sem grindar.</li>\n<li>Com grind mínimo, saindo no fakie se travar.</li>\n<li>Em guia baixa cerada.</li>\n<li>Guia de altura padrão.</li>\n</ol>",
+            "tipsBS": "<h2>Backside 50-50</h2>\n<p>O <strong>BS 50-50</strong> é o primo mais assustador do FS: você aborda a borda pelo lado toe, costas viradas em relação à saída. Menos referência visual, mas mecânica igualmente direta quando você confia.</p>\n<h3>Biomecânica</h3>\n<p>Entrada paralela pelo lado toe do shape. O ollie precisa de <em>leve rotação backside interrompida</em> (uns 10-15°) pra alinhar os trucks com a borda. <mark>A cabeça rodando por cima do ombro traseiro</mark> dá a referência pra não entrar torto.</p>\n<h3>Viradas de chave</h3>\n<ul>\n<li><strong>Olha por cima do ombro traseiro.</strong> Sem isso, você não tem referência do ângulo e entra torto.</li>\n<li><strong>Rotação MÍNIMA — só o suficiente pra alinhar.</strong> BS 50-50 não é BS 90 em cima da borda; é ollie quase reto com sutil rotação backside.</li>\n<li><strong>Peso distribuído mais pro pé dianteiro que no FS</strong>, porque a tendência de escapar é pra trás.</li>\n<li><strong>Saída em BS:</strong> a mais gostosa do skate. Pequeno pop + ombros voltando pro neutro = sai rolando reto.</li>\n</ul>\n<h3>Diagnóstico de erros</h3>\n<table>\n<thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead>\n<tbody>\n<tr><td>Entra com shape virado 45°</td><td>Rotação demais no pop</td><td>Mira rotação mínima, quase zero</td></tr>\n<tr><td>Cai pra trás ao pousar</td><td>Falta referência visual — corpo recua</td><td>Olha por cima do ombro traseiro na aproximação</td></tr>\n<tr><td>Um truck engancha, outro não</td><td>Ombros não paralelos à borda</td><td>Ombros alinhados antes do pop, mantidos no pouso</td></tr>\n<tr><td>Shape escorrega pra fora</td><td>Peso no toe</td><td>Peso levemente no heel durante o grind</td></tr>\n</tbody></table>\n<h3>Fakie/Nollie</h3>\n<p>Half-cab BS 50-50 é muito acessível — a rotação de meio-cab já alinha os trucks. Nollie BS 50-50 é avançado. Switch BS 50-50 exige confiança total no switch antes.</p>\n<h3>Progressão</h3>\n<ol>\n<li>BS 50-50 parado na beira de uma caixa, sem velocidade.</li>\n<li>Aproximação lentíssima, grind simbólico.</li>\n<li>Guia cerada, grind curto.</li>\n<li>Altura e velocidade padrão.</li>\n<li>Saída em BS limpa.</li>\n</ol>\n<blockquote>BS 50-50 é confiança em andamento. Se você hesita no pop, os trucks não alinham. Compromisso total ou nada.</blockquote>",
             "tipsFakie": "<h2>Fakie / Nollie 50-50</h2><p>Fakie 50-50 é surpreendentemente natural — o shape inteiro desliza no obstáculo, o momentum ajuda na subida. <mark>Saída pode ser fakie (mais fácil) ou meio-cab out (mais estiloso).</mark></p><p>Nollie 50-50 exige um nollie preciso e o pouso em switch após o grind. É o 50-50 mais técnico.</p>",
             "bombIdeas": [
                 {
@@ -410,49 +540,6 @@
                 {
                     "category": "experimento",
                     "text": "Treina em linha reta mirando numa rachadura — foco fora do shape"
-                }
-            ]
-        },
-        {
-            "id": "fs-boardslide",
-            "name": "FS Boardslide",
-            "category": "slides",
-            "difficulty": 2,
-            "prerequisites": [
-                "ollie",
-                "fs-180"
-            ],
-            "tags": [
-                "slide",
-                "frontside",
-                "corrimão"
-            ],
-            "tips": "<h2>Frontside Boardslide</h2><p>O boardslide mais comum — corpo fica voltado pro obstáculo durante o deslize, o shape atravessa perpendicular. Primeiro slide de corrimão pra maioria.</p><h3>Biomecânica</h3><p>Aproximação frontal ao obstáculo. Ollie + rotação FS 90° que posiciona o shape perpendicular ao obstáculo. <mark>O ponto de contato é o MEIO do shape</mark>, entre os trucks. Peso centralizado, ombros paralelos ao obstáculo.</p><p>A saída é uma rotação FS de 90° adicional, saindo em fakie — OU rotação reversa voltando em regular.</p><h3>Viradas de chave</h3><ul><li><strong>Peito pro obstáculo.</strong> Posição natural do boardslide — você fica de frente pro corrimão.</li><li><strong>Peso no meio, não nas pontas.</strong> Se desloca pro nose, vira noseslide; pro tail, vira tailslide (mais difícil).</li><li><strong>Olha a saída.</strong> Como em todo slide.</li><li><strong>Medo real: cair no corrimão.</strong> O shape tem que atravessar acima do corrimão, não subir de lado.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape sai pro lado antes de slide</td><td>Rotação não completou 90°</td><td>Pré-rotação dos ombros antes do pop</td></tr><tr><td>Shape vira noseslide</td><td>Peso muito pra frente</td><td>Centraliza o peso entre trucks</td></tr><tr><td>Cai durante o slide</td><td>Peito não alinhado com obstáculo</td><td>Peito quadrado pro corrimão</td></tr></tbody></table><h3>Progressão</h3><ol><li>FS 180 consistente.</li><li>FS boardslide em curb baixo, velocidade baixa.</li><li>Em corrimão de 2-3 degraus.</li><li>Corrimões maiores progressivamente.</li></ol><blockquote>Primeiro boardslide em corrimão muda algo em você. É o momento que seu cérebro aceita que o shape pode deslizar por cima de metal.</blockquote>",
-            "tipsFakie": "<h2>Fakie / Nollie FS Boardslide</h2><p>Menos comum, mas possível. Nollie FS boardslide em corrimão é extremamente técnico.</p>",
-            "bombIdeas": [
-                {
-                    "category": "pe",
-                    "text": "Pé da frente no meio do shape, entre os parafusos — não adianta pôr no nose"
-                },
-                {
-                    "category": "reframe",
-                    "text": "Não é 'atravessar' a borda — é 'pousar em cima dela com o shape cruzado'"
-                },
-                {
-                    "category": "reframe",
-                    "text": "Pensa num FS 90 em cima da borda — metade da rotação, pouso centrado"
-                },
-                {
-                    "category": "erro",
-                    "text": "Se sai fora, seu peso foi pro lado de fora — inclina o tronco por cima da borda"
-                },
-                {
-                    "category": "erro",
-                    "text": "Se rotaciona demais, você continuou girando depois de pousar — trava o corpo no pouso"
-                },
-                {
-                    "category": "experimento",
-                    "text": "Pratica FS 90 no chão primeiro — só a rotação, sem obstáculo"
                 }
             ]
         }

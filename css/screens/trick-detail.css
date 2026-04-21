@@ -329,3 +329,75 @@
 
 /* ---- TOOLBAR DE HIGHLIGHT ATIVA ---- */
 .highlight-toolbar[hidden] { display: none; }
+
+/* =========================================================
+   TOGGLE FS/BS — só renderizado em manobras hasSides
+   Dois botões grandes estilo carimbo de zine.
+   ========================================================= */
+
+.side-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-3);
+    margin: 0 0 var(--sp-3);
+}
+
+.side-toggle-btn {
+    padding: var(--sp-3) var(--sp-4);
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 3.5vw, 1.25rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--zine-black);
+    background-color: var(--zine-paper);
+    border: var(--border-black);
+    box-shadow: 3px 3px 0 var(--zine-black);
+    cursor: pointer;
+    transition: transform var(--dur-quick) var(--ease-snap),
+                box-shadow var(--dur-quick) var(--ease-snap),
+                background-color var(--dur-quick) ease-out;
+    transform: skewX(-4deg);
+    position: relative;
+}
+
+.side-toggle-fs { transform: skewX(-4deg) rotate(-1deg); }
+.side-toggle-bs { transform: skewX(-4deg) rotate(1deg); }
+
+.side-toggle-btn:hover {
+    background-color: var(--zine-paper-2);
+}
+
+.side-toggle-btn:active {
+    box-shadow: 1px 1px 0 var(--zine-black);
+}
+
+.side-toggle-btn.is-active {
+    color: var(--zine-paper);
+    box-shadow: 5px 5px 0 var(--zine-black);
+    z-index: 2;
+}
+
+.side-toggle-fs.is-active {
+    background-color: var(--zine-stamp-blue);
+    transform: skewX(-4deg) rotate(-1deg) translate(-2px, -2px);
+}
+
+.side-toggle-bs.is-active {
+    background-color: var(--zine-red);
+    border-color: var(--zine-red-deep);
+    transform: skewX(-4deg) rotate(1deg) translate(-2px, -2px);
+}
+
+.side-toggle-btn.is-active::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 2px dashed currentColor;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.side-toggle-btn:focus-visible {
+    outline: 3px solid var(--zine-highlight);
+    outline-offset: 3px;
+}
