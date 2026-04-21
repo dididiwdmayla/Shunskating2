@@ -11,7 +11,8 @@ export const STORAGE_KEYS = {
     notes:      `${STORAGE_VERSION}.notes`,      // { [trickId]: { regular: "text", switch, fakie, nollie } }
     favorites:  `${STORAGE_VERSION}.favorites`,  // [trickId, ...]
     highlights: `${STORAGE_VERSION}.highlights`, // { [`${trickId}|${stance}`]: [{ start, end, color, text }] }
-    settings:   `${STORAGE_VERSION}.settings`    // { audioEnabled, reducedMotion, ... }
+    settings:   `${STORAGE_VERSION}.settings`,    // { audioEnabled, reducedMotion, ... }
+    bombUseful: `${STORAGE_VERSION}.bombUseful`  // { [trickId]: [ideaText, ...] }
 };
 
 /**
@@ -178,4 +179,31 @@ export function setSetting(name, value) {
     const s = getSettings();
     s[name] = value;
     set(STORAGE_KEYS.settings, s);
+}
+
+/* ---------- Bomba de Ideias: ideias marcadas como úteis ---------- */
+
+/** Retorna lista de textos de ideias úteis salvos para um trickId. */
+export function getBombUseful(trickId) {
+    const all = get(STORAGE_KEYS.bombUseful, {});
+    return all[trickId] || [];
+}
+
+/** Alterna uma ideia (adiciona se não tem, remove se tem). Retorna true se ficou marcada. */
+export function toggleBombUseful(trickId, ideaText) {
+    const all = get(STORAGE_KEYS.bombUseful, {});
+    const list = all[trickId] || [];
+    const idx = list.indexOf(ideaText);
+    if (idx === -1) {
+        list.push(ideaText);
+    } else {
+        list.splice(idx, 1);
+    }
+    if (list.length === 0) {
+        delete all[trickId];
+    } else {
+        all[trickId] = list;
+    }
+    set(STORAGE_KEYS.bombUseful, all);
+    return list.includes(ideaText);
 }

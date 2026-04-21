@@ -11,6 +11,7 @@ import {
     getFavorites, toggleFavorite,
     getHighlights, setHighlights
 } from '../storage.js';
+import { renderBombButton } from './bomb-ideas.js';
 
 let tricksData = null;
 const STANCES = ['regular', 'switch', 'fakie', 'nollie'];
@@ -65,7 +66,10 @@ async function render(container, params) {
         renderDifficulty(trick.difficulty || 1)
     ));
 
-    /* --- TABS DE STANCE --- */
+    /* --- AÇÕES DA MANOBRA (tabs de stance + botão-bomba) --- */
+    const actionsRow = el('div', { className: 'detail-actions-row' });
+
+    /* tabs de stance */
     const tabs = el('div', { className: 'stance-tabs', role: 'tablist' });
     STANCES.forEach((s) => {
         tabs.appendChild(el('button', {
@@ -76,7 +80,12 @@ async function render(container, params) {
             onClick: () => switchStance(screen, state, s)
         }, s.toUpperCase()));
     });
-    screen.appendChild(tabs);
+    actionsRow.appendChild(tabs);
+
+    /* botão-bomba de ideias (fica ao lado das tabs, na linha de ações) */
+    actionsRow.appendChild(renderBombButton(trick, data));
+
+    screen.appendChild(actionsRow);
 
     /* --- CONTEÚDO DE DICAS --- */
     const contentHost = el('div', { id: 'detail-content-host' });

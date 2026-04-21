@@ -1,12 +1,32 @@
 {
     "version": "2.0",
-    "updated": "2026-04-20",
+    "updated": "2026-04-21",
     "categories": [
-        { "id": "flatground", "name": "Flatground", "order": 1 },
-        { "id": "slides",     "name": "Slides",     "order": 2 },
-        { "id": "grinds",     "name": "Grinds",     "order": 3 },
-        { "id": "manuals",    "name": "Manuals",    "order": 4 },
-        { "id": "connected",  "name": "Conectadas", "order": 5 }
+        {
+            "id": "flatground",
+            "name": "Flatground",
+            "order": 1
+        },
+        {
+            "id": "slides",
+            "name": "Slides",
+            "order": 2
+        },
+        {
+            "id": "grinds",
+            "name": "Grinds",
+            "order": 3
+        },
+        {
+            "id": "manuals",
+            "name": "Manuals",
+            "order": 4
+        },
+        {
+            "id": "connected",
+            "name": "Conectadas",
+            "order": 5
+        }
     ],
     "tricks": [
         {
@@ -15,99 +35,674 @@
             "category": "flatground",
             "difficulty": 1,
             "prerequisites": [],
-            "tags": ["básico", "pop", "fundamental"],
+            "tags": [
+                "básico",
+                "pop",
+                "fundamental"
+            ],
             "tips": "<h2>Ollie</h2><p>O ollie é a engenharia fundamental. Todo pop de qualquer manobra descende dele. Dominar não é saber fazer — é sentir o deslize do pé dianteiro como um gesto tão automático quanto andar.</p><h3>Biomecânica</h3><p>Existem <strong>três forças sequenciais</strong> que precisam acontecer em ordem: compressão do quadril, tapada do pé traseiro no tail, deslize do pé dianteiro em direção ao nose. O erro mais comum é tentar fazer simultâneo. <mark>É um 1-2-3, não um só.</mark></p><p>A tapada não é um chute — é um <em>snap</em>. Você ativa o quadril traseiro, trava o joelho e deixa a panturrilha estalar. O tail bate no chão e rebate; esse rebote é a altura do seu ollie.</p><h3>Viradas de chave</h3><ul><li><strong>Não empurre, ESTALE.</strong> Se você pensar \"empurrar o tail pra baixo\", vai cair lento. Pensa \"estalar\". Como um chicote.</li><li><strong>O pé dianteiro não sobe — ele RASPA.</strong> É uma raspada diagonal em direção ao parafuso do nose. Quando a raspada está certa, o shape sobe sozinho.</li><li><strong>Joelhos pra dentro no ar.</strong> Isso não aumenta a altura real, mas aumenta a altura <em>percebida</em>, porque o shape parece subir mais.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape não levanta</td><td>Pé dianteiro não está raspando, só subindo</td><td>Pratica só o deslize parado, sem pop. Sente o shape inclinar</td></tr><tr><td>Shape vira na frente</td><td>Pé dianteiro raspou fora do eixo (pra fora)</td><td>Mira no parafuso do nose, não na ponta</td></tr><tr><td>Altura pouca mas tudo certo</td><td>Não agachou antes</td><td>Compressão profunda antes do pop — quadril baixo</td></tr><tr><td>Cai com pé traseiro só</td><td>Pé dianteiro desceu antes do traseiro</td><td>Trava o olhar no pé dianteiro no ar</td></tr></tbody></table><h3>Progressão</h3><ol><li>Ollie parado, sem rolar. 50 tentativas por dia até a altura estabilizar.</li><li>Ollie em movimento muito lento (empurrada fraca).</li><li>Ollie sobre linha no chão (mira).</li><li>Ollie sobre obstáculo de 10cm (cone, galho).</li><li>Ollie sobre caixa/escada pequena.</li></ol><blockquote>Um ollie bom é invisível. Você não vê esforço — vê o shape subir como se não tivesse peso. Se você vê esforço, falta treino.</blockquote>",
-            "tipsFakie": "<h2>Fakie Ollie / Nollie Ollie</h2><p>Fakie ollie e nollie ollie são primos próximos, mas têm sensações bem diferentes.</p><h3>Fakie Ollie</h3><p>Andando de fakie (costas viradas pro sentido do movimento), você faz um ollie normal. O pé traseiro <em>agora vira o de trás na direção do movimento</em>, que antes era o da frente. <mark>O corpo está ao contrário — seu cérebro interpreta como \"subir pra trás\"</mark>, e isso gera resistência mental.</p><h3>Nollie Ollie</h3><p>Andando regular, você bate o nose no chão e raspa com o pé traseiro em direção ao tail. É fisicamente o ollie espelhado. A dificuldade é que <strong>seu pé dianteiro (goofy = direito) agora é o que estala o nose</strong> — e ele tem menos força de estala que o traseiro treinado por anos.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> pensa \"ollie pra trás\" e deixa o corpo seguir o shape. Não tente virar a cabeça.</li><li><strong>Nollie:</strong> a raspada do pé traseiro é mais curta que no ollie regular, porque a distância entre os parafusos é a mesma mas sua perna traseira tem menos amplitude.</li><li><strong>Ambos:</strong> olha PRA FRENTE no sentido do movimento. No fakie isso é contra-intuitivo, mas o corpo segue o olhar.</li></ul><h3>Progressão</h3><ol><li>Andar de fakie confortável antes de tentar fakie ollie.</li><li>Fakie ollie parado no gramado.</li><li>Nollie parado (começa batendo só o nose sem subir).</li><li>Os dois em movimento lento.</li></ol>"
+            "tipsFakie": "<h2>Fakie Ollie / Nollie Ollie</h2><p>Fakie ollie e nollie ollie são primos próximos, mas têm sensações bem diferentes.</p><h3>Fakie Ollie</h3><p>Andando de fakie (costas viradas pro sentido do movimento), você faz um ollie normal. O pé traseiro <em>agora vira o de trás na direção do movimento</em>, que antes era o da frente. <mark>O corpo está ao contrário — seu cérebro interpreta como \"subir pra trás\"</mark>, e isso gera resistência mental.</p><h3>Nollie Ollie</h3><p>Andando regular, você bate o nose no chão e raspa com o pé traseiro em direção ao tail. É fisicamente o ollie espelhado. A dificuldade é que <strong>seu pé dianteiro (goofy = direito) agora é o que estala o nose</strong> — e ele tem menos força de estala que o traseiro treinado por anos.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> pensa \"ollie pra trás\" e deixa o corpo seguir o shape. Não tente virar a cabeça.</li><li><strong>Nollie:</strong> a raspada do pé traseiro é mais curta que no ollie regular, porque a distância entre os parafusos é a mesma mas sua perna traseira tem menos amplitude.</li><li><strong>Ambos:</strong> olha PRA FRENTE no sentido do movimento. No fakie isso é contra-intuitivo, mas o corpo segue o olhar.</li></ul><h3>Progressão</h3><ol><li>Andar de fakie confortável antes de tentar fakie ollie.</li><li>Fakie ollie parado no gramado.</li><li>Nollie parado (começa batendo só o nose sem subir).</li><li>Os dois em movimento lento.</li></ol>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé da frente na quina do parafuso dianteiro — não no meio do shape"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não tenta 'pular alto' — tenta 'estalar o tail forte'. A altura é consequência"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não sobe com o shape — você pula e ele te segue"
+                },
+                {
+                    "category": "ritmo",
+                    "text": "Agacha MAIS tempo antes do pop — a gente sempre pula rápido demais"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se só sobe 2cm, você tá raspando o pé de lado, não em diagonal"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Tenta sem olhar pros pés, olha pra frente 3m — cérebro relaxa"
+                }
+            ]
         },
         {
             "id": "shove-it",
             "name": "Shove-it",
             "category": "flatground",
             "difficulty": 2,
-            "prerequisites": ["ollie"],
-            "tags": ["rotação", "horizontal", "fundamental"],
+            "prerequisites": [
+                "ollie"
+            ],
+            "tags": [
+                "rotação",
+                "horizontal",
+                "fundamental"
+            ],
             "tips": "<h2>BS Shove-it · FS Shove-it</h2><p>O shove-it é sobre a <strong>rotação horizontal do shape</strong> enquanto seu corpo fica estático. É a manobra que ensina a separar os movimentos do shape dos movimentos do corpo — conceito fundamental pra todo flip.</p><h3>Biomecânica</h3><p>Backside shove-it: o tail vai pras suas costas. Frontside shove-it: o tail vem pro seu peito. A rotação vem de um <em>scoop</em> do pé traseiro — não é empurrão reto; é um movimento em arco.</p><p><mark>O scoop do BS é pra trás e pra fora (em direção ao calcanhar do pé traseiro).</mark> No FS, o scoop é pra frente e pra dentro (em direção aos dedos). Essa diferença muda tudo.</p><h3>Viradas de chave</h3><ul><li><strong>Não pule você — deixe o shape rodar.</strong> O erro mais comum é \"pular com o shape\". Pula mínimo. O shape roda sozinho.</li><li><strong>Catch com os dois pés ao mesmo tempo.</strong> Não pise primeiro com um, depois com o outro. Pousa zerado.</li><li><strong>FS Shove é mais assustador que BS.</strong> Porque você não vê pra onde o shape vai. Solução: primeiro olhe pro chão e acompanhe, depois pare de olhar.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape não completa a rotação</td><td>Scoop fraco ou sem arco</td><td>Treina o scoop parado, deixa o shape rodar no ar 5cm</td></tr><tr><td>Shape vai pra longe no ar</td><td>Empurrão reto em vez de scoop</td><td>Scoop é <em>pra cima e pra trás</em>, não pra longe</td></tr><tr><td>Cai de um pé só</td><td>Pulou desigual</td><td>Pula igualmente nos dois pés, catch simultâneo</td></tr><tr><td>Pisa em cima e o shape escapa</td><td>Pousou no meio do shape, não nos parafusos</td><td>Mira os parafusos, não o centro</td></tr></tbody></table><h3>Progressão</h3><ol><li>Scoop parado, sem pular — só ver o shape rodar no chão.</li><li>Scoop com pulinho, catch no ar.</li><li>Em movimento muito lento.</li><li>Velocidade normal.</li></ol>",
-            "tipsFakie": "<h2>Fakie/Nollie Shove-it</h2><p>No <strong>fakie shove</strong>, você está andando de costas; o scoop acontece no pé que antes era o dianteiro. O shape roda mais rápido porque vai \"a favor\" do seu movimento — cuidado pra não sobrerotar.</p><p>No <strong>nollie shove</strong>, o scoop é do pé traseiro (goofy = pé esquerdo) e o shape sai pra frente. <mark>É a versão mais estilosa e a mais difícil pra goofy, porque o pé esquerdo tem menos precisão.</mark></p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> deixa o scoop ser mais suave — o momentum ajuda.</li><li><strong>Nollie:</strong> o scoop do pé traseiro não tem a mesma referência do pé dianteiro do regular. Treina parado até o scoop ficar previsível.</li><li><strong>Catch antecipado:</strong> em ambos, o shape roda mais rápido. Catch vem antes do esperado.</li></ul>"
+            "tipsFakie": "<h2>Fakie/Nollie Shove-it</h2><p>No <strong>fakie shove</strong>, você está andando de costas; o scoop acontece no pé que antes era o dianteiro. O shape roda mais rápido porque vai \"a favor\" do seu movimento — cuidado pra não sobrerotar.</p><p>No <strong>nollie shove</strong>, o scoop é do pé traseiro (goofy = pé esquerdo) e o shape sai pra frente. <mark>É a versão mais estilosa e a mais difícil pra goofy, porque o pé esquerdo tem menos precisão.</mark></p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> deixa o scoop ser mais suave — o momentum ajuda.</li><li><strong>Nollie:</strong> o scoop do pé traseiro não tem a mesma referência do pé dianteiro do regular. Treina parado até o scoop ficar previsível.</li><li><strong>Catch antecipado:</strong> em ambos, o shape roda mais rápido. Catch vem antes do esperado.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé de trás no canto do tail, quase caindo pra fora"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não pula — só empurra o shape pra girar. Você fica no lugar"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa que você tá chutando o tail pro lado enquanto o corpo só levita"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se o shape voa pra longe, você empurrou reto — tem que ser scoop em arco"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Treina o scoop parado sem pular — só pra sentir o shape rodando debaixo"
+                }
+            ]
         },
         {
             "id": "fs-180",
             "name": "FS 180",
             "category": "flatground",
             "difficulty": 2,
-            "prerequisites": ["ollie"],
-            "tags": ["rotação corporal", "fundamental"],
+            "prerequisites": [
+                "ollie"
+            ],
+            "tags": [
+                "rotação corporal",
+                "fundamental"
+            ],
             "tips": "<h2>Frontside 180</h2><p>No FS 180, seu peito abre em direção ao lado da sua frente (goofy = lado esquerdo). Você termina de fakie. É a manobra que mais ensina sobre rotação corporal.</p><h3>Biomecânica</h3><p>A rotação vem dos <strong>ombros e do quadril</strong>, não da cabeça. <mark>A virada de chave principal: os ombros começam a torcer ANTES do pop.</mark> Quando o pop acontece, o corpo já está 45° rotacionado — só precisa completar os outros 135° no ar.</p><p>O pé dianteiro raspa como num ollie, mas com um leve desvio em direção ao lado frontside (pra frente do seu corpo). Isso \"puxa\" o shape na rotação.</p><h3>Viradas de chave</h3><ul><li><strong>Pré-carga de ombros.</strong> Antes do pop, gira o ombro traseiro pra trás (como se fosse dar um soco pra trás). Isso armazena torque.</li><li><strong>Olha onde você vai parar.</strong> No FS 180, vira a cabeça pro lado pra onde você vai — o corpo segue o olhar.</li><li><strong>Medo de cegar é real.</strong> Pratica andar de fakie confortável antes de tentar o 180, assim o pouso não assusta.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Rotação incompleta (chega em 90°)</td><td>Sem pré-carga de ombros</td><td>Torce os ombros 45° pra trás antes do pop</td></tr><tr><td>Shape vira mas corpo não</td><td>Só rodou os pés, não o tronco</td><td>Gira PELO tronco. Ombros lideram</td></tr><tr><td>Cai desestabilizado</td><td>Pousou ainda rotacionando</td><td>Prepara o olhar pro fakie 50cm antes do pouso</td></tr></tbody></table><h3>Progressão</h3><ol><li>Confortável andando de fakie (obrigatório).</li><li>FS 180 ollie sem altura (só a rotação, shape quase no chão).</li><li>Com pop normal.</li><li>Em movimento.</li></ol>",
-            "tipsFakie": "<h2>Fakie FS 180 / Nollie FS 180</h2><p>Fakie FS 180 começa de fakie e termina regular — é <strong>psicologicamente mais fácil</strong> porque você acaba na posição confortável. Muita gente aprende fakie 180 antes do regular.</p><p>Nollie FS 180 é o oposto: começa de nollie, termina em switch. É a versão mais técnica porque exige pop do nose + rotação + pouso em switch (onde você tem menos referência).</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> o momentum de fakie favorece a rotação. Você \"cai\" no FS 180 quase sem esforço.</li><li><strong>Nollie:</strong> pop do nose + scoop dos ombros tem que ser preciso. Treina muito o nollie simples antes.</li></ul>"
+            "tipsFakie": "<h2>Fakie FS 180 / Nollie FS 180</h2><p>Fakie FS 180 começa de fakie e termina regular — é <strong>psicologicamente mais fácil</strong> porque você acaba na posição confortável. Muita gente aprende fakie 180 antes do regular.</p><p>Nollie FS 180 é o oposto: começa de nollie, termina em switch. É a versão mais técnica porque exige pop do nose + rotação + pouso em switch (onde você tem menos referência).</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> o momentum de fakie favorece a rotação. Você \"cai\" no FS 180 quase sem esforço.</li><li><strong>Nollie:</strong> pop do nose + scoop dos ombros tem que ser preciso. Treina muito o nollie simples antes.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé da frente um pouco mais pra fora (heelside) — puxa a rotação"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa que você tá abrindo o peito pra ver quem te chamou atrás — o corpo roda sozinho"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não é 180 — é um ollie onde seus ombros começaram a girar antes"
+                },
+                {
+                    "category": "ritmo",
+                    "text": "Pré-carrega os ombros 1 segundo antes do pop — não simultâneo"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se chega só em 90°, seus ombros não pré-carregaram o suficiente"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Treina olhando por cima do ombro traseiro na aproximação — corpo segue o olhar"
+                }
+            ]
         },
         {
             "id": "bs-180",
             "name": "BS 180",
             "category": "flatground",
             "difficulty": 2,
-            "prerequisites": ["ollie"],
-            "tags": ["rotação corporal", "fundamental"],
+            "prerequisites": [
+                "ollie"
+            ],
+            "tags": [
+                "rotação corporal",
+                "fundamental"
+            ],
             "tips": "<h2>Backside 180</h2><p>BS 180 gira ao contrário do FS — peito fecha, costas abrem. É mais difícil que o FS pra maioria porque você <em>perde referência visual no meio da rotação</em>.</p><h3>Biomecânica</h3><p>A rotação vem do quadril, não dos ombros. <mark>Se você rodar só os ombros no BS, vai \"arrancar\" o shape e pousar torto.</mark> Os ombros mantêm relativa estabilidade; o quadril e as pernas rodam o shape.</p><p>O pé dianteiro raspa como no ollie, mas com uma leve pressão no heelside pra puxar a rotação.</p><h3>Viradas de chave</h3><ul><li><strong>Rotação PRA TRÁS dos ombros.</strong> Antes do pop, gira ombros levemente frontside (pra frente). Quando pop, eles voltam pra posição neutra e o quadril roda o resto.</li><li><strong>Olha por cima do ombro traseiro.</strong> No BS você não vê pra onde vai — o olhar por cima do ombro dá referência mínima.</li><li><strong>Pé dianteiro pressiona heelside.</strong> Uma leve pressão do calcanhar ajuda o shape a seguir o quadril.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape sai antes da rotação</td><td>Empurrou com ombros em vez do quadril</td><td>Gira pelo quadril, ombros ficam</td></tr><tr><td>Pousa toe-side e cai</td><td>Rotação não completou</td><td>Pressiona mais o heelside no pop</td></tr><tr><td>Pânico no meio da rotação</td><td>Sem referência visual</td><td>Pratica girar o olhar 1 segundo antes do pop</td></tr></tbody></table><h3>Progressão</h3><ol><li>Fakie confortável (como no FS 180).</li><li>BS 180 sem pop, só rotação com shape baixo.</li><li>Com pop progressivo.</li><li>Em movimento lento, depois normal.</li></ol><blockquote>BS 180 é um exercício de confiança. Você está voando pra um lugar que não vê. Mas o corpo sabe — ele faz isso sozinho se você não atrapalhar.</blockquote>",
-            "tipsFakie": "<h2>Fakie BS 180 / Nollie BS 180</h2><p>Fakie BS 180 (também chamado de <em>half-cab</em>) é a manobra-chave pra aprender todas as outras. Ela ensina rotação confortável, e muita gente aprende ela antes do BS 180 regular.</p><p>Nollie BS 180 é extremamente técnico — pop de nose + rotação backside + pouso switch. Não é uma manobra pra estágio inicial.</p><h3>Viradas de chave</h3><ul><li><strong>Half-cab (fakie BS 180):</strong> a rotação vai a favor do movimento. Mínimo esforço, máxima eficiência. Se você não consegue half-cab, treina só isso por um mês.</li><li><strong>Nollie BS 180:</strong> a rotação contra o movimento exige muito mais scoop de quadril. Paciência — essa vem depois.</li></ul>"
+            "tipsFakie": "<h2>Fakie BS 180 / Nollie BS 180</h2><p>Fakie BS 180 (também chamado de <em>half-cab</em>) é a manobra-chave pra aprender todas as outras. Ela ensina rotação confortável, e muita gente aprende ela antes do BS 180 regular.</p><p>Nollie BS 180 é extremamente técnico — pop de nose + rotação backside + pouso switch. Não é uma manobra pra estágio inicial.</p><h3>Viradas de chave</h3><ul><li><strong>Half-cab (fakie BS 180):</strong> a rotação vai a favor do movimento. Mínimo esforço, máxima eficiência. Se você não consegue half-cab, treina só isso por um mês.</li><li><strong>Nollie BS 180:</strong> a rotação contra o movimento exige muito mais scoop de quadril. Paciência — essa vem depois.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "reframe",
+                    "text": "A rotação vem do quadril, não dos ombros — ombros ficam estáveis"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa que você vai mostrar as costas pra alguém na frente — quadril gira, ombros seguem"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se o shape escapa antes, você girou com os ombros — trava eles"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Pratica half-cab primeiro por 1 semana — ensina a rotação BS sem risco de fakie"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Olha por cima do ombro traseiro na aproximação — dá referência"
+                }
+            ]
         },
         {
             "id": "tre-flip",
             "name": "Tre Flip (360 Flip)",
             "category": "flatground",
             "difficulty": 4,
-            "prerequisites": ["ollie", "shove-it", "kickflip"],
-            "tags": ["flip", "rotação dupla", "avançado"],
+            "prerequisites": [
+                "ollie",
+                "shove-it",
+                "kickflip"
+            ],
+            "tags": [
+                "flip",
+                "rotação dupla",
+                "avançado"
+            ],
             "tips": "<h2>360 Flip (Tre Flip)</h2><p>O 360 flip é o teste definitivo de flatground. Combina a rotação horizontal de 360° do shove com a rotação vertical de um kickflip. Dominar um tre flip consistente é o que separa quem \"sabe skatar\" de quem \"ENTENDE\" skate.</p><h3>Biomecânica</h3><p>O pé traseiro faz um scoop diagonal — <mark>não é o scoop reto do shove comum</mark>. É um scoop em direção aos dedos do pé (pra fora), com força vertical maior que horizontal. O pé dianteiro raspa numa diagonal semelhante ao kickflip, mas <em>ligeiramente mais pra dentro</em>.</p><p>As duas rotações têm que acontecer com timing SINCRONIZADO. Se o scoop vem antes do flick, o shape roda sem flipar. Se o flick vem antes do scoop, vira kickflip com shove mal-feito.</p><h3>Viradas de chave</h3><ul><li><strong>Scoop diagonal — canto do tail ao dedo mindinho.</strong> Não scoop reto. Vai em diagonal, como se chutasse um canto do tail com o dedão.</li><li><strong>Flick raspa pra dentro.</strong> No kickflip o flick vai pra fora; no tre, vai levemente pra dentro. Isso coordena as duas rotações.</li><li><strong>PULA ALTO.</strong> Tre flip precisa de altura. Baixo não dá tempo da rotação dupla acontecer.</li><li><strong>Catch com os dois pés depois da rotação completa.</strong> Se tentar pegar cedo, bloqueia a rotação.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape roda mas não flipa</td><td>Flick fraco ou saiu fora</td><td>Reforça o flick — mas mantém o scoop</td></tr><tr><td>Shape flipa mas não completa rotação</td><td>Scoop fraco</td><td>Scoop mais diagonal, mais força vertical</td></tr><tr><td>Shape sai voando pra longe</td><td>Scoop reto (como shove normal)</td><td>Scoop DIAGONAL, não pra trás</td></tr><tr><td>Pousa torto / late</td><td>Altura insuficiente</td><td>Pop mais alto. Compressão mais profunda</td></tr></tbody></table><h3>Progressão</h3><ol><li>Shove-it consistente (ambos lados).</li><li>Kickflip consistente.</li><li>360 shove (só rotação dupla horizontal, sem flip).</li><li>Tre flip parado, sem rolar — 100 tentativas até o primeiro land.</li><li>Tre flip em movimento lento.</li><li>Velocidade normal.</li></ol><blockquote>Tre flip não é uma manobra — é uma coordenação. Até você \"sentir\" a diagonal do scoop, vai parecer impossível. Depois que sente, vira gravidade.</blockquote>",
-            "tipsFakie": "<h2>Fakie/Nollie Tre Flip</h2><p>Fakie tre flip é uma das manobras mais estilosas do skate flatground — o shape gira 360° a favor do seu movimento enquanto flipa. <mark>Dificuldade média se você já tem tre regular.</mark></p><p>Nollie tre flip é pesado. Scoop do nose, flick do pé traseiro, rotação dupla contra o movimento. Poucos skatistas tem ela consistente.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie tre:</strong> menos força no scoop — o momentum ajuda. O truque é conter a força, não aumentar.</li><li><strong>Nollie tre:</strong> pop do nose mais forte que o de um nollie normal, porque precisa gerar altura pra rotação dupla.</li></ul>"
+            "tipsFakie": "<h2>Fakie/Nollie Tre Flip</h2><p>Fakie tre flip é uma das manobras mais estilosas do skate flatground — o shape gira 360° a favor do seu movimento enquanto flipa. <mark>Dificuldade média se você já tem tre regular.</mark></p><p>Nollie tre flip é pesado. Scoop do nose, flick do pé traseiro, rotação dupla contra o movimento. Poucos skatistas tem ela consistente.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie tre:</strong> menos força no scoop — o momentum ajuda. O truque é conter a força, não aumentar.</li><li><strong>Nollie tre:</strong> pop do nose mais forte que o de um nollie normal, porque precisa gerar altura pra rotação dupla.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé de trás bem no canto do tail, dedão apontando pro canto externo"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não é shove + flip — é um movimento diagonal único do pé de trás"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa num shove onde você chuta o canto do tail com o dedão do pé, não o centro"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se roda mas não flipa, flick do pé da frente tá fraco — reforça o flick mas mantém o scoop"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se flipa mas não completa a rotação, scoop tá reto — tem que ir diagonal"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Filma do lado — dá pra ver se o problema é o scoop ou o flick em 1 vídeo"
+                }
+            ]
         },
         {
             "id": "kickflip",
             "name": "Kickflip",
             "category": "flatground",
             "difficulty": 3,
-            "prerequisites": ["ollie"],
-            "tags": ["flip", "vertical", "fundamental"],
+            "prerequisites": [
+                "ollie"
+            ],
+            "tags": [
+                "flip",
+                "vertical",
+                "fundamental"
+            ],
             "tips": "<h2>Kickflip</h2><p>Kickflip é um ollie + rotação vertical do shape via flick do pé dianteiro. A diferença mecânica entre um ollie e um kickflip é <strong>uma única coisa: o ângulo do pé dianteiro no flick</strong>.</p><h3>Biomecânica</h3><p>No ollie, o pé dianteiro raspa <em>reto</em> em direção ao nose. No kickflip, o pé dianteiro raspa <em>diagonal</em>, em direção ao <mark>canto do nose que fica do lado heelside</mark>. Essa diagonal é o que faz o shape rodar no eixo longitudinal.</p><p>O pé traseiro faz o mesmo snap do ollie. A força vem dele. O pé dianteiro só <em>direciona</em>.</p><h3>Viradas de chave</h3><ul><li><strong>Flick pra fora, NÃO pra baixo.</strong> Erro mais comum: pisar pra baixo com o pé dianteiro. O movimento é pra fora e pra frente.</li><li><strong>O pé dianteiro sai do shape pelo canto.</strong> Pensa que seu pé escorrega do shape indo em direção ao chão diagonalmente.</li><li><strong>Ombros retos.</strong> Não torce ombros — isso empurra o shape pra trás.</li><li><strong>Olha o shape rotando.</strong> Aprender a catch depende de você ver o grip voltando pra cima.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape não flipa</td><td>Flick pra frente em vez de pra fora</td><td>Pensa no flick como um chute em diagonal</td></tr><tr><td>Flipa mas sai pra longe</td><td>Pé dianteiro empurrou pra trás</td><td>Pé sai pelo canto do nose, não pra trás</td></tr><tr><td>Só flipa 180° (heelflip acidental)</td><td>Flick invertido</td><td>Confere — flick é pelo dedão do pé, não calcanhar</td></tr><tr><td>Pousa com um pé no meio</td><td>Catch precoce</td><td>Espera rotação completa. Catch é pós-rotação</td></tr></tbody></table><h3>Progressão</h3><ol><li>Ollie consistente.</li><li>Pop shove (rotação horizontal) — pra entender a mecânica do shape rodando.</li><li>Kickflip parado, foco só no flick. 100 tentativas por dia.</li><li>Kickflip em movimento lento.</li><li>Velocidade normal.</li></ol>",
-            "tipsFakie": "<h2>Fakie / Nollie Kickflip</h2><p>Fakie kickflip tem uma física diferente — seu pé dianteiro (que agora é o de trás do movimento) faz o flick enquanto o momentum está a favor. <mark>Shape flipa mais fácil, mas o pouso é em regular, o que pode confundir.</mark></p><p>Nollie kickflip é o flick do pé traseiro (goofy = pé esquerdo) no nose. Requer precisão cirúrgica do pé não-dominante.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> flick mais suave — o momentum ajuda. Muitos skatistas aprendem fakie flip antes do regular.</li><li><strong>Nollie:</strong> o flick do pé menos-treinado precisa de muita repetição parada antes de tentar em movimento.</li></ul>"
+            "tipsFakie": "<h2>Fakie / Nollie Kickflip</h2><p>Fakie kickflip tem uma física diferente — seu pé dianteiro (que agora é o de trás do movimento) faz o flick enquanto o momentum está a favor. <mark>Shape flipa mais fácil, mas o pouso é em regular, o que pode confundir.</mark></p><p>Nollie kickflip é o flick do pé traseiro (goofy = pé esquerdo) no nose. Requer precisão cirúrgica do pé não-dominante.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> flick mais suave — o momentum ajuda. Muitos skatistas aprendem fakie flip antes do regular.</li><li><strong>Nollie:</strong> o flick do pé menos-treinado precisa de muita repetição parada antes de tentar em movimento.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé da frente mais diagonal que no ollie — 45° apontando pro parafuso"
+                },
+                {
+                    "category": "reframe",
+                    "text": "O flick é pra fora e pra cima — não é chute lateral"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa que você tá tirando o pé do shape rápido — o shape flipa porque você saiu dele"
+                },
+                {
+                    "category": "ritmo",
+                    "text": "Pop + flick quase simultâneos, mas o pop vem 0.1s antes"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se não completa o flip, você tá chutando reto — tem que ir diagonal pra fora"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se o shape fica flipando no ar sem parar, você pulou alto demais sem catch"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Kickflip parado com o shape numa grama — sem medo, só o gesto 30x"
+                }
+            ]
         },
         {
             "id": "bs-noseslide",
             "name": "BS Noseslide",
             "category": "slides",
             "difficulty": 2,
-            "prerequisites": ["ollie"],
-            "tags": ["slide", "backside", "obstáculo"],
+            "prerequisites": [
+                "ollie"
+            ],
+            "tags": [
+                "slide",
+                "backside",
+                "obstáculo"
+            ],
             "tips": "<h2>Backside Noseslide</h2><p>BS Noseslide é onde o skate de rua começa pra muita gente. É a primeira manobra que te ensina a ler um obstáculo, escolher a linha de ataque e confiar no deslize.</p><h3>Biomecânica</h3><p>Aproximação em paralelo ao obstáculo, cerca de 30-45° de ataque. Ollie para subir + rotação leve de BS 90° para posicionar o nose em cima do obstáculo. <mark>O peso fica 70% no nose, 30% no tail</mark> — senão o shape escapa pra trás.</p><p>A saída é uma rotação de volta ao regular — FS 90° reversa.</p><h3>Viradas de chave</h3><ul><li><strong>Olha o final do obstáculo.</strong> Não olhe onde vai subir — olhe onde vai sair. Seu corpo mira onde os olhos miram.</li><li><strong>Peso no calcanhar.</strong> O equilíbrio do slide vem do calcanhar do pé dianteiro. Dedão relaxado.</li><li><strong>Quadril alinhado com o obstáculo.</strong> Se o quadril desalinhar, o shape gira.</li><li><strong>Saída: olha pra fora do obstáculo antes de sair.</strong> Isso pré-ativa a rotação de saída.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Nose cai pro lado do obstáculo</td><td>Peso muito pra frente</td><td>Redistribui: 60/40, não 80/20</td></tr><tr><td>Shape escapa e você cai pra trás</td><td>Peso no tail</td><td>70% no nose obrigatório</td></tr><tr><td>Não desliza — para</td><td>Aproximação muito perpendicular</td><td>30-45° de ataque, não 90°</td></tr><tr><td>Sai de costas pro obstáculo</td><td>Não pré-ativou rotação de saída</td><td>Olha pra saída no meio do slide</td></tr></tbody></table><h3>Progressão</h3><ol><li>Ollie em cima de curb baixinho (sem deslizar).</li><li>Noseslide parado em meio-fio, só para sentir o peso.</li><li>Deslize curto (15cm) em velocidade baixa.</li><li>Deslize completo em curb maior.</li><li>Saída limpa rolando regular.</li></ol>",
-            "tipsFakie": "<h2>Fakie/Nollie Noseslide</h2><p>Fakie noseslide é extremamente confortável depois que você tem o BS regular — o movimento é a favor do momentum. <strong>Saída é em regular, então o pouso é natural.</strong></p><p>Nollie noseslide é uma das manobras mais estilosas do skate. Sobe no obstáculo com nollie, desliza no nose, sai em switch. Requer nollie consistente.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> quase não precisa de rotação de subida — o shape já entra quase paralelo.</li><li><strong>Nollie:</strong> o nollie precisa ter altura suficiente pra posicionar o nose limpo em cima. Altura é a chave.</li></ul>"
+            "tipsFakie": "<h2>Fakie/Nollie Noseslide</h2><p>Fakie noseslide é extremamente confortável depois que você tem o BS regular — o movimento é a favor do momentum. <strong>Saída é em regular, então o pouso é natural.</strong></p><p>Nollie noseslide é uma das manobras mais estilosas do skate. Sobe no obstáculo com nollie, desliza no nose, sai em switch. Requer nollie consistente.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> quase não precisa de rotação de subida — o shape já entra quase paralelo.</li><li><strong>Nollie:</strong> o nollie precisa ter altura suficiente pra posicionar o nose limpo em cima. Altura é a chave.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Joga o pé da frente MAIS PRA TUA FRENTE quando cai na borda — não pro lado da borda. Isso muda tudo"
+                },
+                {
+                    "category": "pe",
+                    "text": "Pé da frente centralizado no nose, não torto — se torce, sai deslizando errado"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não é 'deslizar na borda' — é 'pousar 90° em cima dela com o nose'"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa só no pouso — o deslize é automático se pousou certo"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se sai deslizando pro lado, seu ombro da frente rodou demais — ombros paralelos à borda"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se o nose não trava na borda, tua altura foi insuficiente — pop mais alto"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Pratica parado numa meia-guia baixa — só a posição, sem deslizar"
+                }
+            ]
         },
         {
             "id": "50-50",
             "name": "50-50 Grind",
             "category": "grinds",
             "difficulty": 2,
-            "prerequisites": ["ollie"],
-            "tags": ["grind", "trucks", "fundamental"],
+            "prerequisites": [
+                "ollie"
+            ],
+            "tags": [
+                "grind",
+                "trucks",
+                "fundamental"
+            ],
             "tips": "<h2>50-50 Grind</h2><p>Primeiro grind que todo skatista aprende. Os dois trucks sobem e deslizam em cima do obstáculo. <strong>É o grind mais estável</strong> porque tem dupla referência — os dois eixos se apoiam.</p><h3>Biomecânica</h3><p>Aproximação em paralelo ao obstáculo, 20-30° de ataque. Ollie que posiciona <mark>o shape inteiro em cima do obstáculo, não só parte dele</mark>. Peso centralizado, ombros alinhados com o obstáculo.</p><p>O som é a referência: um 50-50 limpo faz barulho contínuo dos dois trucks raspando. Se o som é \"ti-ti-ti\", você está com só um truck.</p><h3>Viradas de chave</h3><ul><li><strong>Sobe com o shape INTEIRO.</strong> Não é \"ollie pro nose\", é \"ollie pro meio do shape sobre o obstáculo\".</li><li><strong>Olha o final.</strong> Como no noseslide — olha a saída.</li><li><strong>Joelhos flexionados no grind.</strong> Perna rígida faz o shape vibrar. Joelho macio absorve.</li><li><strong>Saída: ollie leve.</strong> Não precisa pular alto — só destravar os trucks.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Só um truck trava</td><td>Ollie inclinou o shape</td><td>Pop reto, shape plano em cima</td></tr><tr><td>Para no meio do grind</td><td>Velocidade baixa ou peso atrás</td><td>Mais velocidade, peso no centro</td></tr><tr><td>Cai pra frente na saída</td><td>Sem ollie de saída</td><td>Pop leve pra destravar</td></tr><tr><td>Sai cortado</td><td>Quadril desalinhou</td><td>Mantém ombros paralelos ao obstáculo</td></tr></tbody></table><h3>Progressão</h3><ol><li>Ollie em cima de curb baixo, sem deslizar.</li><li>50-50 parado em curb (pular em cima e parar).</li><li>50-50 em velocidade baixa, deslize curto.</li><li>Distâncias progressivas.</li><li>Em corrimão (só depois de muita curb).</li></ol><blockquote>O 50-50 é a matemática básica dos grinds. Dominar ele não te faz avançado — não dominar ele trava todos os outros.</blockquote>",
-            "tipsFakie": "<h2>Fakie / Nollie 50-50</h2><p>Fakie 50-50 é surpreendentemente natural — o shape inteiro desliza no obstáculo, o momentum ajuda na subida. <mark>Saída pode ser fakie (mais fácil) ou meio-cab out (mais estiloso).</mark></p><p>Nollie 50-50 exige um nollie preciso e o pouso em switch após o grind. É o 50-50 mais técnico.</p>"
+            "tipsFakie": "<h2>Fakie / Nollie 50-50</h2><p>Fakie 50-50 é surpreendentemente natural — o shape inteiro desliza no obstáculo, o momentum ajuda na subida. <mark>Saída pode ser fakie (mais fácil) ou meio-cab out (mais estiloso).</mark></p><p>Nollie 50-50 exige um nollie preciso e o pouso em switch após o grind. É o 50-50 mais técnico.</p>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Peso 60% no pé de trás, 40% no da frente — a maioria erra distribuindo igual"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não é 'grindar' — é ollie onde você pousa com os 2 trucks na borda ao mesmo tempo"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa só no pouso paralelo — 2 trucks baterem juntos é o segredo"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se o shape sai do grind pro lado, seu pop foi torto — pop mais limpo"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se só um truck engrena, você aterrissou em ângulo — ombros paralelos à borda"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Pratica em caixa bem baixa — menos medo, mais reps pra calibrar o pouso"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Olha pra onde vai SAIR, não pra onde vai entrar — corpo se prepara pro exit"
+                }
+            ]
         },
         {
             "id": "manual",
             "name": "Manual",
             "category": "manuals",
             "difficulty": 2,
-            "prerequisites": ["ollie"],
-            "tags": ["equilíbrio", "controle", "tail"],
+            "prerequisites": [
+                "ollie"
+            ],
+            "tags": [
+                "equilíbrio",
+                "controle",
+                "tail"
+            ],
             "tips": "<h2>Manual (Tail Manual)</h2><p>Manual é equilíbrio puro em dois rodas traseiras. Parece simples — é diabolicamente difícil de manter por mais de 3 segundos.</p><h3>Biomecânica</h3><p>O ponto de equilíbrio não é o seu corpo — é o <strong>eixo dos trucks traseiros</strong>. Todo o controle vem de micro-ajustes dos tornozelos e joelhos. <mark>Tronco permanece quase imóvel</mark>; o que se move são os joelhos e a pressão nos pés.</p><p>O truque mental: você não está equilibrando o shape — você está equilibrando <em>você</em>, e o shape segue.</p><h3>Viradas de chave</h3><ul><li><strong>Olhos no horizonte.</strong> Se olhar pro shape, você cai. Olha pra frente como se estivesse andando normal.</li><li><strong>Micro-ajustes com os joelhos, não com o corpo.</strong> Tronco rígido, joelhos soltos.</li><li><strong>Peso no pé traseiro, mas MÍNIMO.</strong> Pressão suficiente pra levantar o nose, não mais que isso.</li><li><strong>Se sentir que vai cair pra trás: flexiona joelho traseiro.</strong> Se vai cair pra frente: estende.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Nose cai logo no começo</td><td>Pressão insuficiente no tail</td><td>Levanta o nose um pouco mais, mas não exagera</td></tr><tr><td>Shape vira pra trás (tail bate no chão)</td><td>Muita pressão no tail</td><td>Pensa no equilíbrio como um balanço na ponta dos dedos</td></tr><tr><td>Aguenta 1 segundo</td><td>Corpo tenso tentando forçar</td><td>Relaxa. Manual é <em>não</em> fazer nada</td></tr><tr><td>Desvia lateralmente</td><td>Quadril não alinhado</td><td>Quadril quadrado com o movimento</td></tr></tbody></table><h3>Progressão</h3><ol><li>Nose-up parado: levanta o nose no gramado, sente onde é o ponto de equilíbrio.</li><li>Manual em velocidade muito baixa por 1-2 segundos.</li><li>Aumenta duração gradativamente: 3s, 5s, 10s.</li><li>Manual percorrendo distância maior.</li><li>Entrada e saída com ollie.</li></ol>",
-            "tipsFakie": "<h2>Fakie / Nollie Manual</h2><p>Fakie manual é andar de costas equilibrando no tail — mais difícil que o regular porque você não tem visão periférica do que está à sua frente.</p><p>Nose manual é o inverso: equilibra no nose, pé dianteiro pressionando. <mark>Biomecanicamente é mais difícil porque o eixo do nose é mais instável — menos distância até o centro de massa.</mark></p><h3>Viradas de chave</h3><ul><li><strong>Fakie manual:</strong> confia no momentum. Olha onde você veio (ou seja, pra frente do movimento).</li><li><strong>Nose manual:</strong> ajustes são mais sutis. Se você faz os mesmos ajustes que no tail manual, vai cair.</li></ul>"
+            "tipsFakie": "<h2>Fakie / Nollie Manual</h2><p>Fakie manual é andar de costas equilibrando no tail — mais difícil que o regular porque você não tem visão periférica do que está à sua frente.</p><p>Nose manual é o inverso: equilibra no nose, pé dianteiro pressionando. <mark>Biomecanicamente é mais difícil porque o eixo do nose é mais instável — menos distância até o centro de massa.</mark></p><h3>Viradas de chave</h3><ul><li><strong>Fakie manual:</strong> confia no momentum. Olha onde você veio (ou seja, pra frente do movimento).</li><li><strong>Nose manual:</strong> ajustes são mais sutis. Se você faz os mesmos ajustes que no tail manual, vai cair.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé de trás BEM no canto do tail, quase pra fora — leverage máxima"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não é levantar o nose — é sentar no tail. Peso pra trás, não pra cima"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa que tem uma cadeira invisível atrás — você senta nela enquanto rola"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se cai de frente, peso foi pro nose — joga quadril agressivamente pra trás"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se o tail raspa, peso demais atrás — relaxa os joelhos, não trava"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Braços abertos tipo corda bamba — micro-ajustes via braços"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Treina em linha reta mirando numa rachadura — foco fora do shape"
+                }
+            ]
         },
         {
             "id": "fs-boardslide",
             "name": "FS Boardslide",
             "category": "slides",
             "difficulty": 2,
-            "prerequisites": ["ollie", "fs-180"],
-            "tags": ["slide", "frontside", "corrimão"],
+            "prerequisites": [
+                "ollie",
+                "fs-180"
+            ],
+            "tags": [
+                "slide",
+                "frontside",
+                "corrimão"
+            ],
             "tips": "<h2>Frontside Boardslide</h2><p>O boardslide mais comum — corpo fica voltado pro obstáculo durante o deslize, o shape atravessa perpendicular. Primeiro slide de corrimão pra maioria.</p><h3>Biomecânica</h3><p>Aproximação frontal ao obstáculo. Ollie + rotação FS 90° que posiciona o shape perpendicular ao obstáculo. <mark>O ponto de contato é o MEIO do shape</mark>, entre os trucks. Peso centralizado, ombros paralelos ao obstáculo.</p><p>A saída é uma rotação FS de 90° adicional, saindo em fakie — OU rotação reversa voltando em regular.</p><h3>Viradas de chave</h3><ul><li><strong>Peito pro obstáculo.</strong> Posição natural do boardslide — você fica de frente pro corrimão.</li><li><strong>Peso no meio, não nas pontas.</strong> Se desloca pro nose, vira noseslide; pro tail, vira tailslide (mais difícil).</li><li><strong>Olha a saída.</strong> Como em todo slide.</li><li><strong>Medo real: cair no corrimão.</strong> O shape tem que atravessar acima do corrimão, não subir de lado.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape sai pro lado antes de slide</td><td>Rotação não completou 90°</td><td>Pré-rotação dos ombros antes do pop</td></tr><tr><td>Shape vira noseslide</td><td>Peso muito pra frente</td><td>Centraliza o peso entre trucks</td></tr><tr><td>Cai durante o slide</td><td>Peito não alinhado com obstáculo</td><td>Peito quadrado pro corrimão</td></tr></tbody></table><h3>Progressão</h3><ol><li>FS 180 consistente.</li><li>FS boardslide em curb baixo, velocidade baixa.</li><li>Em corrimão de 2-3 degraus.</li><li>Corrimões maiores progressivamente.</li></ol><blockquote>Primeiro boardslide em corrimão muda algo em você. É o momento que seu cérebro aceita que o shape pode deslizar por cima de metal.</blockquote>",
-            "tipsFakie": "<h2>Fakie / Nollie FS Boardslide</h2><p>Menos comum, mas possível. Nollie FS boardslide em corrimão é extremamente técnico.</p>"
+            "tipsFakie": "<h2>Fakie / Nollie FS Boardslide</h2><p>Menos comum, mas possível. Nollie FS boardslide em corrimão é extremamente técnico.</p>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé da frente no meio do shape, entre os parafusos — não adianta pôr no nose"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não é 'atravessar' a borda — é 'pousar em cima dela com o shape cruzado'"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa num FS 90 em cima da borda — metade da rotação, pouso centrado"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se sai fora, seu peso foi pro lado de fora — inclina o tronco por cima da borda"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se rotaciona demais, você continuou girando depois de pousar — trava o corpo no pouso"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Pratica FS 90 no chão primeiro — só a rotação, sem obstáculo"
+                }
+            ]
         }
-    ]
+    ],
+    "bombIdeasGeneric": {
+        "flatground": [
+            {
+                "category": "pe",
+                "text": "Tenta colocar o pé da frente mais pra frente do que você acha certo — quase no nose"
+            },
+            {
+                "category": "pe",
+                "text": "Tenta o pé de trás bem no canto do tail, quase caindo — mais leverage"
+            },
+            {
+                "category": "pe",
+                "text": "Afasta os pés um dedo a mais — stance muito fechado trava o pop"
+            },
+            {
+                "category": "pe",
+                "text": "Pé da frente diagonal 45° em vez de reto — muda totalmente o flick"
+            },
+            {
+                "category": "reframe",
+                "text": "Não pensa na manobra — pensa só em pular reto primeiro, depois o shape faz o resto"
+            },
+            {
+                "category": "reframe",
+                "text": "Pensa que é só um ollie alto — ignora a rotação, ela vem sozinha se o pop tiver bom"
+            },
+            {
+                "category": "reframe",
+                "text": "Imagina que a manobra já aconteceu — você só cai em cima dela"
+            },
+            {
+                "category": "ritmo",
+                "text": "Mais lento. Quase ridiculamente lento. Pop e catch em câmera lenta mental"
+            },
+            {
+                "category": "ritmo",
+                "text": "Conta '1, 2' — 1 pop, 2 catch. Sem pensar em mais nada"
+            },
+            {
+                "category": "ritmo",
+                "text": "Para de pensar antes de pular — executa em 1 segundo depois que decidiu"
+            },
+            {
+                "category": "erro",
+                "text": "Se o shape foge pra longe, seu pé da frente tá raspando pra fora — mira dentro"
+            },
+            {
+                "category": "erro",
+                "text": "Se você cai só com um pé, seu catch é torto — foca em pisar os dois ao mesmo tempo"
+            },
+            {
+                "category": "erro",
+                "text": "Se não sai do chão, você não agachou o suficiente — compressão maior"
+            },
+            {
+                "category": "experimento",
+                "text": "Tenta parado no tapete ou grama — zero medo, só o gesto"
+            },
+            {
+                "category": "experimento",
+                "text": "Filma 10 tentativas de lado e vê em câmera lenta — o erro fica óbvio"
+            },
+            {
+                "category": "experimento",
+                "text": "Tenta de tênis diferente — às vezes o shoe tá roubando feeling"
+            }
+        ],
+        "slides": [
+            {
+                "category": "pe",
+                "text": "Joga o pé da frente mais PRA TUA FRENTE quando cai na borda, não pro lado do obstáculo"
+            },
+            {
+                "category": "pe",
+                "text": "Pé de trás centralizado no tail — não deixa escapar pro lado"
+            },
+            {
+                "category": "pe",
+                "text": "Tenta o pé da frente mais atrás do que você imagina — a borda vem até você"
+            },
+            {
+                "category": "reframe",
+                "text": "Não é 'pular no corrimão' — é 'aterrissar de lado em cima dele'"
+            },
+            {
+                "category": "reframe",
+                "text": "Pensa num ollie comum e só gira os ombros no ar — o resto é consequência"
+            },
+            {
+                "category": "reframe",
+                "text": "Não é slide — é pouso rotacionado. Foca só em cair alinhado"
+            },
+            {
+                "category": "ritmo",
+                "text": "Vai mais devagar na aproximação — você tá chegando com velocidade demais"
+            },
+            {
+                "category": "ritmo",
+                "text": "Conta 3 empurradas antes, sem pensar em quantas precisam, só 3"
+            },
+            {
+                "category": "erro",
+                "text": "Se você cai na borda mas desliza mal, seu peso tá no pé de trás — joga peso na frente"
+            },
+            {
+                "category": "erro",
+                "text": "Se sai batido pra dentro, você rodou demais — gira só 80°, não 90"
+            },
+            {
+                "category": "erro",
+                "text": "Se escapa, a cera do obstáculo tá alta demais ou baixa demais — tenta outro"
+            },
+            {
+                "category": "experimento",
+                "text": "Pratica parado, com o shape atravessado numa meia-guia simulada"
+            },
+            {
+                "category": "experimento",
+                "text": "Faz só a subida, cai e desce — sem tentar deslizar. Só o pouso"
+            },
+            {
+                "category": "experimento",
+                "text": "Tenta num obstáculo mais baixo — meio-fio em vez de guia alta"
+            }
+        ],
+        "grinds": [
+            {
+                "category": "pe",
+                "text": "Pé de trás mais avançado no tail — você precisa de mais trava no truck"
+            },
+            {
+                "category": "pe",
+                "text": "Pé da frente perto do parafuso do nose — ajuda a manter o shape nivelado"
+            },
+            {
+                "category": "pe",
+                "text": "Ambos os pés levemente pra fora (heelside) — pressão no truck certo"
+            },
+            {
+                "category": "reframe",
+                "text": "Não é grind — é ollie onde você pousa no metal em vez de no shape"
+            },
+            {
+                "category": "reframe",
+                "text": "Pensa só em pousar o truck reto em cima — o deslize vem sozinho"
+            },
+            {
+                "category": "reframe",
+                "text": "Esquece que é grind. É só equilíbrio em cima de metal com peso distribuído"
+            },
+            {
+                "category": "ritmo",
+                "text": "Vai mais devagar — você não precisa de velocidade pra grind, precisa de altura"
+            },
+            {
+                "category": "ritmo",
+                "text": "Pop pré-subida: 1 segundo antes do obstáculo, não em cima"
+            },
+            {
+                "category": "erro",
+                "text": "Se o truck sai, seu peso tá pra trás — inclina o tronco por cima do obstáculo"
+            },
+            {
+                "category": "erro",
+                "text": "Se cai pra dentro, pop assimétrico — pop mais limpo, menos torto"
+            },
+            {
+                "category": "erro",
+                "text": "Se o shape não engrena, você tá pulando alto demais — pop mais baixo e preciso"
+            },
+            {
+                "category": "experimento",
+                "text": "Faz só a subida e desce na hora — treina o pouso do truck isolado"
+            },
+            {
+                "category": "experimento",
+                "text": "Pratica em caixa baixa antes de guia — menos medo, mais reps"
+            },
+            {
+                "category": "experimento",
+                "text": "Cera um pouco mais — às vezes o problema é só atrito"
+            }
+        ],
+        "manuals": [
+            {
+                "category": "pe",
+                "text": "Pé de trás bem no cantinho do tail — quase pra fora"
+            },
+            {
+                "category": "pe",
+                "text": "Pé da frente recuado, mais perto do parafuso dianteiro — centro de gravidade melhor"
+            },
+            {
+                "category": "reframe",
+                "text": "Não é levantar o nose — é sentar o tail. Peso pra trás, não pra cima"
+            },
+            {
+                "category": "reframe",
+                "text": "Pensa que você tá sentado num banquinho imaginário atrás"
+            },
+            {
+                "category": "ritmo",
+                "text": "Entra mais devagar — velocidade te desestabiliza"
+            },
+            {
+                "category": "erro",
+                "text": "Se cai de frente, seu peso foi pra frente — joga quadril pra trás"
+            },
+            {
+                "category": "erro",
+                "text": "Se o tail bate, peso demais atrás — relaxa os joelhos"
+            },
+            {
+                "category": "experimento",
+                "text": "Treina em linha no chão — mira numa rachadura pra ir reto"
+            },
+            {
+                "category": "experimento",
+                "text": "Braços abertos tipo corda bamba — ajuda o cérebro a equilibrar"
+            }
+        ],
+        "connected": [
+            {
+                "category": "pe",
+                "text": "Reset mental dos pés entre as manobras — não assume que tão no lugar"
+            },
+            {
+                "category": "reframe",
+                "text": "Não é uma manobra conectada — são duas manobras com 0.5s de intervalo"
+            },
+            {
+                "category": "reframe",
+                "text": "Foca só na primeira — se a primeira sair limpa, a segunda flui"
+            },
+            {
+                "category": "ritmo",
+                "text": "Entre as duas manobras, respira — não seja ansioso na segunda"
+            },
+            {
+                "category": "erro",
+                "text": "Se a segunda sempre falha, você tá se preparando mentalmente tarde demais"
+            },
+            {
+                "category": "experimento",
+                "text": "Treina cada uma isolada de novo, mesmo que já saiba — refresh do fundamento"
+            }
+        ]
+    }
 }
