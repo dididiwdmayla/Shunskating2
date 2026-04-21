@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-    <rect width="512" height="512" fill="#ecd9b3"/>
-    <rect x="22" y="22" width="468" height="468" fill="none" stroke="#0a0a0a" stroke-width="20"/>
-    <rect x="42" y="42" width="468" height="468" fill="none" stroke="#c8201f" stroke-width="10"/>
-    <text x="256" y="288" font-family="Arial Black, Impact, sans-serif" font-size="208" font-weight="900" text-anchor="middle" fill="#0a0a0a" transform="skewX(-8 256 256)">SHUN</text>
-    <text x="256" y="398" font-family="Courier New, monospace" font-size="42" letter-spacing="12" text-anchor="middle" fill="#c8201f">SKATING</text>
-    <text x="460" y="78" font-family="Arial, sans-serif" font-size="42" text-anchor="end" fill="#c8201f">瞬</text>
-</svg>
