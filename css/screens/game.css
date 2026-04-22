@@ -1286,3 +1286,72 @@ body.is-game-overlay-open { overflow: hidden; }
 .game-rps-outcome.is-win  { background: var(--zine-stamp-green); color: var(--zine-paper); }
 .game-rps-outcome.is-loss { background: var(--zine-red); color: var(--zine-paper); }
 .game-rps-outcome.is-draw { background: var(--zine-paper-3); color: var(--zine-black); }
+
+/* =========================================================
+   PASS TURN (tela intermediária quando alguém erra puxando)
+   ========================================================= */
+
+.game-pass-stamp {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 9vw, 3.8rem);
+    color: var(--zine-red);
+    padding: var(--sp-3) var(--sp-5);
+    border: 6px solid var(--zine-red);
+    box-shadow: 5px 5px 0 var(--zine-black);
+    transform: rotate(-6deg);
+    letter-spacing: 0.05em;
+    background: var(--zine-paper);
+    animation: pass-stamp-in 450ms var(--ease-cut);
+}
+
+@keyframes pass-stamp-in {
+    0%   { transform: rotate(-6deg) scale(0); opacity: 0; }
+    60%  { transform: rotate(-6deg) scale(1.2); opacity: 1; }
+    100% { transform: rotate(-6deg) scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .game-pass-stamp { animation: none; }
+}
+
+.game-pass-trick {
+    font-family: var(--font-typewrite);
+    font-size: clamp(0.95rem, 3.3vw, 1.15rem);
+    color: var(--zine-ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: var(--sp-2) 0 0;
+    font-style: italic;
+}
+
+.game-pass-next {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 3.8vw, 1.25rem);
+    color: var(--zine-black);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: var(--sp-3) 0 var(--sp-1);
+    padding: var(--sp-1) var(--sp-3);
+    background: var(--zine-highlight-2);
+    border-left: 4px solid var(--zine-red);
+}
+
+/* ---- Aviso de variação duplicada no picker ---- */
+
+.game-variation-warn {
+    margin: var(--sp-2) 0 0;
+    padding: var(--sp-2) var(--sp-3);
+    background: var(--zine-red);
+    color: var(--zine-paper);
+    font-family: var(--font-typewrite);
+    font-size: 0.82rem;
+    text-align: center;
+    letter-spacing: 0.03em;
+    border: 2px solid var(--zine-black);
+    box-shadow: 2px 2px 0 var(--zine-black);
+    transform: rotate(-1deg);
+}
+
+.game-variation-warn[hidden] {
+    display: none;
+}

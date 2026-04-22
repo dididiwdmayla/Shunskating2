@@ -330,13 +330,46 @@ function startMatch(state, bot) {
         botLetters: [],
         // 'player' ou 'bot': quem é setter atual
         setter: null, // decidido pelo RPS
-        // subfase: 'rps' | 'set-pick' | 'set-attempt' | 'resp-attempt'
+        // subfase: 'rps' | 'set-pick' | 'set-attempt' | 'resp-attempt' | 'pass-turn'
         subphase: 'rps',
         currentTrick: null, // { trick, stance, side }
+        // combos já puxados nesta partida (Set de "trickId|stance|side")
+        // não permite repetir; se esgotar, libera com toast.
+        usedCombos: new Set(),
         log: [],
         startedAt: new Date().toISOString()
     };
     renderMatch(state);
+}
+
+/** Serializa combo pra key. */
+function comboKey({ trick, stance, side }) {
+    return `${trick.id}|${stance || 'regular'}|${side || ''}`;
+}
+
+/** Marca combo como usado após ser puxado com sucesso pelo setter. */
+function markComboUsed(state, trickPick) {
+    state.match.usedCombos.add(comboKey(trickPick));
+}
+
+/** Retorna true se ainda tem pelo menos um combo (trick+stance+side) disponível
+ *  pro jogador no modo atual. Usado pra decidir se bloqueia duplicata ou libera. */
+function hasAnyAvailableCombo(state) {
+    const m = state.match;
+    const tricks = state.data.tricks.tricks.filter(t => m.mode === 'all' || t.category === m.mode);
+    const stances = ['regular', 'switch', 'fakie', 'nollie'];
+    for (const t of tricks) {
+        for (const st of stances) {
+            if (t.hasSides) {
+                for (const sd of ['fs', 'bs']) {
+                    if (!m.usedCombos.has(comboKey({ trick: t, stance: st, side: sd }))) return true;
+                }
+            } else {
+                if (!m.usedCombos.has(comboKey({ trick: t, stance: st, side: undefined }))) return true;
+            }
+        }
+    }
+    return false;
 }
 
 function renderMatch(state) {
@@ -449,6 +482,7 @@ function renderSubphase(state) {
         case 'set-pick':    return renderSetPick(state, central);
         case 'set-attempt': return renderSetAttempt(state, central);
         case 'resp-attempt':return renderRespAttempt(state, central);
+        case 'pass-turn':   return renderPassTurn(state, central);
         case 'between':     return renderBetween(state, central);
     }
 }
@@ -592,8 +626,12 @@ function renderSetPick(state, central) {
         central.appendChild(el('p', { className: 'game-phase-label' }, `${m.bot.name.toUpperCase()} ESTÁ ESCOLHENDO...`));
         central.appendChild(el('div', { className: 'game-thinking' }, '. . .'));
         setTimeout(() => {
-            const pick = botPickTrick(m.bot, state.data.tricks, m.mode);
-            m.currentTrick = pick;
+            const pick = botPickTrick(m.bot, state.data.tricks, m.mode, m.usedCombos);
+            if (pick.exhausted) {
+                addLog(state, 'neutral', 'todas as manobras já foram puxadas · liberado repetir');
+            }
+            // remove exhausted flag antes de usar
+            m.currentTrick = { trick: pick.trick, stance: pick.stance, side: pick.side };
             m.subphase = 'set-attempt';
             renderSubphase(state);
         }, 900);
@@ -643,6 +681,7 @@ function setterResult(state, success) {
     if (success) {
         addLog(state, 'hit', `${who} puxou ${trickLabel}`);
         flashStamp('hit');
+        markComboUsed(state, m.currentTrick);
         // passa pro responder
         m.subphase = 'resp-attempt';
         setTimeout(() => renderSubphase(state), 700);
@@ -650,12 +689,59 @@ function setterResult(state, success) {
         addLog(state, 'miss-setter', `${who} errou puxando ${trickLabel}`);
         flashStamp('miss');
         addLog(state, 'neutral', `passou a vez`);
-        // alterna setter, sem letra
-        m.setter = m.setter === 'player' ? 'bot' : 'player';
-        m.currentTrick = null;
-        m.subphase = 'set-pick';
-        setTimeout(() => renderSubphase(state), 900);
+        // vai pra tela de passagem de turno antes de trocar
+        m.pendingSwitch = {
+            missedBy: m.setter,
+            missedTrick: m.currentTrick,
+            nextSetter: m.setter === 'player' ? 'bot' : 'player'
+        };
+        m.subphase = 'pass-turn';
+        setTimeout(() => renderSubphase(state), 700);
     }
+}
+
+/* ---- Subfase: passagem de turno (alguém errou puxando) ---- */
+
+function renderPassTurn(state, central) {
+    const m = state.match;
+    const { missedBy, missedTrick, nextSetter } = m.pendingSwitch;
+    const whoMissed = missedBy === 'player' ? 'VOCÊ ERROU' : `${m.bot.name.toUpperCase()} ERROU`;
+    const nextLabel = nextSetter === 'player' ? 'AGORA É SUA VEZ DE PUXAR' : `${m.bot.name.toUpperCase()} VAI PUXAR AGORA`;
+    const trickLabel = formatTrickLabel(missedTrick);
+
+    central.appendChild(el('p', { className: 'game-phase-label' }, whoMissed));
+    const stamp = el('div', { className: 'game-pass-stamp' }, 'ERROU');
+    central.appendChild(stamp);
+    central.appendChild(el('p', { className: 'game-pass-trick' }, trickLabel));
+    central.appendChild(el('p', { className: 'game-pass-next' }, nextLabel));
+
+    const continueBtn = el('button', {
+        className: 'game-primary-btn',
+        type: 'button',
+        onClick: () => advanceFromPassTurn(state)
+    }, 'CONTINUAR');
+    central.appendChild(continueBtn);
+
+    // bot-missed: auto-avança em 1.5s (mas jogador pode clicar antes)
+    if (missedBy === 'bot') {
+        m._passTurnTimer = setTimeout(() => {
+            if (m.subphase === 'pass-turn') advanceFromPassTurn(state);
+        }, 1800);
+    }
+}
+
+function advanceFromPassTurn(state) {
+    const m = state.match;
+    if (m._passTurnTimer) {
+        clearTimeout(m._passTurnTimer);
+        m._passTurnTimer = null;
+    }
+    const { nextSetter } = m.pendingSwitch;
+    m.setter = nextSetter;
+    m.currentTrick = null;
+    m.pendingSwitch = null;
+    m.subphase = 'set-pick';
+    renderSubphase(state);
 }
 
 /* ---- Subfase: responder tenta ---- */
@@ -850,8 +936,11 @@ function rollBotAccuracy(bot, trick) {
 
 /** Bot escolhe manobra do pool dele, enviesado pra trick com acc efetiva >= 0.5.
  *  mode filtra o pool pela categoria ('all' = sem filtro).
- *  Retorna { trick, stance, side? }. */
-function botPickTrick(bot, tricksData, mode = 'all') {
+ *  usedCombos: Set de "trickId|stance|side" já puxados — bot evita repetir.
+ *  Retorna { trick, stance, side?, exhausted? } — exhausted=true se teve
+ *  que repetir por falta de opção.
+ */
+function botPickTrick(bot, tricksData, mode = 'all', usedCombos = new Set()) {
     const effectiveIds = filterPoolByMode(bot.pool, mode, tricksData);
     let pool = effectiveIds
         .map(id => tricksData.tricks.find(t => t.id === id))
@@ -865,18 +954,56 @@ function botPickTrick(bot, tricksData, mode = 'all') {
         const t = source[Math.floor(Math.random() * source.length)];
         return { trick: t, stance: 'regular', side: t.hasSides ? 'fs' : undefined };
     }
-    // enviesa pra tricks com acc efetiva >= 0.5: peso 3x; as outras peso 1x
-    const weighted = [];
+
+    // Gera todos os combos (trick × stance × side) possíveis com peso.
+    // Peso = accuracy_efetiva_bias * stance_bias. Side sem bias (50/50).
+    const stances = ['regular', 'switch', 'fakie', 'nollie'];
+    const allCombos = [];
     pool.forEach(t => {
         const diff = t.difficulty || 2;
         const acc = bot.accuracy - (diff - 2) * 0.08;
-        const weight = acc >= 0.5 ? 3 : 1;
-        for (let i = 0; i < weight; i++) weighted.push(t);
+        const trickWeight = acc >= 0.5 ? 3 : 1;
+        stances.forEach(st => {
+            const stW = (bot.stanceBias && bot.stanceBias[st]) || 0;
+            if (stW <= 0) return;
+            if (t.hasSides) {
+                ['fs', 'bs'].forEach(sd => {
+                    allCombos.push({
+                        combo: { trick: t, stance: st, side: sd },
+                        weight: trickWeight * stW
+                    });
+                });
+            } else {
+                allCombos.push({
+                    combo: { trick: t, stance: st, side: undefined },
+                    weight: trickWeight * stW
+                });
+            }
+        });
     });
-    const trick = weighted[Math.floor(Math.random() * weighted.length)];
-    const stance = weightedPick(bot.stanceBias || { regular: 1 });
-    const side = trick.hasSides ? (Math.random() < 0.5 ? 'fs' : 'bs') : undefined;
-    return { trick, stance, side };
+
+    // Filtra combos não usados
+    const available = allCombos.filter(c => !usedCombos.has(comboKey(c.combo)));
+
+    let exhausted = false;
+    let source;
+    if (available.length === 0) {
+        // tudo usado — libera geral, marca flag
+        source = allCombos;
+        exhausted = true;
+    } else {
+        source = available;
+    }
+
+    // Pick ponderado
+    const totalW = source.reduce((s, c) => s + c.weight, 0);
+    let r = Math.random() * totalW;
+    let chosen = source[0];
+    for (const c of source) {
+        r -= c.weight;
+        if (r <= 0) { chosen = c; break; }
+    }
+    return { ...chosen.combo, exhausted };
 }
 
 function weightedPick(bias) {
@@ -987,6 +1114,10 @@ function openVariationPicker(state, trick) {
         card.appendChild(sideRow);
     }
 
+    // aviso de combo já usado
+    const warning = el('p', { className: 'game-variation-warn', hidden: '' }, 'essa variação já foi puxada nessa partida');
+    card.appendChild(warning);
+
     const confirmBtn = el('button', {
         className: 'game-primary-btn',
         type: 'button',
@@ -1018,8 +1149,23 @@ function openVariationPicker(state, trick) {
     function maybeConfirm() {
         const okStance = !!state._pickStance;
         const okSide = !trick.hasSides || !!state._pickSide;
-        if (okStance && okSide) confirmBtn.removeAttribute('disabled');
-        else confirmBtn.setAttribute('disabled', '');
+        if (!okStance || !okSide) {
+            confirmBtn.setAttribute('disabled', '');
+            warning.setAttribute('hidden', '');
+            return;
+        }
+        // checa duplicata (só bloqueia se ainda tem combos disponíveis)
+        const combo = { trick, stance: state._pickStance, side: trick.hasSides ? state._pickSide : undefined };
+        const key = comboKey(combo);
+        const isUsed = state.match.usedCombos.has(key);
+        const hasAvailable = hasAnyAvailableCombo(state);
+        if (isUsed && hasAvailable) {
+            confirmBtn.setAttribute('disabled', '');
+            warning.removeAttribute('hidden');
+        } else {
+            confirmBtn.removeAttribute('disabled');
+            warning.setAttribute('hidden', '');
+        }
     }
 
     overlay.appendChild(card);

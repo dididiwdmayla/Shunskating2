@@ -8,28 +8,8 @@ body {
     line-height: var(--lh-normal);
     color: var(--zine-ink);
     background-color: var(--zine-paper);
-    /* fundo com fibras/manchas de papel velho feito em puro CSS */
-    background-image:
-        /* manchas escuras discretas */
-        radial-gradient(circle at 15% 20%, rgba(138, 114, 70, 0.12) 0%, transparent 20%),
-        radial-gradient(circle at 85% 60%, rgba(138, 114, 70, 0.10) 0%, transparent 25%),
-        radial-gradient(circle at 50% 85%, rgba(90, 70, 45, 0.08) 0%, transparent 30%),
-        /* fibras de papel (linhas finas aleatórias) */
-        repeating-linear-gradient(
-            23deg,
-            transparent 0px,
-            transparent 40px,
-            rgba(90, 70, 45, 0.025) 40px,
-            rgba(90, 70, 45, 0.025) 41px
-        ),
-        repeating-linear-gradient(
-            -17deg,
-            transparent 0px,
-            transparent 55px,
-            rgba(120, 90, 55, 0.02) 55px,
-            rgba(120, 90, 55, 0.02) 56px
-        );
-    background-attachment: fixed;
+    /* textura visual agora vem da imagem global em .grain-overlay
+       (assets/textures/paper-bg.jpg). Fallback é a cor sólida acima. */
     padding-bottom: calc(var(--nav-height) + var(--safe-bottom));
     padding-top: var(--safe-top);
     min-height: 100dvh;
