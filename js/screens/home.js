@@ -156,9 +156,15 @@ function handleLogoClick() {
 
     if (logoClickCount >= 5) {
         logoClickCount = 0;
-        document.body.classList.toggle('edicao-especial');
-        showToast(document.body.classList.contains('edicao-especial') ? 'MODO EDIÇÃO ESPECIAL' : 'EDIÇÃO REGULAR');
+        showEasterEggToast();
     }
+}
+
+function showEasterEggToast() {
+    // toast especial, mais visível e durando mais que o padrão
+    const t = el('div', { className: 'toast toast-easter-egg' }, 'Wihh, guhh, fehh, pehh. ❤️');
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3200);
 }
 
 function showToast(text) {

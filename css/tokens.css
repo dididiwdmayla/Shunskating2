@@ -110,10 +110,9 @@
     }
 }
 
-/* modo "edição especial" (easter egg de polimento final, já preparo a variável) */
+/* modo "edição especial" — placeholder sem efeito visual ativo (o filter
+   invert antigo bugava a paleta inteira). Deixado pra reuso futuro se
+   quisermos algum gimmick visual diferente. */
 .edicao-especial {
-    --zine-paper: #0a0a0a;
-    --zine-ink:   #ecd9b3;
-    --zine-black: #ecd9b3;
-    filter: invert(1) hue-rotate(180deg);
+    /* intencionalmente vazio */
 }

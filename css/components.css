@@ -443,3 +443,29 @@
     box-shadow: var(--shadow-hard-sm);
     animation: cut-paste-in var(--dur-snap) var(--ease-cut) both;
 }
+
+/* variante easter egg: maior, rotacionado mais, fundo papel com borda vermelha */
+.toast.toast-easter-egg {
+    background-color: var(--zine-paper);
+    color: var(--zine-red);
+    border: 4px solid var(--zine-red);
+    box-shadow: 6px 6px 0 var(--zine-black);
+    font-family: var(--font-marker);
+    font-size: clamp(1rem, 4.5vw, 1.4rem);
+    letter-spacing: 0.02em;
+    text-transform: none;
+    padding: var(--sp-4) var(--sp-5);
+    transform: translateX(-50%) rotate(-4deg);
+    bottom: 40%;
+    animation: toast-easter-in 500ms var(--ease-cut) both;
+}
+
+@keyframes toast-easter-in {
+    0%   { transform: translateX(-50%) rotate(-4deg) scale(0); opacity: 0; }
+    60%  { transform: translateX(-50%) rotate(-4deg) scale(1.15); opacity: 1; }
+    100% { transform: translateX(-50%) rotate(-4deg) scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .toast.toast-easter-egg { animation: none; }
+}

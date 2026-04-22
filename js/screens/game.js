@@ -9,10 +9,10 @@
  *   'result' → tela de vitória/derrota
  *
  * Regras:
- *   - Setter escolhe manobra; se acerta, responder tem que fazer igual.
+ *   - Setter escolhe manobra e tenta; se acerta, responder tem que fazer igual.
  *   - Se responder erra, pega letra (S → K → A → T → E).
- *   - Se setter erra, passa a vez; responder vira setter.
- *   - Setter tem no máx 3 tentativas por turno; se estourar, passa a vez.
+ *   - Se setter erra, passa a vez sem penalidade.
+ *   - Setter mantém a vez enquanto o responder acerta.
  *   - Primeiro a completar SKATE perde.
  */
 
@@ -25,7 +25,6 @@ import {
 } from '../storage.js';
 
 const LETTERS = ['S', 'K', 'A', 'T', 'E'];
-const MAX_SETTER_ATTEMPTS = 3;
 
 let tricksData = null;
 let botsData = null;
@@ -46,6 +45,7 @@ async function render(container, params = {}) {
         phase: 'lobby',
         container,
         data,
+        mode: 'all', // 'all' | 'flatground' | 'slides' | 'grinds' | 'manuals'
         // match state (preenchido ao iniciar partida)
         match: null
     };
@@ -69,13 +69,42 @@ function renderLobby(state) {
         el('strong', {}, 'S.K.A.T.E.'), ' primeiro perde.'
     ));
 
+    // Seção: Modo (filtro de categoria)
+    screen.appendChild(el('h2', { className: 'game-section-title' }, 'MODO'));
+    screen.appendChild(el('p', { className: 'game-section-desc' },
+        'escolhe o tipo de partida. filtra as manobras disponíveis pros dois lados.'
+    ));
+    const modeRow = el('div', { className: 'game-mode-row' });
+    const modes = [
+        { id: 'all',        label: 'GERAL' },
+        { id: 'flatground', label: 'FLAT' },
+        { id: 'slides',     label: 'SLIDES' },
+        { id: 'grinds',     label: 'GRINDS' },
+        { id: 'manuals',    label: 'MANUALS' }
+    ];
+    modes.forEach(m => {
+        const btn = el('button', {
+            className: `game-mode-btn${state.mode === m.id ? ' is-active' : ''}`,
+            type: 'button',
+            dataset: { mode: m.id },
+            onClick: () => {
+                state.mode = m.id;
+                modeRow.querySelectorAll('.game-mode-btn').forEach(b => {
+                    b.classList.toggle('is-active', b.dataset.mode === m.id);
+                });
+                // re-render bot grid (pools mudam)
+                const newGrid = buildBotGrid(state);
+                const oldGrid = screen.querySelector('.game-bot-grid');
+                if (oldGrid) oldGrid.replaceWith(newGrid);
+            }
+        }, m.label);
+        modeRow.appendChild(btn);
+    });
+    screen.appendChild(modeRow);
+
     // Seção: Escolher oponente
     screen.appendChild(el('h2', { className: 'game-section-title' }, 'ESCOLHE O OPONENTE'));
-    const botGrid = el('div', { className: 'game-bot-grid' });
-    data.bots.bots.forEach(bot => {
-        botGrid.appendChild(renderBotCard(bot, state));
-    });
-    screen.appendChild(botGrid);
+    screen.appendChild(buildBotGrid(state));
 
     // Seção: Bases
     screen.appendChild(el('h2', { className: 'game-section-title' }, 'BASES'));
@@ -120,6 +149,29 @@ function renderLobby(state) {
     container.appendChild(screen);
 }
 
+function buildBotGrid(state) {
+    const grid = el('div', { className: 'game-bot-grid' });
+    state.data.bots.bots.forEach(bot => {
+        // no modo filtrado, oculta bots cujo pool fique com <2 manobras
+        const effectivePool = filterPoolByMode(bot.pool, state.mode, state.data.tricks);
+        if (effectivePool.length < 2) {
+            grid.appendChild(renderBotCardDisabled(bot, state));
+            return;
+        }
+        grid.appendChild(renderBotCard(bot, state));
+    });
+    return grid;
+}
+
+/** Retorna trickIds do pool filtrados pelo modo (categoria). 'all' não filtra. */
+function filterPoolByMode(poolIds, mode, tricksData) {
+    if (mode === 'all') return poolIds.slice();
+    return poolIds.filter(id => {
+        const t = tricksData.tricks.find(x => x.id === id);
+        return t && t.category === mode;
+    });
+}
+
 function renderBotCard(bot, state) {
     const stats = getBotStats(bot.id);
     const medal = hasMedal(bot.id);
@@ -137,6 +189,20 @@ function renderBotCard(bot, state) {
         el('span', {}, `ACC ${Math.round(bot.accuracy * 100)}%`),
         el('span', {}, `${stats.wins}V · ${stats.losses}D`)
     ));
+    return card;
+}
+
+function renderBotCardDisabled(bot, state) {
+    const card = el('div', {
+        className: `game-bot-card is-disabled`,
+        'aria-disabled': 'true',
+        title: 'este bot não tem manobras suficientes pra esse modo'
+    });
+    card.appendChild(el('div', { className: 'game-bot-header' },
+        el('span', { className: 'game-bot-name' }, bot.name.toUpperCase())
+    ));
+    card.appendChild(el('div', { className: 'game-bot-tagline' }, 'sem pool pra esse modo'));
+    card.appendChild(el('div', { className: 'game-bot-stats' }, el('span', {}, '—')));
     return card;
 }
 
@@ -259,14 +325,14 @@ function startMatch(state, bot) {
     state.phase = 'match';
     state.match = {
         bot,
+        mode: state.mode, // snapshot do modo no momento que inicia
         playerLetters: [],
         botLetters: [],
         // 'player' ou 'bot': quem é setter atual
-        setter: Math.random() < 0.5 ? 'player' : 'bot',
-        // subfase: 'set-pick' | 'set-attempt' | 'resp-attempt' | 'between'
-        subphase: 'coin',
+        setter: null, // decidido pelo RPS
+        // subfase: 'rps' | 'set-pick' | 'set-attempt' | 'resp-attempt'
+        subphase: 'rps',
         currentTrick: null, // { trick, stance, side }
-        setterAttempts: 0,
         log: [],
         startedAt: new Date().toISOString()
     };
@@ -379,7 +445,7 @@ function renderSubphase(state) {
     const m = state.match;
 
     switch (m.subphase) {
-        case 'coin':        return renderCoin(state, central);
+        case 'rps':         return renderRps(state, central);
         case 'set-pick':    return renderSetPick(state, central);
         case 'set-attempt': return renderSetAttempt(state, central);
         case 'resp-attempt':return renderRespAttempt(state, central);
@@ -387,20 +453,124 @@ function renderSubphase(state) {
     }
 }
 
-/* ---- Subfase: coin (quem começa) ---- */
+/* ---- Subfase: RPS (quem começa) ---- */
+/* Pedra-papel-tesoura melhor-de-1: jogador escolhe; bot escolhe random.
+ * Empate = rejoga. Vencedor escolhe quem puxa primeiro:
+ *   simplificação — quem ganhou o RPS É o primeiro setter.
+ */
 
-function renderCoin(state, central) {
-    central.appendChild(el('p', { className: 'game-phase-label' }, 'QUEM COMEÇA?'));
-    const starterLabel = state.match.setter === 'player' ? 'VOCÊ COMEÇA' : `${state.match.bot.name.toUpperCase()} COMEÇA`;
-    central.appendChild(el('div', { className: 'game-coin-result' }, starterLabel));
-    central.appendChild(el('button', {
-        className: 'game-primary-btn',
-        type: 'button',
-        onClick: () => {
-            state.match.subphase = 'set-pick';
-            renderSubphase(state);
+const RPS_CHOICES = ['pedra', 'papel', 'tesoura'];
+const RPS_EMOJI = { pedra: '✊', papel: '✋', tesoura: '✌️' };
+const RPS_BEATS = { pedra: 'tesoura', papel: 'pedra', tesoura: 'papel' };
+
+function renderRps(state, central) {
+    const m = state.match;
+
+    central.appendChild(el('p', { className: 'game-phase-label' }, 'QUEM PUXA PRIMEIRO?'));
+    central.appendChild(el('p', { className: 'game-rps-sub' }, 'pedra, papel ou tesoura · vencedor começa'));
+
+    // área de duelo (vazia inicialmente; preenche ao escolher)
+    const arena = el('div', { className: 'game-rps-arena' });
+    const playerSlot = el('div', { className: 'game-rps-slot' },
+        el('div', { className: 'game-rps-label' }, 'VOCÊ'),
+        el('div', { className: 'game-rps-hand', id: 'rps-hand-player' }, '?')
+    );
+    const vs = el('div', { className: 'game-rps-vs' }, 'VS');
+    const botSlot = el('div', { className: 'game-rps-slot' },
+        el('div', { className: 'game-rps-label' }, m.bot.name.toUpperCase()),
+        el('div', { className: 'game-rps-hand', id: 'rps-hand-bot' }, '?')
+    );
+    arena.appendChild(playerSlot);
+    arena.appendChild(vs);
+    arena.appendChild(botSlot);
+    central.appendChild(arena);
+
+    // botões de escolha
+    const choiceRow = el('div', { className: 'game-rps-choices' });
+    RPS_CHOICES.forEach(c => {
+        const btn = el('button', {
+            className: 'game-rps-btn',
+            type: 'button',
+            dataset: { choice: c },
+            'aria-label': c,
+            onClick: () => playRps(state, central, c, choiceRow)
+        },
+            el('span', { className: 'game-rps-btn-emoji' }, RPS_EMOJI[c]),
+            el('span', { className: 'game-rps-btn-label' }, c.toUpperCase())
+        );
+        choiceRow.appendChild(btn);
+    });
+    central.appendChild(choiceRow);
+
+    // resultado / CTA (revelados no final)
+    const resultBox = el('div', { className: 'game-rps-result', id: 'rps-result' });
+    central.appendChild(resultBox);
+}
+
+function playRps(state, central, playerChoice, choiceRow) {
+    // desabilita choices enquanto roda animação
+    choiceRow.querySelectorAll('.game-rps-btn').forEach(b => b.setAttribute('disabled', ''));
+
+    const playerHand = document.getElementById('rps-hand-player');
+    const botHand = document.getElementById('rps-hand-bot');
+    const resultBox = document.getElementById('rps-result');
+    resultBox.innerHTML = '';
+
+    // anima "contagem" com hand oscilando
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    playerHand.classList.add('is-shaking');
+    botHand.classList.add('is-shaking');
+    const shakeFrames = ['✊', '✋', '✌️'];
+    let frame = 0;
+    const shakeInterval = reduced ? null : setInterval(() => {
+        playerHand.textContent = shakeFrames[frame % 3];
+        botHand.textContent = shakeFrames[(frame + 1) % 3];
+        frame++;
+    }, 120);
+
+    const dur = reduced ? 200 : 900;
+    setTimeout(() => {
+        if (shakeInterval) clearInterval(shakeInterval);
+        playerHand.classList.remove('is-shaking');
+        botHand.classList.remove('is-shaking');
+
+        const botChoice = RPS_CHOICES[Math.floor(Math.random() * 3)];
+        playerHand.textContent = RPS_EMOJI[playerChoice];
+        botHand.textContent = RPS_EMOJI[botChoice];
+
+        // determina resultado
+        let outcome;
+        if (playerChoice === botChoice) outcome = 'draw';
+        else if (RPS_BEATS[playerChoice] === botChoice) outcome = 'player';
+        else outcome = 'bot';
+
+        if (outcome === 'draw') {
+            resultBox.appendChild(el('p', { className: 'game-rps-outcome is-draw' }, 'EMPATE — DE NOVO'));
+            // reabilita choices pra rejogar
+            setTimeout(() => {
+                choiceRow.querySelectorAll('.game-rps-btn').forEach(b => b.removeAttribute('disabled'));
+                playerHand.textContent = '?';
+                botHand.textContent = '?';
+                resultBox.innerHTML = '';
+            }, 900);
+            return;
         }
-    }, 'BORA'));
+
+        const winner = outcome === 'player' ? 'VOCÊ PUXA PRIMEIRO' : `${state.match.bot.name.toUpperCase()} PUXA PRIMEIRO`;
+        state.match.setter = outcome === 'player' ? 'player' : 'bot';
+        resultBox.appendChild(el('p', {
+            className: `game-rps-outcome ${outcome === 'player' ? 'is-win' : 'is-loss'}`
+        }, winner));
+
+        resultBox.appendChild(el('button', {
+            className: 'game-primary-btn',
+            type: 'button',
+            onClick: () => {
+                state.match.subphase = 'set-pick';
+                renderSubphase(state);
+            }
+        }, 'BORA'));
+    }, dur);
 }
 
 /* ---- Subfase: setter escolhe manobra ---- */
@@ -413,6 +583,7 @@ function renderSetPick(state, central) {
         appendTrickPickerGroups(picker, state.data.tricks, {
             filterBases: true,
             highlightBases: true,
+            mode: m.mode,
             onPick: (trick) => openVariationPicker(state, trick)
         });
         central.appendChild(picker);
@@ -421,9 +592,8 @@ function renderSetPick(state, central) {
         central.appendChild(el('p', { className: 'game-phase-label' }, `${m.bot.name.toUpperCase()} ESTÁ ESCOLHENDO...`));
         central.appendChild(el('div', { className: 'game-thinking' }, '. . .'));
         setTimeout(() => {
-            const pick = botPickTrick(m.bot, state.data.tricks);
+            const pick = botPickTrick(m.bot, state.data.tricks, m.mode);
             m.currentTrick = pick;
-            m.setterAttempts = 0;
             m.subphase = 'set-attempt';
             renderSubphase(state);
         }, 900);
@@ -435,10 +605,9 @@ function renderSetPick(state, central) {
 function renderSetAttempt(state, central) {
     const m = state.match;
     const trickLabel = formatTrickLabel(m.currentTrick);
-    const attemptNum = m.setterAttempts + 1;
 
     central.appendChild(el('p', { className: 'game-phase-label' },
-        m.setter === 'player' ? `VOCÊ VAI TENTAR (${attemptNum}/${MAX_SETTER_ATTEMPTS})` : `${m.bot.name.toUpperCase()} VAI TENTAR (${attemptNum}/${MAX_SETTER_ATTEMPTS})`
+        m.setter === 'player' ? 'VOCÊ VAI PUXAR' : `${m.bot.name.toUpperCase()} VAI PUXAR`
     ));
     const stamp = el('div', { className: 'game-trick-stamp game-trick-stamp-setter' }, trickLabel);
     central.appendChild(stamp);
@@ -472,27 +641,20 @@ function setterResult(state, success) {
     const trickLabel = formatTrickLabel(m.currentTrick);
 
     if (success) {
-        addLog(state, 'hit', `${who} acertou ${trickLabel}`);
+        addLog(state, 'hit', `${who} puxou ${trickLabel}`);
         flashStamp('hit');
         // passa pro responder
         m.subphase = 'resp-attempt';
         setTimeout(() => renderSubphase(state), 700);
     } else {
-        m.setterAttempts++;
-        addLog(state, 'miss-setter', `${who} errou ${trickLabel}`);
+        addLog(state, 'miss-setter', `${who} errou puxando ${trickLabel}`);
         flashStamp('miss');
-        if (m.setterAttempts >= MAX_SETTER_ATTEMPTS) {
-            addLog(state, 'neutral', `passou a vez`);
-            // alterna setter, sem letra
-            m.setter = m.setter === 'player' ? 'bot' : 'player';
-            m.currentTrick = null;
-            m.setterAttempts = 0;
-            m.subphase = 'set-pick';
-            setTimeout(() => renderSubphase(state), 700);
-        } else {
-            // renderiza de novo (mesma subfase, mais uma tentativa)
-            setTimeout(() => renderSubphase(state), 700);
-        }
+        addLog(state, 'neutral', `passou a vez`);
+        // alterna setter, sem letra
+        m.setter = m.setter === 'player' ? 'bot' : 'player';
+        m.currentTrick = null;
+        m.subphase = 'set-pick';
+        setTimeout(() => renderSubphase(state), 900);
     }
 }
 
@@ -539,8 +701,8 @@ function responderResult(state, success) {
     if (success) {
         addLog(state, 'hit-resp', `${who} respondeu · ACERTOU ${trickLabel}`);
         flashStamp('hit');
-        // troca setter (responder vira setter na próxima, regra padrão)
-        m.setter = responder;
+        // regra real: setter MANTÉM a vez quando responder acerta.
+        // vai escolher outra manobra na próxima rodada.
     } else {
         // dá letra ao responder
         const letters = responder === 'player' ? m.playerLetters : m.botLetters;
@@ -559,11 +721,9 @@ function responderResult(state, success) {
             }, 900);
             return;
         }
-        // setter mantém (regra real: quem setou continua setando)
-        // nota: aqui optamos pelo padrão: setter mantém após forçar letra
+        // setter mantém a vez (regra real): continua escolhendo.
     }
     m.currentTrick = null;
-    m.setterAttempts = 0;
     m.subphase = 'set-pick';
     setTimeout(() => renderSubphase(state), 900);
 }
@@ -689,14 +849,20 @@ function rollBotAccuracy(bot, trick) {
 }
 
 /** Bot escolhe manobra do pool dele, enviesado pra trick com acc efetiva >= 0.5.
+ *  mode filtra o pool pela categoria ('all' = sem filtro).
  *  Retorna { trick, stance, side? }. */
-function botPickTrick(bot, tricksData) {
-    const pool = bot.pool
+function botPickTrick(bot, tricksData, mode = 'all') {
+    const effectiveIds = filterPoolByMode(bot.pool, mode, tricksData);
+    let pool = effectiveIds
         .map(id => tricksData.tricks.find(t => t.id === id))
         .filter(Boolean);
     if (pool.length === 0) {
-        // fallback: qualquer trick
-        const t = tricksData.tricks[Math.floor(Math.random() * tricksData.tricks.length)];
+        // fallback: qualquer trick da categoria, ou qualquer trick
+        const cand = mode === 'all'
+            ? tricksData.tricks
+            : tricksData.tricks.filter(t => t.category === mode);
+        const source = cand.length > 0 ? cand : tricksData.tricks;
+        const t = source[Math.floor(Math.random() * source.length)];
         return { trick: t, stance: 'regular', side: t.hasSides ? 'fs' : undefined };
     }
     // enviesa pra tricks com acc efetiva >= 0.5: peso 3x; as outras peso 1x
@@ -730,14 +896,18 @@ function weightedPick(bias) {
    ========================================================= */
 
 function appendTrickPickerGroups(container, tricksData, opts) {
-    const { filterBases, highlightBases, onPick } = opts;
+    const { filterBases, highlightBases, onPick, mode = 'all' } = opts;
     const bases = getBases();
 
-    // Primeiro: grupo Bases (se highlightBases e tem pelo menos 1)
+    // função local: aplica filtro de modo
+    const passesMode = (t) => mode === 'all' || t.category === mode;
+
+    // Primeiro: grupo Bases (se highlightBases e tem pelo menos 1 VÁLIDA pro modo)
     if (highlightBases && bases.length > 0) {
         const baseTricks = bases
             .map(id => tricksData.tricks.find(t => t.id === id))
-            .filter(Boolean);
+            .filter(Boolean)
+            .filter(passesMode);
         if (baseTricks.length > 0) {
             container.appendChild(el('div', { className: 'game-picker-cat-label game-picker-cat-bases' }, '★ BASES'));
             const grid = el('div', { className: 'game-picker-grid' });
@@ -746,9 +916,10 @@ function appendTrickPickerGroups(container, tricksData, opts) {
         }
     }
 
-    // Agora: por categoria
+    // Agora: por categoria (respeitando modo)
     const byCategory = {};
     tricksData.tricks.forEach(t => {
+        if (!passesMode(t)) return;
         if (!byCategory[t.category]) byCategory[t.category] = [];
         byCategory[t.category].push(t);
     });
@@ -824,7 +995,6 @@ function openVariationPicker(state, trick) {
             const stance = state._pickStance;
             const side = trick.hasSides ? state._pickSide : undefined;
             state.match.currentTrick = { trick, stance, side };
-            state.match.setterAttempts = 0;
             state.match.subphase = 'set-attempt';
             state._pickStance = null;
             state._pickSide = null;
