@@ -15,7 +15,7 @@
     z-index: var(--z-grain);
     opacity: 0.45;
     mix-blend-mode: multiply;
-    background-image: url("assets/textures/paper-bg.jpg");
+    background-image: url("../assets/textures/paper-bg.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
