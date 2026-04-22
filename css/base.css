@@ -3,8 +3,7 @@
    ========================================================= */
 
 html, body {
-    overscroll-behavior-y: none; /* bloqueia pull-to-refresh + bounce */
-    overscroll-behavior-x: none;
+    overscroll-behavior-y: contain; /* bloqueia pull-to-refresh mas permite scroll interno */
 }
 
 /* previne delay de 300ms e gestos acidentais em elementos clicáveis */
@@ -23,9 +22,6 @@ body {
     padding-bottom: calc(var(--nav-height) + var(--safe-bottom));
     padding-top: var(--safe-top);
     min-height: 100dvh;
-    /* impede iOS de "puxar" a página, evita scroll horizontal acidental */
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
 }
 
 /* ---- HIERARQUIA TIPOGRÁFICA ---- */
