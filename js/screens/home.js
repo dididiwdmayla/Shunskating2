@@ -199,7 +199,7 @@ function crushAndExecute(cardEl, action) {
         cardEl.classList.remove('is-crushing');
         isCrushing = false;
         action();
-    }, 600);
+    }, 500);
 }
 
 /* Tenta carregar um adesivo estaticamente a partir de assets/stickers/.
