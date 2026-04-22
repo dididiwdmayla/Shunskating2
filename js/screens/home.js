@@ -51,13 +51,23 @@ function render(container) {
 
     /* --- SLOTS DE ADESIVO (4 posições: TL, TR, BL, BR) ---
      * Ficam vazios com placeholder 瞬 discreto até você
-     * colocar imagens em assets/stickers/home-{1-4}.* e
-     * descomentar a lógica de carregamento abaixo. */
+     * colocar imagens em assets/stickers/home-{1-4}.*
+     * Tap no adesivo faz ele "cair" (fita se despega, rotação).
+     * Tap de novo devolve pra posição. */
     ['tl', 'tr', 'bl', 'br'].forEach((pos, i) => {
         const slot = el('div', {
             className: `sticker-slot sticker-slot-${pos}`,
-            dataset: { slotIndex: String(i + 1) },
-            'aria-hidden': 'true'
+            dataset: { slotIndex: String(i + 1), pos: pos },
+            role: 'button',
+            tabindex: '0',
+            'aria-label': `Adesivo ${i + 1}`,
+            onClick: () => toggleStickerFall(slot, pos),
+            onKeyDown: (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleStickerFall(slot, pos);
+                }
+            }
         });
         // carrega sticker se existir no disco
         tryLoadSticker(slot, `assets/stickers/home-${i + 1}`);
@@ -113,7 +123,7 @@ function render(container) {
         const card = el('button', {
             className: 'home-card',
             style: { '--i': i },
-            onClick: c.action,
+            onClick: () => crushAndExecute(card, c.action),
             'aria-label': c.title
         },
             el('div', {},
@@ -166,6 +176,32 @@ function showComingSoon(section) {
     showToast(`${labels[section] || section} · EM BREVE`);
 }
 
+/* Animação "amassar" ao clicar num card da home.
+ * 1. Adiciona classe is-crushing (CSS faz o card "amassar" — escala,
+ *    rotacionar, distorcer, e ir murchando).
+ * 2. Depois de ~600ms, executa a action (navegar/toast).
+ * Protege contra duplo-clique. */
+let isCrushing = false;
+function crushAndExecute(cardEl, action) {
+    if (isCrushing) return;
+    isCrushing = true;
+
+    // respeita reduced-motion: executa imediato sem animação
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+        action();
+        isCrushing = false;
+        return;
+    }
+
+    cardEl.classList.add('is-crushing');
+    setTimeout(() => {
+        cardEl.classList.remove('is-crushing');
+        isCrushing = false;
+        action();
+    }, 600);
+}
+
 /* Tenta carregar um adesivo estaticamente a partir de assets/stickers/.
  * Testa várias extensões (png, jpg, webp) e usa a primeira que existir.
  * Se nenhuma existir, o slot fica com o placeholder 瞬 (via CSS :empty).
@@ -191,6 +227,31 @@ function tryLoadSticker(slotEl, basePath) {
         img.src = url;
     }
     tryNext();
+}
+
+/* Ao clicar no adesivo, ele "cai":
+ * - a fita de cima despega (animação separada)
+ * - o adesivo rotaciona bruscamente pra lado aleatório
+ * - desliza pra baixo alguns pixels
+ * Clique novo devolve pra posição. */
+function toggleStickerFall(slotEl, pos) {
+    const isFallen = slotEl.classList.contains('is-fallen');
+    if (isFallen) {
+        // volta — restaura posição
+        slotEl.classList.remove('is-fallen');
+        slotEl.classList.add('is-restoring');
+        setTimeout(() => slotEl.classList.remove('is-restoring'), 500);
+    } else {
+        // cai — direção depende da posição original
+        const fallDir = pos.includes('l') ? 'left' : 'right';
+        slotEl.dataset.fallDir = fallDir;
+        slotEl.classList.add('is-falling');
+        // depois da animação, marca como caído (estado final)
+        setTimeout(() => {
+            slotEl.classList.remove('is-falling');
+            slotEl.classList.add('is-fallen');
+        }, 700);
+    }
 }
 
 export default { render };
