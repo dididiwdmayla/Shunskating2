@@ -6,6 +6,7 @@
     padding: var(--sp-4) var(--sp-4) var(--sp-7);
     max-width: var(--page-max-width);
     margin: 0 auto;
+    position: relative;
 }
 
 /* ---- HEADER ---- */

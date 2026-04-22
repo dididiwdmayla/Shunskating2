@@ -6,6 +6,9 @@
     padding: var(--sp-5) var(--sp-4) var(--sp-7);
     max-width: var(--page-max-width);
     margin: 0 auto;
+    position: relative;
+    /* impede que os slots nos cantos gerem scroll horizontal */
+    overflow-x: clip;
 }
 
 /* ---- MASTHEAD (cabeçalho tipo revista) ---- */

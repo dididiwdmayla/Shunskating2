@@ -48,7 +48,7 @@ async function render(container, params) {
         isFav: getFavorites().includes(trick.id)
     };
 
-    const screen = el('div', { className: 'screen-trick-detail' });
+    const screen = el('div', { className: 'screen-trick-detail paper-crumpled-soft' });
 
     /* --- HEADER --- */
     screen.appendChild(el('div', { className: 'detail-header' },

@@ -32,7 +32,7 @@ async function render(container) {
     const data = await loadTricks();
     container.innerHTML = '';
 
-    const screen = el('div', { className: 'screen-tricks' });
+    const screen = el('div', { className: 'screen-tricks paper-crumpled-soft' });
 
     /* --- HEADER --- */
     screen.appendChild(el('div', { className: 'tricks-header' },

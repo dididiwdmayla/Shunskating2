@@ -47,7 +47,22 @@ function render(container) {
     const quote = pick(QUOTES);
     const { edition, date } = formatEdition();
 
-    const screen = el('div', { className: 'screen-home' });
+    const screen = el('div', { className: 'screen-home paper-crumpled' });
+
+    /* --- SLOTS DE ADESIVO (4 posições: TL, TR, BL, BR) ---
+     * Ficam vazios com placeholder 瞬 discreto até você
+     * colocar imagens em assets/stickers/home-{1-4}.* e
+     * descomentar a lógica de carregamento abaixo. */
+    ['tl', 'tr', 'bl', 'br'].forEach((pos, i) => {
+        const slot = el('div', {
+            className: `sticker-slot sticker-slot-${pos}`,
+            dataset: { slotIndex: String(i + 1) },
+            'aria-hidden': 'true'
+        });
+        // carrega sticker se existir no disco
+        tryLoadSticker(slot, `assets/stickers/home-${i + 1}`);
+        screen.appendChild(slot);
+    });
 
     /* --- MASTHEAD --- */
     const masthead = el('header', { className: 'masthead' },
@@ -149,6 +164,33 @@ function showComingSoon(section) {
         dicas: 'TELA DE DICAS'
     };
     showToast(`${labels[section] || section} · EM BREVE`);
+}
+
+/* Tenta carregar um adesivo estaticamente a partir de assets/stickers/.
+ * Testa várias extensões (png, jpg, webp) e usa a primeira que existir.
+ * Se nenhuma existir, o slot fica com o placeholder 瞬 (via CSS :empty).
+ */
+function tryLoadSticker(slotEl, basePath) {
+    const extensions = ['png', 'webp', 'jpg', 'jpeg'];
+    let idx = 0;
+
+    function tryNext() {
+        if (idx >= extensions.length) return; // nenhuma extensão deu certo
+        const url = `${basePath}.${extensions[idx]}`;
+        const img = new Image();
+        img.onload = () => {
+            const imgEl = document.createElement('img');
+            imgEl.src = url;
+            imgEl.alt = '';
+            slotEl.appendChild(imgEl);
+        };
+        img.onerror = () => {
+            idx++;
+            tryNext();
+        };
+        img.src = url;
+    }
+    tryNext();
 }
 
 export default { render };
