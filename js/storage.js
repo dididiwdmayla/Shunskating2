@@ -14,8 +14,14 @@ export const STORAGE_KEYS = {
     settings:   `${STORAGE_VERSION}.settings`,    // { audioEnabled, reducedMotion, ... }
     bombUseful: `${STORAGE_VERSION}.bombUseful`, // { [trickId]: [ideaText, ...] }
     links:      `${STORAGE_VERSION}.links`,      // { [`${trickId}|${stance}[|${side}]`]: [{ url, title, addedAt }] }
-    goals:      `${STORAGE_VERSION}.goals`       // [ { id, type, createdAt, expiresAt, trickIds, completed, note } ]
+    goals:      `${STORAGE_VERSION}.goals`,      // [ { id, type, createdAt, expiresAt, trickIds, completed, note } ]
+    bases:      `${STORAGE_VERSION}.bases`,      // [trickId, ...] — manobras estratégicas pro Game
+    matches:    `${STORAGE_VERSION}.matches`,    // [ { id, botId, result, playerLetters, botLetters, startedAt, endedAt, log } ]
+    medals:     `${STORAGE_VERSION}.medals`      // [botId, ...] — bots que o jogador venceu pelo menos uma vez
 };
+
+const MATCHES_CAP = 50;
+const BASES_CAP = 10;
 
 /**
  * Lê e parseia chave do storage.
@@ -361,4 +367,75 @@ export function purgeOldGoals(maxDaysAfterExpiry = 14) {
         return exp >= cutoff; // mantém ativas + as expiradas recentes
     });
     set(STORAGE_KEYS.goals, all);
+}
+
+/* ---------- Bases (favoritas estratégicas pro Game) ---------- */
+
+export function getBases() {
+    return get(STORAGE_KEYS.bases, []);
+}
+
+/** Alterna uma base. Respeita cap. Retorna { list, changed, atCap }. */
+export function toggleBase(trickId) {
+    const bases = getBases();
+    const idx = bases.indexOf(trickId);
+    if (idx !== -1) {
+        bases.splice(idx, 1);
+        set(STORAGE_KEYS.bases, bases);
+        return { list: bases, changed: true, atCap: false };
+    }
+    if (bases.length >= BASES_CAP) {
+        return { list: bases, changed: false, atCap: true };
+    }
+    bases.push(trickId);
+    set(STORAGE_KEYS.bases, bases);
+    return { list: bases, changed: true, atCap: false };
+}
+
+export function isBase(trickId) {
+    return getBases().includes(trickId);
+}
+
+/* ---------- Histórico de partidas ---------- */
+
+export function getMatchHistory() {
+    return get(STORAGE_KEYS.matches, []);
+}
+
+/** Salva uma partida; mantém só as últimas MATCHES_CAP (FIFO). */
+export function saveMatch(match) {
+    const all = getMatchHistory();
+    all.unshift(match);
+    if (all.length > MATCHES_CAP) all.length = MATCHES_CAP;
+    set(STORAGE_KEYS.matches, all);
+}
+
+/** Estatísticas contra um bot específico: { wins, losses }. */
+export function getBotStats(botId) {
+    const all = getMatchHistory().filter(m => m.botId === botId);
+    let wins = 0, losses = 0;
+    for (const m of all) {
+        if (m.result === 'win') wins++;
+        else if (m.result === 'loss') losses++;
+    }
+    return { wins, losses };
+}
+
+/* ---------- Medalhas ---------- */
+
+export function getMedals() {
+    return get(STORAGE_KEYS.medals, []);
+}
+
+/** Adiciona medalha de vitória contra bot (idempotente). Retorna true se é primeira. */
+export function grantMedal(botId) {
+    const medals = getMedals();
+    if (medals.includes(botId)) return false;
+    medals.push(botId);
+    set(STORAGE_KEYS.medals, medals);
+    return true;
+}
+
+export function hasMedal(botId) {
+    return getMedals().includes(botId);
 }

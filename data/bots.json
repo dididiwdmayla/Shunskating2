@@ -1,0 +1,46 @@
+{
+    "version": "1.0",
+    "updated": "2026-04-22",
+    "bots": [
+        {
+            "id": "rookie",
+            "name": "Rookie",
+            "tagline": "aprendendo a pushar",
+            "accuracy": 0.45,
+            "stanceBias": { "regular": 0.95, "switch": 0.05, "fakie": 0, "nollie": 0 },
+            "pool": ["ollie", "shove-it", "fs-180", "bs-180", "manual"]
+        },
+        {
+            "id": "tecnico",
+            "name": "Técnico",
+            "tagline": "flatground com cirurgia",
+            "accuracy": 0.70,
+            "stanceBias": { "regular": 0.60, "switch": 0.25, "fakie": 0.10, "nollie": 0.05 },
+            "pool": ["ollie", "shove-it", "fs-180", "bs-180", "kickflip", "tre-flip", "manual"]
+        },
+        {
+            "id": "durao",
+            "name": "Durão",
+            "tagline": "só desce no ferro",
+            "accuracy": 0.65,
+            "stanceBias": { "regular": 0.75, "switch": 0.20, "fakie": 0.05, "nollie": 0 },
+            "pool": ["ollie", "noseslide", "boardslide", "50-50", "fs-180", "bs-180"]
+        },
+        {
+            "id": "estiloso",
+            "name": "Estiloso",
+            "tagline": "estilo mata habilidade",
+            "accuracy": 0.60,
+            "stanceBias": { "regular": 0.55, "switch": 0.25, "fakie": 0.15, "nollie": 0.05 },
+            "pool": ["ollie", "shove-it", "fs-180", "bs-180", "kickflip", "manual"]
+        },
+        {
+            "id": "lendario",
+            "name": "Lendário",
+            "tagline": "não perde há 12 anos",
+            "accuracy": 0.85,
+            "stanceBias": { "regular": 0.50, "switch": 0.30, "fakie": 0.12, "nollie": 0.08 },
+            "pool": ["ollie", "shove-it", "fs-180", "bs-180", "kickflip", "tre-flip", "noseslide", "boardslide", "noseblunt", "50-50", "manual"]
+        }
+    ]
+}

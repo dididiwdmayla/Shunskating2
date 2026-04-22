@@ -104,7 +104,7 @@ function render(container) {
         {
             title:   'Game',
             stat:    'S.K.A.T.E.',
-            action:  () => showComingSoon('game')
+            action:  () => navigate('game')
         },
         {
             title:   'Metas',
