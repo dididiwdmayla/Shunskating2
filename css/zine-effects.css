@@ -10,16 +10,24 @@
 */
 .grain-overlay {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
     pointer-events: none;
     z-index: var(--z-grain);
     opacity: 0.45;
     mix-blend-mode: multiply;
     background-image: url("../assets/textures/paper-bg.jpg");
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-color: transparent;
+    /* garante que o overlay não participe do scroll do body */
+    will-change: auto;
+    transform: translateZ(0);
 }
 
 /* se imagem não existir, fica só a paper-bg abaixo sem grain ruidoso */

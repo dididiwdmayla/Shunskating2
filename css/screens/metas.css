@@ -428,6 +428,9 @@
 
 body.is-meta-form-open {
     overflow: hidden;
+    position: fixed;
+    width: 100%;
+    touch-action: none;
 }
 
 .meta-form-card {
