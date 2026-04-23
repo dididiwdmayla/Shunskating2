@@ -2,15 +2,6 @@
    BASE · Tipografia e body
    ========================================================= */
 
-html, body {
-    overscroll-behavior-y: contain; /* bloqueia pull-to-refresh mas permite scroll interno */
-}
-
-/* previne delay de 300ms e gestos acidentais em elementos clicáveis */
-button, [role="button"], a, .nav-item, input, textarea, select {
-    touch-action: manipulation;
-}
-
 body {
     font-family: var(--font-mono);
     font-size: var(--fs-body);

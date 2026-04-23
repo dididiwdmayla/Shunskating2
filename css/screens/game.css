@@ -791,12 +791,7 @@
 @keyframes game-overlay-in  { from { opacity: 0; } to { opacity: 1; } }
 @keyframes game-overlay-out { from { opacity: 1; } to { opacity: 0; } }
 
-body.is-game-overlay-open {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-    touch-action: none;
-}
+body.is-game-overlay-open { overflow: hidden; }
 
 .game-overlay-card {
     width: 100%;
