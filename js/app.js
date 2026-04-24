@@ -122,16 +122,21 @@ applySettings();
 start();
 
 /* =========================================================
-   GESTO: SWIPE DA DIREITA PRA ESQUERDA = abrir Skatistas
-   Precisa começar nos últimos 25px da direita pra não
-   conflitar com scroll vertical e outros gestos.
+   GESTO: DOIS SWIPES da direita pra esquerda = abrir Skatistas
+   Precisa de dois swipes em sequência pra não conflitar com
+   o gesto de voltar do Android (que também vem da borda).
+   Edge zone de 40px; janela de 1200ms entre os dois swipes.
    ========================================================= */
 
 (function installSwipeGesture() {
-    const EDGE_ZONE = 25;       // px da direita pra começar
-    const MIN_DX = 80;          // px de movimento horizontal mínimo
-    const MAX_DY = 60;          // vertical tolerado
+    const EDGE_ZONE = 40;       // px da direita pra começar
+    const MIN_DX = 60;          // px de movimento horizontal mínimo
+    const MAX_DY = 80;          // vertical tolerado
+    const MAX_DURATION = 800;   // ms do swipe em si
+    const DOUBLE_WINDOW = 1200; // ms entre dois swipes pra contar como duplo
+
     let tStart = null;
+    let lastSwipeAt = 0;
 
     document.addEventListener('touchstart', (e) => {
         if (!e.touches || e.touches.length !== 1) return;
@@ -149,10 +154,26 @@ start();
         const dy = Math.abs(end.clientY - tStart.y);
         const elapsed = Date.now() - tStart.time;
         tStart = null;
-        if (dx < -MIN_DX && dy < MAX_DY && elapsed < 800) {
-            navigate('skatistas');
+        // swipe válido: esquerda, pequena variação vertical, rápido
+        if (dx < -MIN_DX && dy < MAX_DY && elapsed < MAX_DURATION) {
+            const now = Date.now();
+            if (now - lastSwipeAt < DOUBLE_WINDOW) {
+                lastSwipeAt = 0;
+                navigate('skatistas');
+            } else {
+                lastSwipeAt = now;
+                // feedback visual sutil — mostra que primeiro swipe foi detectado
+                showSwipeFirstFeedback();
+            }
         }
     }, { passive: true });
+
+    function showSwipeFirstFeedback() {
+        // flash curto na borda direita pra indicar "reconheci, faz de novo"
+        const flash = el('div', { className: 'swipe-first-flash' });
+        document.body.appendChild(flash);
+        setTimeout(() => flash.remove(), 600);
+    }
 })();
 
 /* =========================================================
@@ -164,10 +185,12 @@ start();
     // aguarda carregar tela pra não sobrepor splash
     setTimeout(() => {
         const overlay = el('div', { className: 'swipe-hint-overlay' });
-        overlay.appendChild(el('div', { className: 'swipe-hint-arrow' }, '←'));
-        overlay.appendChild(el('h2', { className: 'swipe-hint-title' }, 'ARRASTA DA DIREITA'));
+        overlay.appendChild(el('div', { className: 'swipe-hint-arrow' }, '← ←'));
+        overlay.appendChild(el('h2', { className: 'swipe-hint-title' }, 'ARRASTA 2 VEZES'));
         overlay.appendChild(el('p', { className: 'swipe-hint-text' },
-            'pra abrir a galeria de skatistas que você conheceu. carimba gente, monta crews.'
+            'da borda direita pra esquerda, duas vezes seguidas, pra abrir a galeria de ',
+            el('strong', {}, 'SKATISTAS'),
+            '. duas vezes porque o android usa um swipe só pra voltar.'
         ));
         overlay.appendChild(el('button', {
             className: 'swipe-hint-btn',

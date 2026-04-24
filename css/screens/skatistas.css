@@ -1063,3 +1063,31 @@
     cursor: pointer;
     min-height: 48px;
 }
+
+/* Flash curto na borda direita quando primeiro swipe foi reconhecido */
+.swipe-first-flash {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 6px;
+    background: var(--zine-red);
+    z-index: 9999;
+    pointer-events: none;
+    animation: swipe-first-flash 600ms ease-out forwards;
+}
+
+@keyframes swipe-first-flash {
+    0%   { opacity: 0; transform: translateX(100%); }
+    30%  { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .swipe-first-flash { animation-duration: 200ms; }
+}
+
+/* Estilo especial pra seta dupla do tutorial */
+.swipe-hint-arrow {
+    letter-spacing: 0.15em;
+}
