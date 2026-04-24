@@ -7,9 +7,9 @@ body {
     font-size: var(--fs-body);
     line-height: var(--lh-normal);
     color: var(--zine-ink);
-    background-color: var(--zine-paper);
-    /* textura visual agora vem da imagem global em .grain-overlay
-       (assets/textures/paper-bg.jpg). Fallback é a cor sólida acima. */
+    /* background removido: a imagem de fundo em .grain-overlay (z-index: -1)
+       é visível através do body. se a imagem não carregar, o .grain-overlay
+       tem background-color: var(--zine-paper) como fallback. */
     padding-bottom: calc(var(--nav-height) + var(--safe-bottom));
     padding-top: var(--safe-top);
     min-height: 100dvh;
