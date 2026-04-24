@@ -45,13 +45,20 @@ function seededBytes(seed, count) {
 
 const STAMP_COLORS = [
     '#c8201f', // thrasher red
+    '#e84118', // vermelho vivo
     '#0a0a0a', // preto
     '#2a4d3a', // verde fosco
+    '#1ea84a', // verde vivo
     '#4a3a28', // marrom
     '#7a2a4a', // vinho
+    '#e91e63', // rosa vivo
     '#b85c1f', // laranja queimado
+    '#ff8c1a', // laranja vivo
     '#1f3a6e', // azul marinho
-    '#5a3a7a'  // roxo escuro
+    '#0d9ee5', // azul vivo
+    '#5a3a7a', // roxo escuro
+    '#9c27b0', // roxo vivo
+    '#d4a017'  // amarelo mostarda
 ];
 
 const STAMP_SHAPES = ['circle', 'square', 'hex', 'oval', 'shield', 'diamond'];
@@ -72,9 +79,11 @@ export function stampDataFromId(id) {
     const rotation = ((bytes[2] % 21) - 10);
     const ornament = STAMP_ORNAMENTS[bytes[3] % STAMP_ORNAMENTS.length];
     const texture = STAMP_TEXTURES[bytes[4] % STAMP_TEXTURES.length];
-    // cor de ornamento: fica sempre preto ou branco pra contraste forte
-    const ornamentColor = bytes[5] % 2 === 0 ? '#0a0a0a' : '#fefefe';
-    return { shape, color, rotation, ornament, texture, ornamentColor };
+    // filled = fundo colorido sólido + ornamento em contraste; !filled = borda colorida
+    const filled = (bytes[5] & 1) === 1;
+    // cor da textura de fundo: sempre escura (usada só em variantes não-preenchidas)
+    const ornamentColor = '#0a0a0a';
+    return { shape, color, rotation, ornament, texture, ornamentColor, filled };
 }
 
 /**
@@ -93,7 +102,7 @@ export function stampSvgFromId(id, opts = {}) {
     } = opts;
 
     const data = stampDataFromId(id);
-    const { shape, color, rotation, ornament, texture, ornamentColor } = data;
+    const { shape, color, rotation, ornament, texture, ornamentColor, filled } = data;
 
     // svg viewBox padronizado em 100x100
     const vb = 100;
@@ -103,27 +112,36 @@ export function stampSvgFromId(id, opts = {}) {
     const clipId = `stamp-clip-${hashString(String(id)).toString(16)}`;
     const shapePath = buildShapePath(shape, vb);
 
+    // Em variantes preenchidas, o conteúdo interno usa cor de contraste com o fundo
+    const contrastColor = filled ? pickContrast(color) : color;
+
+    // Cor das linhas/pontos da textura: sempre escura no modo borda; contraste no modo preenchido
+    const textureColor = filled ? contrastColor : ornamentColor;
+    const textureOpacityLines = filled ? 0.35 : 0.25;
+    const textureOpacityLinesD = filled ? 0.30 : 0.22;
+    const textureOpacityDots = filled ? 0.45 : 0.35;
+
     // Textura
     let textureLayer = '';
     if (texture === 'lines-h') {
         textureLayer = `
-            <g clip-path="url(#${clipId})" opacity="0.25">
+            <g clip-path="url(#${clipId})" opacity="${textureOpacityLines}">
                 ${Array.from({ length: 20 }, (_, i) =>
-                    `<line x1="0" y1="${i * 5}" x2="${vb}" y2="${i * 5}" stroke="${ornamentColor}" stroke-width="0.7"/>`
+                    `<line x1="0" y1="${i * 5}" x2="${vb}" y2="${i * 5}" stroke="${textureColor}" stroke-width="0.7"/>`
                 ).join('')}
             </g>`;
     } else if (texture === 'lines-d') {
         textureLayer = `
-            <g clip-path="url(#${clipId})" opacity="0.22">
+            <g clip-path="url(#${clipId})" opacity="${textureOpacityLinesD}">
                 ${Array.from({ length: 30 }, (_, i) =>
-                    `<line x1="${-vb + i * 7}" y1="0" x2="${i * 7}" y2="${vb}" stroke="${ornamentColor}" stroke-width="0.6"/>`
+                    `<line x1="${-vb + i * 7}" y1="0" x2="${i * 7}" y2="${vb}" stroke="${textureColor}" stroke-width="0.6"/>`
                 ).join('')}
             </g>`;
     } else if (texture === 'dots') {
         let dots = '';
         for (let y = 4; y < vb; y += 7) {
             for (let x = 4 + (y % 14 === 0 ? 0 : 3.5); x < vb; x += 7) {
-                dots += `<circle cx="${x}" cy="${y}" r="0.9" fill="${ornamentColor}" opacity="0.35"/>`;
+                dots += `<circle cx="${x}" cy="${y}" r="0.9" fill="${textureColor}" opacity="${textureOpacityDots}"/>`;
             }
         }
         textureLayer = `<g clip-path="url(#${clipId})">${dots}</g>`;
@@ -132,22 +150,34 @@ export function stampSvgFromId(id, opts = {}) {
     // Pontos de "gasto" (manchas aleatórias que simulam carimbo imperfeito)
     const wearSeed = seededBytes(hashString(String(id)) + 13, 20);
     let wearLayer = '';
+    const wearColor = filled ? contrastColor : color;
     for (let i = 0; i < 8; i++) {
         const wx = (wearSeed[i] % 80) + 10;
         const wy = (wearSeed[i + 8] % 80) + 10;
         const wr = (wearSeed[i] % 3) + 0.5;
-        wearLayer += `<circle cx="${wx}" cy="${wy}" r="${wr}" fill="${color}" opacity="0.25"/>`;
+        wearLayer += `<circle cx="${wx}" cy="${wy}" r="${wr}" fill="${wearColor}" opacity="0.2"/>`;
     }
 
     // Label pequeno em cima, se solicitado
     const labelY = shape === 'shield' ? 18 : 22;
     const labelTxt = label ? label.slice(0, 10).toUpperCase() : '';
+    const labelColor = filled ? contrastColor : color;
     const labelElem = withLabel && labelTxt
-        ? `<text x="${center}" y="${labelY}" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="11" fill="${color}" letter-spacing="0.5">${escapeXml(labelTxt)}</text>`
+        ? `<text x="${center}" y="${labelY}" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="11" fill="${labelColor}" letter-spacing="0.5">${escapeXml(labelTxt)}</text>`
         : '';
 
     // Ornamento central (um pouco abaixo do centro se tem label em cima)
     const ornY = withLabel && labelTxt ? center + 8 : center + 4;
+    const ornFillColor = filled ? contrastColor : color;
+
+    // Shape: preenchido (cor sólida) ou só borda
+    const shapeFill = filled ? color : 'none';
+    const shapeStroke = filled ? contrastColor : color;
+    const shapeStrokeWidth = filled ? 2 : 3;
+    const finalShape = shapePath
+        .replace('STROKE', shapeStroke)
+        .replace('FILL', shapeFill)
+        .replace('stroke-width="X"', `stroke-width="${shapeStrokeWidth}"`);
 
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${vb} ${vb}" width="${size}" height="${size}" style="transform: rotate(${rotation}deg); ${faded ? 'filter: saturate(0.7) opacity(0.85);' : ''}">
         <defs>
@@ -156,15 +186,25 @@ export function stampSvgFromId(id, opts = {}) {
             </clipPath>
         </defs>
         <g>
-            ${shapePath.replace('STROKE', color).replace('FILL', 'none').replace('stroke-width="X"', 'stroke-width="3"')}
+            ${finalShape}
             ${textureLayer}
             ${wearLayer}
             ${labelElem}
-            <text x="${center}" y="${ornY}" text-anchor="middle" dominant-baseline="middle" font-family="Anton, Impact, sans-serif" font-size="36" fill="${color}">${escapeXml(ornament)}</text>
+            <text x="${center}" y="${ornY}" text-anchor="middle" dominant-baseline="middle" font-family="Anton, Impact, sans-serif" font-size="36" fill="${ornFillColor}">${escapeXml(ornament)}</text>
         </g>
     </svg>`;
 
     return svg;
+}
+
+/** Dada uma cor hex, escolhe preto ou branco pra contraste via luminância YIQ. */
+function pickContrast(hex) {
+    const h = hex.replace('#', '');
+    const r = parseInt(h.slice(0, 2), 16);
+    const g = parseInt(h.slice(2, 4), 16);
+    const b = parseInt(h.slice(4, 6), 16);
+    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+    return yiq >= 128 ? '#0a0a0a' : '#fefefe';
 }
 
 function buildShapePath(shape, vb) {

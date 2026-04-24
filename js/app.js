@@ -129,8 +129,8 @@ start();
    ========================================================= */
 
 (function installSwipeGesture() {
-    const EDGE_ZONE = 40;       // px da direita pra começar
-    const MIN_DX = 60;          // px de movimento horizontal mínimo
+    const EDGE_FRACTION = 0.5;  // começa a partir da metade direita da tela
+    const MIN_DX = 80;          // px de movimento horizontal mínimo
     const MAX_DY = 80;          // vertical tolerado
     const MAX_DURATION = 800;   // ms do swipe em si
     const DOUBLE_WINDOW = 1200; // ms entre dois swipes pra contar como duplo
@@ -142,7 +142,8 @@ start();
         if (!e.touches || e.touches.length !== 1) return;
         const t = e.touches[0];
         const vw = window.innerWidth;
-        if (t.clientX < vw - EDGE_ZONE) return;
+        // tem que começar na metade direita da tela
+        if (t.clientX < vw * EDGE_FRACTION) return;
         tStart = { x: t.clientX, y: t.clientY, time: Date.now() };
     }, { passive: true });
 
