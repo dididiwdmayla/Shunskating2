@@ -5,7 +5,7 @@
 
 import { registerScreen, navigate, start } from './navigation.js';
 import { el } from './utils.js';
-import { getSettings } from './storage.js';
+import { getSettings, isSwipeHintShown, markSwipeHintShown } from './storage.js';
 
 import home from './screens/home.js';
 import tricks from './screens/tricks.js';
@@ -13,6 +13,7 @@ import trickDetail from './screens/trick-detail.js';
 import metas from './screens/metas.js';
 import dicas from './screens/dicas.js';
 import game from './screens/game.js';
+import skatistas from './screens/skatistas.js';
 
 /* --- registra telas --- */
 registerScreen('home', home);
@@ -21,6 +22,7 @@ registerScreen('trickDetail', trickDetail);
 registerScreen('metas', metas);
 registerScreen('dicas', dicas);
 registerScreen('game', game);
+registerScreen('skatistas', skatistas);
 
 /* --- monta bottom nav --- */
 function buildBottomNav() {
@@ -118,3 +120,72 @@ function applySettings() {
 buildBottomNav();
 applySettings();
 start();
+
+/* =========================================================
+   GESTO: SWIPE DA DIREITA PRA ESQUERDA = abrir Skatistas
+   Precisa começar nos últimos 25px da direita pra não
+   conflitar com scroll vertical e outros gestos.
+   ========================================================= */
+
+(function installSwipeGesture() {
+    const EDGE_ZONE = 25;       // px da direita pra começar
+    const MIN_DX = 80;          // px de movimento horizontal mínimo
+    const MAX_DY = 60;          // vertical tolerado
+    let tStart = null;
+
+    document.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length !== 1) return;
+        const t = e.touches[0];
+        const vw = window.innerWidth;
+        if (t.clientX < vw - EDGE_ZONE) return;
+        tStart = { x: t.clientX, y: t.clientY, time: Date.now() };
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+        if (!tStart) return;
+        const end = (e.changedTouches && e.changedTouches[0]);
+        if (!end) { tStart = null; return; }
+        const dx = end.clientX - tStart.x;
+        const dy = Math.abs(end.clientY - tStart.y);
+        const elapsed = Date.now() - tStart.time;
+        tStart = null;
+        if (dx < -MIN_DX && dy < MAX_DY && elapsed < 800) {
+            navigate('skatistas');
+        }
+    }, { passive: true });
+})();
+
+/* =========================================================
+   TUTORIAL DO GESTO (primeira vez)
+   ========================================================= */
+
+(function showSwipeHintOnce() {
+    if (isSwipeHintShown()) return;
+    // aguarda carregar tela pra não sobrepor splash
+    setTimeout(() => {
+        const overlay = el('div', { className: 'swipe-hint-overlay' });
+        overlay.appendChild(el('div', { className: 'swipe-hint-arrow' }, '←'));
+        overlay.appendChild(el('h2', { className: 'swipe-hint-title' }, 'ARRASTA DA DIREITA'));
+        overlay.appendChild(el('p', { className: 'swipe-hint-text' },
+            'pra abrir a galeria de skatistas que você conheceu. carimba gente, monta crews.'
+        ));
+        overlay.appendChild(el('button', {
+            className: 'swipe-hint-btn',
+            type: 'button',
+            onClick: () => {
+                markSwipeHintShown();
+                overlay.classList.add('is-closing');
+                setTimeout(() => overlay.remove(), 250);
+            }
+        }, 'ENTENDI'));
+        // tap fora também fecha
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                markSwipeHintShown();
+                overlay.classList.add('is-closing');
+                setTimeout(() => overlay.remove(), 250);
+            }
+        });
+        document.body.appendChild(overlay);
+    }, 800);
+})();

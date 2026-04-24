@@ -17,7 +17,12 @@ export const STORAGE_KEYS = {
     goals:      `${STORAGE_VERSION}.goals`,      // [ { id, type, createdAt, expiresAt, trickIds, completed, note } ]
     bases:      `${STORAGE_VERSION}.bases`,      // [trickId, ...] — manobras estratégicas pro Game
     matches:    `${STORAGE_VERSION}.matches`,    // [ { id, botId, result, playerLetters, botLetters, startedAt, endedAt, log } ]
-    medals:     `${STORAGE_VERSION}.medals`      // [botId, ...] — bots que o jogador venceu pelo menos uma vez
+    medals:     `${STORAGE_VERSION}.medals`,     // [botId, ...] — bots que o jogador venceu pelo menos uma vez
+    myIdentity: `${STORAGE_VERSION}.myIdentity`, // { nick, id, created, stance, city, favTrick, favPro }
+    crew:       `${STORAGE_VERSION}.crew`,       // [ { id, nick, stance, city, favTrick, favPro, stampedAt } ]
+    crews:      `${STORAGE_VERSION}.crews`,      // [ { id, name, memberIds: [...], createdAt } ]
+    onboardingSkatistasDone: `${STORAGE_VERSION}.onboardingSkatistasDone`,
+    swipeHintShown:          `${STORAGE_VERSION}.swipeHintShown`
 };
 
 const MATCHES_CAP = 50;
@@ -438,4 +443,98 @@ export function grantMedal(botId) {
 
 export function hasMedal(botId) {
     return getMedals().includes(botId);
+}
+
+/* ---------- Skatistas ---------- */
+
+export function getMyIdentity() {
+    return get(STORAGE_KEYS.myIdentity, null);
+}
+
+export function setMyIdentity(identity) {
+    set(STORAGE_KEYS.myIdentity, identity);
+}
+
+export function getCrew() {
+    return get(STORAGE_KEYS.crew, []);
+}
+
+export function addToCrew(skatista) {
+    const crew = getCrew();
+    // bloqueia duplicata pelo id único
+    if (crew.some(s => s.id === skatista.id)) return false;
+    crew.push({ ...skatista, stampedAt: new Date().toISOString() });
+    set(STORAGE_KEYS.crew, crew);
+    return true;
+}
+
+export function removeFromCrew(skatistaId) {
+    const crew = getCrew().filter(s => s.id !== skatistaId);
+    set(STORAGE_KEYS.crew, crew);
+    // remove também dos grupos
+    const crews = getCrews().map(c => ({
+        ...c,
+        memberIds: c.memberIds.filter(id => id !== skatistaId)
+    }));
+    set(STORAGE_KEYS.crews, crews);
+}
+
+export function getCrews() {
+    return get(STORAGE_KEYS.crews, []);
+}
+
+export function createCrew(name) {
+    const crews = getCrews();
+    const newCrew = {
+        id: 'crew_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+        name: String(name).slice(0, 40),
+        memberIds: [],
+        createdAt: new Date().toISOString()
+    };
+    crews.push(newCrew);
+    set(STORAGE_KEYS.crews, crews);
+    return newCrew;
+}
+
+export function updateCrew(crewId, patch) {
+    const crews = getCrews();
+    const idx = crews.findIndex(c => c.id === crewId);
+    if (idx === -1) return null;
+    crews[idx] = { ...crews[idx], ...patch };
+    set(STORAGE_KEYS.crews, crews);
+    return crews[idx];
+}
+
+export function deleteCrew(crewId) {
+    const crews = getCrews().filter(c => c.id !== crewId);
+    set(STORAGE_KEYS.crews, crews);
+}
+
+export function toggleCrewMember(crewId, skatistaId) {
+    const crews = getCrews();
+    const idx = crews.findIndex(c => c.id === crewId);
+    if (idx === -1) return null;
+    const memberIds = crews[idx].memberIds.slice();
+    const pos = memberIds.indexOf(skatistaId);
+    if (pos === -1) memberIds.push(skatistaId);
+    else memberIds.splice(pos, 1);
+    crews[idx].memberIds = memberIds;
+    set(STORAGE_KEYS.crews, crews);
+    return crews[idx];
+}
+
+export function isOnboardingSkatistasDone() {
+    return get(STORAGE_KEYS.onboardingSkatistasDone, false) === true;
+}
+
+export function markOnboardingSkatistasDone() {
+    set(STORAGE_KEYS.onboardingSkatistasDone, true);
+}
+
+export function isSwipeHintShown() {
+    return get(STORAGE_KEYS.swipeHintShown, false) === true;
+}
+
+export function markSwipeHintShown() {
+    set(STORAGE_KEYS.swipeHintShown, true);
 }
