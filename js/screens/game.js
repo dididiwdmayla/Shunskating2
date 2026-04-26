@@ -30,7 +30,19 @@ let tricksData = null;
 let botsData = null;
 
 async function loadData() {
-    if (!tricksData) tricksData = await fetchJson('data/tricks.json');
+    if (!tricksData) {
+        const [main, gameOnly] = await Promise.all([
+            fetchJson('data/tricks.json'),
+            fetchJson('data/game-tricks.json').catch(() => ({ tricks: [] }))
+        ]);
+        // mescla: prioriza main (catalogadas) sobre game-only por id
+        const ids = new Set(main.tricks.map(t => t.id));
+        const extra = (gameOnly.tricks || []).filter(t => !ids.has(t.id));
+        tricksData = {
+            ...main,
+            tricks: [...main.tricks, ...extra]
+        };
+    }
     if (!botsData) botsData = await fetchJson('data/bots.json');
     return { tricks: tricksData, bots: botsData };
 }
@@ -343,8 +355,9 @@ function startMatch(state, bot) {
 }
 
 /** Serializa combo pra key. */
-function comboKey({ trick, stance, side }) {
-    return `${trick.id}|${stance || 'regular'}|${side || ''}`;
+function comboKey({ trick, stance, side, modifiers }) {
+    const mods = (modifiers || []).slice().sort().join(',');
+    return `${trick.id}|${stance || 'regular'}|${side || ''}|${mods}`;
 }
 
 /** Marca combo como usado após ser puxado com sucesso pelo setter. */
@@ -667,7 +680,7 @@ function renderSetAttempt(state, central) {
     } else {
         // bot rola dado com animação
         animateAttempt(stamp, () => {
-            const success = rollBotAccuracy(m.bot, m.currentTrick.trick);
+            const success = rollBotAccuracy(m.bot, m.currentTrick);
             setterResult(state, success);
         });
     }
@@ -772,7 +785,7 @@ function renderRespAttempt(state, central) {
         central.appendChild(actions);
     } else {
         animateAttempt(stamp, () => {
-            const success = rollBotAccuracy(m.bot, m.currentTrick.trick);
+            const success = rollBotAccuracy(m.bot, m.currentTrick);
             responderResult(state, success);
         });
     }
@@ -925,12 +938,39 @@ function renderResult(state) {
    BOT AI
    ========================================================= */
 
-/** Rola se o bot acerta baseado em accuracy efetiva (ajustada por difficulty). */
-function rollBotAccuracy(bot, trick) {
-    const diff = trick.difficulty || 2;
-    let acc = bot.accuracy - (diff - 2) * 0.08;
-    if (acc < 0.15) acc = 0.15;
-    if (acc > 0.95) acc = 0.95;
+/* Multiplicadores de stance — afetam a dificuldade efetiva da manobra. */
+const STANCE_DIFF_MULT = {
+    regular: 1.0,
+    fakie:   1.3,
+    nollie:  1.7,
+    switch:  1.7
+};
+
+/* Modifiers (variações extras): adicionam pontos de difficulty. */
+const MODIFIER_DIFF_ADD = {
+    'late-shove':   1,
+    'late-flip':    1.5,
+    'body-varial':  1,
+    'ollie-north':  0.5,
+    'ollie-south':  0.5
+};
+
+/** Calcula difficulty efetiva de um pick (com stance + modifiers aplicados). */
+function effectiveDifficulty(pick) {
+    const baseDiff = pick.trick.difficulty || 2;
+    const stanceMult = STANCE_DIFF_MULT[pick.stance] || 1.0;
+    const modAdd = (pick.modifiers || []).reduce((s, m) => s + (MODIFIER_DIFF_ADD[m] || 0), 0);
+    return baseDiff * stanceMult + modAdd;
+}
+
+/** Rola se o bot acerta baseado em accuracy efetiva (ajustada por difficulty efetiva). */
+function rollBotAccuracy(bot, pick) {
+    const diff = effectiveDifficulty(pick);
+    // Curva: cada ponto de difficulty acima de 2 reduz 0.05 de accuracy
+    // (mais branda que antes, pra Lendário continuar formidável)
+    let acc = bot.accuracy - (diff - 2) * 0.05;
+    if (acc < 0.10) acc = 0.10;
+    if (acc > 0.98) acc = 0.98;
     return Math.random() < acc;
 }
 
@@ -956,29 +996,21 @@ function botPickTrick(bot, tricksData, mode = 'all', usedCombos = new Set()) {
     }
 
     // Gera todos os combos (trick × stance × side) possíveis com peso.
-    // Peso = accuracy_efetiva_bias * stance_bias. Side sem bias (50/50).
+    // Bot prefere combos onde sua accuracy efetiva (considerando stance) >= 0.5.
     const stances = ['regular', 'switch', 'fakie', 'nollie'];
     const allCombos = [];
     pool.forEach(t => {
-        const diff = t.difficulty || 2;
-        const acc = bot.accuracy - (diff - 2) * 0.08;
-        const trickWeight = acc >= 0.5 ? 3 : 1;
         stances.forEach(st => {
             const stW = (bot.stanceBias && bot.stanceBias[st]) || 0;
             if (stW <= 0) return;
-            if (t.hasSides) {
-                ['fs', 'bs'].forEach(sd => {
-                    allCombos.push({
-                        combo: { trick: t, stance: st, side: sd },
-                        weight: trickWeight * stW
-                    });
-                });
-            } else {
-                allCombos.push({
-                    combo: { trick: t, stance: st, side: undefined },
-                    weight: trickWeight * stW
-                });
-            }
+            const sides = t.hasSides ? ['fs', 'bs'] : [undefined];
+            sides.forEach(sd => {
+                const combo = { trick: t, stance: st, side: sd };
+                const eDiff = effectiveDifficulty(combo);
+                const acc = bot.accuracy - (eDiff - 2) * 0.05;
+                const trickWeight = acc >= 0.5 ? 3 : 1;
+                allCombos.push({ combo, weight: trickWeight * stW });
+            });
         });
     });
 
@@ -1080,6 +1112,29 @@ function buildTrickChip(trick, onPick, isBaseMark) {
 }
 
 /* Picker de variação (stance + side) — modal compacto */
+/** Determina quais modifiers fazem sentido pra uma trick. */
+function availableModifiersFor(trick) {
+    const mods = [];
+    const cat = trick.category;
+    const id = trick.id;
+    // late-shove e late-flip: só pra flatground com pop (exclui no-comply, boneless, manual)
+    const popFlat = cat === 'flatground' && !['no-comply', 'boneless', 'manual'].includes(id);
+    if (popFlat) {
+        mods.push({ id: 'late-shove', label: 'LATE SHOVE-IT' });
+        mods.push({ id: 'late-flip',  label: 'LATE FLIP' });
+    }
+    // body varial (sex change): qualquer flatground exceto manual
+    if (cat === 'flatground' && id !== 'manual') {
+        mods.push({ id: 'body-varial', label: 'BODY VARIAL' });
+    }
+    // ollie north / south: só ollie e variantes pop sem rotação
+    if (id === 'ollie' || id === 'kickflip' || id === 'heelflip') {
+        mods.push({ id: 'ollie-north', label: 'OLLIE NORTH' });
+        mods.push({ id: 'ollie-south', label: 'OLLIE SOUTH' });
+    }
+    return mods;
+}
+
 function openVariationPicker(state, trick) {
     const overlay = el('div', {
         className: 'game-overlay game-variation-overlay',
@@ -1114,32 +1169,93 @@ function openVariationPicker(state, trick) {
         card.appendChild(sideRow);
     }
 
+    // Modifiers (escondido até clicar "ADICIONAR VARIAÇÃO")
+    const availMods = availableModifiersFor(trick);
+    state._pickModifiers = state._pickModifiers || [];
+    state._pickModifiers = []; // reset ao abrir
+    let modSection = null;
+    if (availMods.length > 0) {
+        modSection = el('div', { className: 'game-modifier-section', hidden: '' });
+        modSection.appendChild(el('p', { className: 'game-modifier-label' }, 'VARIAÇÕES (toggle)'));
+        const modRow = el('div', { className: 'game-variation-row game-modifier-row' });
+        availMods.forEach(m => {
+            modRow.appendChild(el('button', {
+                className: 'game-variation-btn game-modifier-btn',
+                type: 'button',
+                dataset: { mod: m.id },
+                onClick: (e) => {
+                    const btn = e.currentTarget;
+                    const idx = state._pickModifiers.indexOf(m.id);
+                    if (idx === -1) {
+                        state._pickModifiers.push(m.id);
+                        btn.classList.add('is-active');
+                    } else {
+                        state._pickModifiers.splice(idx, 1);
+                        btn.classList.remove('is-active');
+                    }
+                    maybeConfirm();
+                }
+            }, m.label));
+        });
+        modSection.appendChild(modRow);
+        card.appendChild(modSection);
+    }
+
     // aviso de combo já usado
     const warning = el('p', { className: 'game-variation-warn', hidden: '' }, 'essa variação já foi puxada nessa partida');
     card.appendChild(warning);
 
+    // Botões: cancelar | adicionar variação | confirmar (em uma linha)
+    const btnRow = el('div', { className: 'game-variation-btnrow' });
+
+    btnRow.appendChild(el('button', {
+        className: 'game-secondary-btn game-variation-cancel',
+        type: 'button',
+        onClick: () => overlay.remove()
+    }, 'CANCELAR'));
+
+    let addModBtn = null;
+    if (availMods.length > 0) {
+        addModBtn = el('button', {
+            className: 'game-secondary-btn game-variation-addmod',
+            type: 'button',
+            onClick: () => {
+                if (modSection.hasAttribute('hidden')) {
+                    modSection.removeAttribute('hidden');
+                    addModBtn.textContent = 'OCULTAR VARIAÇÕES';
+                } else {
+                    modSection.setAttribute('hidden', '');
+                    addModBtn.textContent = '+ VARIAÇÃO';
+                    // limpa modifiers ao ocultar
+                    state._pickModifiers = [];
+                    modSection.querySelectorAll('.game-modifier-btn').forEach(b => b.classList.remove('is-active'));
+                    maybeConfirm();
+                }
+            }
+        }, '+ VARIAÇÃO');
+        btnRow.appendChild(addModBtn);
+    }
+
     const confirmBtn = el('button', {
-        className: 'game-primary-btn',
+        className: 'game-primary-btn game-variation-confirm',
         type: 'button',
         disabled: '',
         onClick: () => {
             const stance = state._pickStance;
             const side = trick.hasSides ? state._pickSide : undefined;
-            state.match.currentTrick = { trick, stance, side };
+            const modifiers = (state._pickModifiers || []).slice();
+            state.match.currentTrick = { trick, stance, side, modifiers };
             state.match.subphase = 'set-attempt';
             state._pickStance = null;
             state._pickSide = null;
+            state._pickModifiers = [];
             overlay.remove();
             renderSubphase(state);
         }
     }, 'CONFIRMAR');
-    card.appendChild(confirmBtn);
+    btnRow.appendChild(confirmBtn);
 
-    card.appendChild(el('button', {
-        className: 'game-secondary-btn',
-        type: 'button',
-        onClick: () => overlay.remove()
-    }, 'CANCELAR'));
+    card.appendChild(btnRow);
 
     function markActive(row, val, kind) {
         row.querySelectorAll('.game-variation-btn').forEach(b => {
@@ -1154,8 +1270,12 @@ function openVariationPicker(state, trick) {
             warning.setAttribute('hidden', '');
             return;
         }
-        // checa duplicata (só bloqueia se ainda tem combos disponíveis)
-        const combo = { trick, stance: state._pickStance, side: trick.hasSides ? state._pickSide : undefined };
+        const combo = {
+            trick,
+            stance: state._pickStance,
+            side: trick.hasSides ? state._pickSide : undefined,
+            modifiers: state._pickModifiers || []
+        };
         const key = comboKey(combo);
         const isUsed = state.match.usedCombos.has(key);
         const hasAvailable = hasAnyAvailableCombo(state);
@@ -1176,11 +1296,24 @@ function openVariationPicker(state, trick) {
    HELPERS
    ========================================================= */
 
-function formatTrickLabel({ trick, stance, side }) {
+function formatTrickLabel({ trick, stance, side, modifiers }) {
     const parts = [];
     if (stance && stance !== 'regular') parts.push(stanceLabel(stance).toUpperCase());
     if (side) parts.push(side.toUpperCase());
     parts.push(trick.name);
+    if (modifiers && modifiers.length > 0) {
+        const modLabels = modifiers.map(m => {
+            switch (m) {
+                case 'late-shove':  return '+ LATE SHOVE';
+                case 'late-flip':   return '+ LATE FLIP';
+                case 'body-varial': return '+ BODY VARIAL';
+                case 'ollie-north': return '+ OLLIE NORTH';
+                case 'ollie-south': return '+ OLLIE SOUTH';
+                default:            return '+ ' + m.toUpperCase();
+            }
+        });
+        parts.push(modLabels.join(' '));
+    }
     return parts.join(' ');
 }
 

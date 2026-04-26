@@ -1355,3 +1355,75 @@ body.is-game-overlay-open { overflow: hidden; }
 .game-variation-warn[hidden] {
     display: none;
 }
+
+/* =========================================================
+   VARIAÇÃO PICKER — modifiers + nova layout de botões
+   ========================================================= */
+
+.game-modifier-section {
+    margin-top: var(--sp-3);
+    padding-top: var(--sp-2);
+    border-top: 1px dashed var(--zine-ink-faded);
+}
+
+.game-modifier-section[hidden] {
+    display: none;
+}
+
+.game-modifier-label {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--zine-red);
+    margin: 0 0 var(--sp-2);
+    text-transform: uppercase;
+}
+
+.game-modifier-row {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+}
+
+.game-modifier-btn {
+    font-size: 0.7rem !important;
+}
+
+/* Linha dos botões finais: cancelar | + variação | confirmar */
+
+.game-variation-btnrow {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--sp-2);
+    align-items: stretch;
+    margin-top: var(--sp-3);
+}
+
+.game-variation-btnrow .game-secondary-btn,
+.game-variation-btnrow .game-primary-btn {
+    margin: 0;
+}
+
+.game-variation-cancel {
+    padding: var(--sp-2) var(--sp-3);
+}
+
+.game-variation-addmod {
+    padding: var(--sp-2) var(--sp-3);
+    font-size: 0.78rem;
+    color: var(--zine-red);
+    border-color: var(--zine-red);
+    border-style: dashed;
+}
+
+.game-variation-confirm {
+    padding: var(--sp-2) var(--sp-4);
+    min-width: 0;
+}
+
+@media (max-width: 380px) {
+    .game-variation-btnrow {
+        grid-template-columns: 1fr 1fr;
+    }
+    .game-variation-confirm {
+        grid-column: 1 / 3;
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "version": "1.0",
+    "updated": "2026-04-25",
+    "comment": "Manobras adicionais SÓ pro Game of S.K.A.T.E. Não aparecem no catálogo principal. Quando uma manobra daqui for catalogada de verdade em data/tricks.json, deve ser removida daqui pra evitar duplicação.",
+    "tricks": [
+        { "id": "heelflip",         "name": "Heelflip",         "category": "flatground", "difficulty": 3, "hasSides": false },
+        { "id": "varial-kickflip",  "name": "Varial Kickflip",  "category": "flatground", "difficulty": 4, "hasSides": false },
+        { "id": "varial-heelflip",  "name": "Varial Heelflip",  "category": "flatground", "difficulty": 4, "hasSides": false },
+        { "id": "hardflip",         "name": "Hardflip",         "category": "flatground", "difficulty": 4, "hasSides": false },
+        { "id": "inward-heelflip",  "name": "Inward Heelflip",  "category": "flatground", "difficulty": 4, "hasSides": false },
+        { "id": "laser-flip",       "name": "Laser Flip",       "category": "flatground", "difficulty": 5, "hasSides": false },
+        { "id": "double-kickflip",  "name": "Double Kickflip",  "category": "flatground", "difficulty": 5, "hasSides": false },
+        { "id": "fs-flip",          "name": "FS Flip",          "category": "flatground", "difficulty": 4, "hasSides": false },
+        { "id": "bs-flip",          "name": "BS Flip",          "category": "flatground", "difficulty": 4, "hasSides": false },
+        { "id": "bigspin",          "name": "Bigspin",          "category": "flatground", "difficulty": 3, "hasSides": false },
+        { "id": "360-shove-it",     "name": "360 Shove-it",     "category": "flatground", "difficulty": 3, "hasSides": false },
+        { "id": "no-comply",        "name": "No Comply",        "category": "flatground", "difficulty": 3, "hasSides": false },
+        { "id": "boneless",         "name": "Boneless",         "category": "flatground", "difficulty": 2, "hasSides": false },
+        { "id": "lipslide",         "name": "Lipslide",         "category": "slides",     "difficulty": 3, "hasSides": true  },
+        { "id": "tailslide",        "name": "Tailslide",        "category": "slides",     "difficulty": 3, "hasSides": true  },
+        { "id": "5-0-grind",        "name": "5-0 Grind",        "category": "grinds",     "difficulty": 3, "hasSides": true  },
+        { "id": "smith-grind",      "name": "Smith Grind",      "category": "grinds",     "difficulty": 4, "hasSides": true  },
+        { "id": "feeble-grind",     "name": "Feeble Grind",     "category": "grinds",     "difficulty": 4, "hasSides": true  },
+        { "id": "crooked-grind",    "name": "Crooked Grind",    "category": "grinds",     "difficulty": 4, "hasSides": true  },
+        { "id": "nosegrind",        "name": "Nosegrind",        "category": "grinds",     "difficulty": 3, "hasSides": true  }
+    ]
+}
