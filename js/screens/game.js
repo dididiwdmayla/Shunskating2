@@ -948,11 +948,15 @@ const STANCE_DIFF_MULT = {
 
 /* Modifiers (variações extras): adicionam pontos de difficulty. */
 const MODIFIER_DIFF_ADD = {
-    'late-shove':   1,
-    'late-flip':    1.5,
-    'body-varial':  1,
-    'ollie-north':  0.5,
-    'ollie-south':  0.5
+    'late-shove':     1,
+    'late-flip':      1.5,
+    'body-varial':    1,
+    'ollie-north':    0.5,
+    'ollie-south':    0.5,
+    'grab-indy':      1.5,
+    'grab-melon':     2,
+    'grab-mute':      2,
+    'grab-stalefish': 2.5
 };
 
 /** Calcula difficulty efetiva de um pick (com stance + modifiers aplicados). */
@@ -1117,8 +1121,8 @@ function availableModifiersFor(trick) {
     const mods = [];
     const cat = trick.category;
     const id = trick.id;
-    // late-shove e late-flip: só pra flatground com pop (exclui no-comply, boneless, manual)
-    const popFlat = cat === 'flatground' && !['no-comply', 'boneless', 'manual'].includes(id);
+    // late-shove e late-flip: só pra flatground com pop (exclui manual)
+    const popFlat = cat === 'flatground' && id !== 'manual';
     if (popFlat) {
         mods.push({ id: 'late-shove', label: 'LATE SHOVE-IT' });
         mods.push({ id: 'late-flip',  label: 'LATE FLIP' });
@@ -1131,6 +1135,13 @@ function availableModifiersFor(trick) {
     if (id === 'ollie' || id === 'kickflip' || id === 'heelflip') {
         mods.push({ id: 'ollie-north', label: 'OLLIE NORTH' });
         mods.push({ id: 'ollie-south', label: 'OLLIE SOUTH' });
+    }
+    // grab: qualquer flatground com pop (incluindo ollie, flips, shoves)
+    if (popFlat) {
+        mods.push({ id: 'grab-indy',     label: 'INDY GRAB' });
+        mods.push({ id: 'grab-melon',    label: 'MELON GRAB' });
+        mods.push({ id: 'grab-mute',     label: 'MUTE GRAB' });
+        mods.push({ id: 'grab-stalefish','label': 'STALEFISH' });
     }
     return mods;
 }
@@ -1304,12 +1315,16 @@ function formatTrickLabel({ trick, stance, side, modifiers }) {
     if (modifiers && modifiers.length > 0) {
         const modLabels = modifiers.map(m => {
             switch (m) {
-                case 'late-shove':  return '+ LATE SHOVE';
-                case 'late-flip':   return '+ LATE FLIP';
-                case 'body-varial': return '+ BODY VARIAL';
-                case 'ollie-north': return '+ OLLIE NORTH';
-                case 'ollie-south': return '+ OLLIE SOUTH';
-                default:            return '+ ' + m.toUpperCase();
+                case 'late-shove':     return '+ LATE SHOVE';
+                case 'late-flip':      return '+ LATE FLIP';
+                case 'body-varial':    return '+ BODY VARIAL';
+                case 'ollie-north':    return '+ OLLIE NORTH';
+                case 'ollie-south':    return '+ OLLIE SOUTH';
+                case 'grab-indy':      return '+ INDY';
+                case 'grab-melon':     return '+ MELON';
+                case 'grab-mute':      return '+ MUTE';
+                case 'grab-stalefish': return '+ STALEFISH';
+                default:               return '+ ' + m.toUpperCase();
             }
         });
         parts.push(modLabels.join(' '));

@@ -1,6 +1,6 @@
 {
-    "version": "2.1",
-    "updated": "2026-04-21",
+    "version": "2.2",
+    "updated": "2026-04-26",
     "categories": [
         {
             "id": "flatground",
@@ -80,30 +80,71 @@
             "tags": [
                 "rotação",
                 "horizontal",
-                "fundamental"
+                "fundamental",
+                "fs"
             ],
-            "tips": "<h2>BS Shove-it · FS Shove-it</h2><p>O shove-it é sobre a <strong>rotação horizontal do shape</strong> enquanto seu corpo fica estático. É a manobra que ensina a separar os movimentos do shape dos movimentos do corpo — conceito fundamental pra todo flip.</p><h3>Biomecânica</h3><p>Backside shove-it: o tail vai pras suas costas. Frontside shove-it: o tail vem pro seu peito. A rotação vem de um <em>scoop</em> do pé traseiro — não é empurrão reto; é um movimento em arco.</p><p><mark>O scoop do BS é pra trás e pra fora (em direção ao calcanhar do pé traseiro).</mark> No FS, o scoop é pra frente e pra dentro (em direção aos dedos). Essa diferença muda tudo.</p><h3>Viradas de chave</h3><ul><li><strong>Não pule você — deixe o shape rodar.</strong> O erro mais comum é \"pular com o shape\". Pula mínimo. O shape roda sozinho.</li><li><strong>Catch com os dois pés ao mesmo tempo.</strong> Não pise primeiro com um, depois com o outro. Pousa zerado.</li><li><strong>FS Shove é mais assustador que BS.</strong> Porque você não vê pra onde o shape vai. Solução: primeiro olhe pro chão e acompanhe, depois pare de olhar.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape não completa a rotação</td><td>Scoop fraco ou sem arco</td><td>Treina o scoop parado, deixa o shape rodar no ar 5cm</td></tr><tr><td>Shape vai pra longe no ar</td><td>Empurrão reto em vez de scoop</td><td>Scoop é <em>pra cima e pra trás</em>, não pra longe</td></tr><tr><td>Cai de um pé só</td><td>Pulou desigual</td><td>Pula igualmente nos dois pés, catch simultâneo</td></tr><tr><td>Pisa em cima e o shape escapa</td><td>Pousou no meio do shape, não nos parafusos</td><td>Mira os parafusos, não o centro</td></tr></tbody></table><h3>Progressão</h3><ol><li>Scoop parado, sem pular — só ver o shape rodar no chão.</li><li>Scoop com pulinho, catch no ar.</li><li>Em movimento muito lento.</li><li>Velocidade normal.</li></ol>",
-            "tipsFakie": "<h2>Fakie/Nollie Shove-it</h2><p>No <strong>fakie shove</strong>, você está andando de costas; o scoop acontece no pé que antes era o dianteiro. O shape roda mais rápido porque vai \"a favor\" do seu movimento — cuidado pra não sobrerotar.</p><p>No <strong>nollie shove</strong>, o scoop é do pé traseiro (goofy = pé esquerdo) e o shape sai pra frente. <mark>É a versão mais estilosa e a mais difícil pra goofy, porque o pé esquerdo tem menos precisão.</mark></p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> deixa o scoop ser mais suave — o momentum ajuda.</li><li><strong>Nollie:</strong> o scoop do pé traseiro não tem a mesma referência do pé dianteiro do regular. Treina parado até o scoop ficar previsível.</li><li><strong>Catch antecipado:</strong> em ambos, o shape roda mais rápido. Catch vem antes do esperado.</li></ul>",
+            "tips": "<h2>Shove-it (FS Shove-it)</h2><p>Aqui no Brasil a gente chama o <strong>FS shove-it de shove-it</strong>. O BS shove é o <em>varial</em> (manobra separada). Essa nomenclatura se cristalizou nos anos 90 e até hoje se uma pessoa fala \"shove\" pelado, todo mundo entende FS.</p><p>É o shove em que o tail <strong>vem em direção ao seu peito</strong> — você vê o shape girar de frente pra você. Tecnicamente é o mais assustador dos dois shoves porque o tail vem pra cima do seu corpo.</p><h3>Biomecânica</h3><p>Pé traseiro faz um <em>scoop em arco</em> em direção aos dedos do próprio pé — pra frente e pra dentro do skatista. <mark>O movimento é menos um \"chute\" e mais um \"varrer\".</mark> Imagina que você tá pegando uma bola com os dedos do pé e jogando pra frente.</p><p>O pé dianteiro fica neutro: <em>solta o shape</em>. Não pisa, não empurra, não levanta. Só sai do caminho.</p><h3>Viradas de chave</h3><ul><li><strong>Não pule você — deixe o shape rodar.</strong> O erro mais comum é \"pular com o shape\". Pula mínimo. O shape roda sozinho.</li><li><strong>Catch com os dois pés ao mesmo tempo.</strong> Não pisa primeiro com um, depois com o outro. Pousa zerado.</li><li><strong>O FS é mais assustador que o varial.</strong> Você não vê pra onde o shape vai porque ele rola na direção do seu corpo. Truque: primeiro olha o chão entre seus pés, depois deixa de olhar.</li><li><strong>Pé traseiro caindo pra fora.</strong> O scoop é tão completo que seu pé traseiro deve cair quase fora do shape no fim do movimento.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape não completa 180°</td><td>Scoop fraco ou sem arco</td><td>Treina o scoop parado, vê o shape rodar 5cm e cair completo</td></tr><tr><td>Shape voa pra longe</td><td>Empurrão reto em vez de scoop em arco</td><td>Scoop é em <em>arco</em> — pra cima e pra dentro</td></tr><tr><td>Cai de um pé só</td><td>Pulou desigual</td><td>Pula igual nos dois pés, catch simultâneo</td></tr><tr><td>Pisa em cima e o shape escapa</td><td>Pousou no meio do shape, não nos parafusos</td><td>Mira os parafusos, não o centro</td></tr></tbody></table><h3>Progressão</h3><ol><li>Scoop parado, sem pular — só ver o shape rodar no chão.</li><li>Scoop com pulinho, catch no ar.</li><li>Em movimento muito lento.</li><li>Velocidade normal.</li></ol><blockquote>O shove é a manobra que ensina seu cérebro a separar shape e corpo. Depois que isso clica, todo flip fica mais fácil.</blockquote>",
+            "tipsFakie": "<h2>Fakie/Nollie Shove-it</h2><p>No <strong>fakie shove</strong>, você anda de costas e o scoop acontece no pé que antes era o dianteiro. O shape roda mais rápido porque vai \"a favor\" do movimento — cuidado pra não sobrerotar.</p><p>No <strong>nollie shove</strong>, o scoop é do pé traseiro (no nose) e o shape sai pra frente. <mark>É a versão mais estilosa e mais difícil — pé menos treinado fazendo o gesto de precisão.</mark></p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> scoop mais suave — o momentum ajuda.</li><li><strong>Nollie:</strong> o scoop do pé traseiro não tem a mesma referência do pé dianteiro do regular. Treina parado até o gesto ficar previsível.</li><li><strong>Catch antecipado:</strong> em ambos, o shape roda mais rápido. O catch vem antes do esperado.</li></ul>",
             "bombIdeas": [
                 {
                     "category": "pe",
-                    "text": "Pé de trás no canto do tail, quase caindo pra fora"
+                    "text": "Pé de trás bem no canto do tail, ponta do pé caindo pra fora"
                 },
                 {
                     "category": "reframe",
-                    "text": "Não pula — só empurra o shape pra girar. Você fica no lugar"
+                    "text": "Não pula — só varre o shape pra girar. Você levita parado"
                 },
                 {
                     "category": "reframe",
-                    "text": "Pensa que você tá chutando o tail pro lado enquanto o corpo só levita"
+                    "text": "Pensa que você tá pegando uma bola com os dedos do pé e arremessando pra frente"
                 },
                 {
                     "category": "erro",
-                    "text": "Se o shape voa pra longe, você empurrou reto — tem que ser scoop em arco"
+                    "text": "Se o shape voa, você empurrou reto. Scoop é em arco"
                 },
                 {
                     "category": "experimento",
-                    "text": "Treina o scoop parado sem pular — só pra sentir o shape rodando debaixo"
+                    "text": "Scoop parado 30x sem pular — só pra ver o shape rodando debaixo"
+                }
+            ]
+        },
+        {
+            "id": "varial",
+            "name": "Varial",
+            "category": "flatground",
+            "difficulty": 2,
+            "prerequisites": [
+                "ollie"
+            ],
+            "tags": [
+                "rotação",
+                "horizontal",
+                "fundamental",
+                "bs",
+                "varial"
+            ],
+            "tips": "<h2>Varial (BS Shove-it)</h2><p>No Brasil, BS shove-it tem <strong>nome próprio: varial</strong>. \"Varial Flip\" e \"Varial Heelflip\" derivam dessa raiz — são manobras compostas com a rotação do varial mais um flip.</p><p>É o shove em que o tail <strong>vai pras suas costas</strong>. Você não vê o shape rodar — ele some atrás de você e reaparece. Por isso muita gente acha mais fácil que o FS shove apesar dos dois terem a mesma dificuldade técnica: o medo é menor.</p><h3>Biomecânica</h3><p>Pé traseiro faz um <em>scoop em arco</em> em direção ao calcanhar do próprio pé — pra trás e pra fora. <mark>É um movimento de \"chute pra trás\" com a base lateral do pé.</mark> O calcanhar puxa o tail; os dedos só guiam.</p><p>Pé dianteiro neutro como no shove FS — solta o shape, não empurra, não levanta.</p><h3>Viradas de chave</h3><ul><li><strong>Scoop com o calcanhar, não com a sola.</strong> Quem usa a sola inteira empurra reto e o shape voa.</li><li><strong>Não vire os ombros.</strong> Tendência inconsciente: girar os ombros pra acompanhar o shape. Resultado: você cai virado, o shape fica reto.</li><li><strong>Olha pra frente.</strong> Não tente olhar o shape rodar — ele está atrás de você. Catch é por sentido, não por visão.</li><li><strong>Pé traseiro deslizando pra fora.</strong> O scoop completo joga seu pé pra fora do shape, lateral.</li></ul><h3>Diagnóstico de erros</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape rota só 90°</td><td>Scoop curto demais — pé saiu cedo</td><td>Estende o arco do scoop até o pé encostar no chão se possível</td></tr><tr><td>Shape voa pra trás</td><td>Empurrou reto em vez de fazer arco</td><td>Pensa em arco vertical (pra cima e pra trás) em vez de horizontal</td></tr><tr><td>Você roda junto com o shape</td><td>Ombros giraram</td><td>Trava os ombros num ponto fixo — olha pra frente, não pro lado</td></tr><tr><td>Cai com pé virado</td><td>O pé traseiro não voltou pra posição</td><td>Pratica o scoop e a volta do pé na mesma sequência, parado</td></tr></tbody></table><h3>Progressão</h3><ol><li>Scoop parado — vê o shape rodar 180°. Repete 30x.</li><li>Pulinho com scoop, catch no ar.</li><li>Movimento lento, foco em manter ombros retos.</li><li>Velocidade normal.</li></ol><blockquote>Varial é a base mental de várias manobras compostas. Quando o seu varial fica automático, o varial flip fica meio caminho andado.</blockquote>",
+            "tipsFakie": "<h2>Fakie/Nollie Varial</h2><p><strong>Fakie varial</strong> (fakie BS shove): você anda de costas, o scoop acontece no pé dianteiro do movimento. O shape vai pras suas costas no sentido do andar — ou seja, ele \"foge de você\". Sensação muito diferente do varial regular.</p><p><strong>Nollie varial</strong>: scoop do pé traseiro no nose, shape vai pra frente do movimento. Goofy executa com pé esquerdo na frente.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> o medo de ver o shape sumir é o mesmo do FS shove regular — vai com fé. Acompanha pelo som.</li><li><strong>Nollie:</strong> nose precisa estar bem posicionado no pé traseiro. Treina o nollie sem rotação primeiro.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé de trás com o calcanhar no canto traseiro do tail — quase pra fora"
+                },
+                {
+                    "category": "reframe",
+                    "text": "O calcanhar puxa o tail pra trás. Os dedos não fazem nada"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Você fica fixo. O shape some por trás e volta"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se vira junto com o shape, você girou os ombros — congela o tronco"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Faz 10 varials parado só pra confirmar que o shape rota completo sem você precisar pular"
                 }
             ]
         },
@@ -272,6 +313,128 @@
                 {
                     "category": "experimento",
                     "text": "Filma do lado — dá pra ver se o problema é o scoop ou o flick em 1 vídeo"
+                }
+            ]
+        },
+        {
+            "id": "heelflip",
+            "name": "Heelflip",
+            "category": "flatground",
+            "difficulty": 3,
+            "prerequisites": [
+                "ollie",
+                "kickflip"
+            ],
+            "tags": [
+                "flip",
+                "vertical",
+                "fundamental",
+                "heel"
+            ],
+            "tips": "<h2>Heelflip</h2><p>Heelflip é o irmão espelho do kickflip: a mesma rotação vertical do shape, mas <strong>pelo calcanhar</strong> em vez do dedão. Mecanicamente parece simples — \"é o flip pra fora\". Na prática é uma manobra de sensibilidade muito específica, porque seu calcanhar tem menos controle fino que seus dedos.</p><h3>Biomecânica</h3><p>Pé traseiro: snap igual ao do ollie e do kickflip — mesmo pop, mesma força.</p><p>Pé dianteiro: <em>raspa diagonalmente em direção ao canto toeside do nose</em>, mas com o <mark>calcanhar saindo pra fora do shape</mark>. O peso do pé fica todo no calcanhar; os dedos perdem contato com o shape antes do calcanhar perder.</p><p>Visualmente: imagina que você está chutando uma bola lateral baixa com o lado interno do pé. É esse movimento — só que pra fora.</p><h3>Os três grandes erros (e o que fazer)</h3><h4>1. Heelflip baixo</h4><p>Sintoma mais comum no início. O shape flipa, mas mal sai do chão.</p><p><strong>Causa raíz:</strong> o pé dianteiro abandonou o shape <em>antes</em> do snap do pé traseiro estourar. Você focou tanto no chute que esqueceu do pop. Resultado: o shape rola perto do chão sem altura.</p><p><strong>Correção:</strong> volta um passo. Faz só o ollie 5x antes de cada heelflip. Lembra a sequência: <mark>POP primeiro, FLICK depois</mark>. O pop é o que dá altura; o flick só direciona.</p><h4>2. Heelflip foguete</h4><p>Sintoma: o shape sobe nariz primeiro, vai pra cima e cai vertical na sua frente. Quase um \"manual aéreo\".</p><p><strong>Causa raíz:</strong> ombros inclinados pra frente + pé dianteiro empurrando pra cima em vez de pra fora. Você está \"pulando pra frente\" em vez de pular reto.</p><p><strong>Correção:</strong> trava os ombros sobre os parafusos. <em>Não inclina o tronco pra frente.</em> Pratica olhando o shape inteiro debaixo de você antes do pop — se você está vendo só o nose, já se inclinou.</p><h4>3. Não gira inteiro</h4><p>Sintoma: shape rota meia volta e volta sem completar. Você cai com o grip pro lado.</p><p><strong>Causa raíz:</strong> o calcanhar saiu reto pra fora em vez de raspar em diagonal. Faltou \"chute\" — o pé só tirou de cima do shape.</p><p><strong>Correção:</strong> o calcanhar precisa <em>chutar pra fora</em>. Não é só tirar; é varrer em diagonal. Mira no canto toeside do nose com o calcanhar. <mark>Sente o calcanhar passando pelo canto antes de sair.</mark></p><h3>Hack mental — \"1 segundo de x pra y\"</h3><blockquote>Imagina que você tem 1 segundo pra mover seu pé dianteiro de uma posição A pra uma posição B. <em>Não pensa em ser rápido</em> — pensa só em sair de A e chegar em B dentro do segundo. Isso obriga o cérebro a processar a transição como movimento, não como esforço.</blockquote><p>Funciona porque elimina a paralisação do \"tenho que chutar rápido\". Quando você impõe um intervalo (1s, mesmo que falso), o corpo executa de forma fluida.</p><h3>Diagnóstico de erros — referência rápida</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shape baixo</td><td>Flick antes do pop</td><td>Faz ollie 5x, decora a sequência</td></tr><tr><td>Foguete</td><td>Ombros pra frente</td><td>Tronco reto, peso centrado</td></tr><tr><td>Meia volta</td><td>Calcanhar saiu reto</td><td>Diagonal pra fora, mira o canto toeside</td></tr><tr><td>Pousa em ollie (sem flip)</td><td>Pé dianteiro só puxou pra cima</td><td>Calcanhar tem que sair PRA FORA do shape</td></tr><tr><td>Cai com grip pro lado</td><td>Catch precoce</td><td>Espera o shape completar — olha o grip voltar</td></tr></tbody></table><h3>Progressão</h3><ol><li>Kickflip consistente. Heelflip antes do kickflip é tecnicamente possível, mas raríssimo.</li><li>Heelflip parado, gramado, foco só no movimento do calcanhar. 50x.</li><li>Heelflip parado no concreto. 30x.</li><li>Movimento lento. Foco em manter ombros centrados.</li><li>Velocidade normal.</li></ol>",
+            "tipsFakie": "<h2>Fakie / Nollie Heelflip</h2><h3>Fakie Heelflip</h3><p>Andando de costas. Heelflip mais leve que o regular porque o momentum ajuda o flip a fechar — muitos skatistas aprendem o fakie heel antes do regular. <mark>Cuidado: a tendência é flickar muito forte e o shape sobre-rotar.</mark></p><h3>Nollie Heelflip</h3><p>O calcanhar do pé <em>traseiro</em> faz o flick no nose. Pra goofy, isso é o calcanhar do pé esquerdo — geralmente menos preciso. Pra regular, calcanhar direito. <mark>Esse é o motivo do nollie heelflip ter fama de manobra técnica: o pé não-dominante precisa fazer um gesto fino.</mark></p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> flick mais suave, calcanhar quase só raspando. O momentum faz o resto.</li><li><strong>Nollie:</strong> 100x parado antes de tentar em movimento. Não tem atalho.</li><li><strong>Ambos:</strong> o pé que faz o flick agora é o que antes parecia secundário. Aceita que o gesto vai parecer estranho até virar memória muscular.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé da frente um pouco mais atrás que no kickflip — calcanhar bem alinhado com a borda toeside"
+                },
+                {
+                    "category": "reframe",
+                    "text": "É o calcanhar que chuta. Os dedos só seguram até a hora"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pop primeiro, flick depois. Sempre. Mesmo que pareça \"tarde demais\""
+                },
+                {
+                    "category": "ritmo",
+                    "text": "1 segundo do pé saindo de A pra B. Sem pressa, sem força. Só transição"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se sai foguete, seu peso foi pra frente. Centraliza"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se rota só metade, o calcanhar saiu reto — tem que ir diagonal"
+                },
+                {
+                    "category": "erro",
+                    "text": "Se nem flipa, você fez ollie. O calcanhar não saiu pra fora"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Heelflip parado segurando num poste/parede — só pra sentir o flick sem pular"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Filma de baixo (camera no chão) — você vê exatamente onde o calcanhar sai"
+                }
+            ]
+        },
+        {
+            "id": "varial-heelflip",
+            "name": "Varial Heelflip",
+            "category": "flatground",
+            "difficulty": 4,
+            "prerequisites": [
+                "heelflip",
+                "varial"
+            ],
+            "tags": [
+                "flip",
+                "vertical",
+                "horizontal",
+                "varial",
+                "heel",
+                "composta"
+            ],
+            "tips": "<h2>Varial Heelflip</h2><p>Varial heelflip é varial (BS shove) + heelflip <em>simultâneos</em>. O shape rota 180° horizontal pelas suas costas <strong>enquanto</strong> faz um flip vertical pelo lado heelside. Duas rotações, dois pés, um pop só.</p><p>É a manobra que mais expõe se você sabe coordenar shape e corpo. Quem aprende rapido é quem domina varial e heelflip <em>separados</em> antes — tentando direto vira frustrante.</p><h3>Biomecânica</h3><p><strong>Pé traseiro</strong> faz duas coisas ao mesmo tempo: pop + scoop em arco pra trás (igual ao varial). O scoop precisa ser <em>completo</em>, igual quando você faz varial sozinho. Não dá pra economizar aqui.</p><p><strong>Pé dianteiro</strong> faz o flick do calcanhar pra fora. <mark>A grande pegadinha: o pé dianteiro precisa estar quase esticado, com a perna mais reta que num heelflip normal.</mark></p><h3>O grande choque mental</h3><p>Quem já tem heelflip bom <strong>vai sofrer com o varial heel até entender uma coisa:</strong> a perna do flick aqui é diferente.</p><p>No heelflip normal, você dobra o joelho pra subir o pé bem alto, chuta com a perna ainda dobrando pra cima. É um chute <em>vertical</em> com perna comprimida.</p><p>No varial heel, isso não funciona — porque enquanto você está dobrando a perna pra subir, o shape já passou pela rotação do varial e foi embora. <mark>Você não tem tempo de chutar lá em cima.</mark> Tem que chutar mais baixo, com a perna quase reta, num movimento <em>lateral</em>.</p><p><em>Movimento totalmente diferente.</em> Repete: o flick aqui é com perna esticada, lateral, rápido. Não tenta replicar o heelflip vertical — esse é o erro número 1.</p><h3>Os erros mais comuns</h3><h4>1. Shove não completa 180°</h4><p>Sintoma: shape rota só uns 90° e cai meio cruzado. Você ainda assim consegue \"recuperar\" e cair em cima, mas a manobra não foi.</p><p><strong>Causa raíz:</strong> pop muito puxado pra cima, sem scoop horizontal. Quando você tenta coordenar pop + scoop + flick, o cérebro corta o scoop primeiro porque é o que parece \"opcional\".</p><p><strong>Correção:</strong> faz o scoop como prioridade. Pratica scoop sem flick (varial puro) 10x antes de cada série de tentativas. <mark>Confirma que o scoop está completo antes de adicionar o flick.</mark></p><h4>2. Heelflip não completa (cai de lixa pra baixo)</h4><p>Sintoma: o shape rota o varial certinho, mas o flip vertical fica pela metade — você pousa em cima da lixa.</p><p><strong>Causa raíz principal:</strong> falta de heel. Quando o pé traseiro está fazendo o scoop forte, o cérebro \"economiza\" no flick do pé dianteiro pra não atrapalhar a rotação do shape. Resultado: chute fraco, flip incompleto.</p><p><strong>Causa raíz secundária:</strong> dessincronia. Se o flick acontece muito cedo, o shape rotaciona menos varial. Se acontece muito tarde, o shape já passou pelo seu pé. <mark>O timing certo é: pop, scoop começa, e MILÉSIMOS depois o flick acontece.</mark></p><p><strong>Correção principal:</strong> aceita que <em>o flick aqui precisa ser MAIS forte que num heelflip normal</em>, não menos. Compensar a tendência de economizar.</p><p><strong>Correção do timing:</strong> grava de cima ou de lado. Se o shape já passou pelo seu pé quando você flickou — você está atrasado. Se o shape mal saiu da posição quando você flickou — adiantado.</p><h4>3. Cai com perna esticada e desequilibra</h4><p>Sintoma: você completa a manobra mas cai cruzado, peso todo num pé.</p><p><strong>Causa raíz:</strong> a perna do flick ficou esticada lá fora e não voltou pra recolher pro pouso.</p><p><strong>Correção:</strong> depois do flick, <em>recolhe a perna ativamente</em>. O catch é com os dois pés simultâneos — perna esticada não pousa no shape.</p><h3>Hack mental — perna reta, gesto rápido</h3><blockquote>Pensa que sua perna do flick é uma vara — não dobra pra cima, não chuta pra baixo. <em>Vai pra fora rápido e volta.</em> Esse \"vai e volta\" no movimento lateral substitui todo o gesto vertical do heelflip normal.</blockquote><p>O hack do \"1 segundo de A pra B\" funciona ainda melhor aqui. <mark>Define A como \"pé encostado no shape, perna esticada\" e B como \"pé fora, perna ainda esticada, na lateral\".</mark> Sem subida, sem chute pra cima.</p><h3>Diagnóstico</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shove só meia volta</td><td>Pop puxou demais, scoop sumiu</td><td>Reforça o scoop, perna do trás como prioridade</td></tr><tr><td>Pousa de lixa pra cima</td><td>Falta de heel</td><td>Flick mais forte, perna esticada lateral</td></tr><tr><td>Pousa cruzado</td><td>Perna do flick não voltou</td><td>Recolhe ativamente depois do flick</td></tr><tr><td>Tenta lá em cima como heelflip normal</td><td>Mecânica errada</td><td>Esquece o heelflip vertical — esse flick é lateral</td></tr><tr><td>Shape voa pra trás</td><td>Empurrão reto, sem arco no scoop</td><td>Scoop em arco, mesmo do varial puro</td></tr></tbody></table><h3>Progressão</h3><ol><li>Varial puro consistente. Heelflip puro consistente. <mark>Não pula isso.</mark></li><li>Varial heelflip parado no gramado, foco em pop+scoop+flick com perna esticada. 50x.</li><li>Mesmo no concreto, parado.</li><li>Movimento muito lento.</li><li>Em velocidade — primeiro caindo de tail, depois zerado.</li></ol><blockquote>O varial heelflip não é \"varial mais heelflip\". É uma terceira manobra com sensação própria. Aceita isso desde o começo e a curva fica mais curta.</blockquote>",
+            "tipsFakie": "<h2>Fakie / Nollie Varial Heelflip</h2><h3>Fakie</h3><p>Anda de costas. O scoop continua sendo BS (pras suas costas no sentido do andar = pra frente do movimento). O shape rota mais fácil — o momentum colabora com o scoop. <mark>Mas o flick continua difícil — perna do trás (no sentido do movimento) precisa estar esticada.</mark></p><h3>Nollie</h3><p>Scoop com pé traseiro no nose. Flick com calcanhar do pé dianteiro. Goofy faz com pé esquerdo no nose. É a versão mais técnica da família varial heel — todo mundo que faz nollie varial heel sabe o que tá fazendo.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> não confia demais no momentum — ainda precisa de flick forte. Só o scoop fica mais leve.</li><li><strong>Nollie:</strong> não tente sem ter nollie heelflip estabilizado primeiro. A combinação \"pé não-dominante fazendo flick lateral perna esticada\" é exigente.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé da frente um pouco mais pra trás que no heelflip normal — perna fica mais reta natural"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Esquece o heelflip vertical. Esse flick é lateral, perna esticada"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Scoop é prioridade. Sem ele, é só um heelflip torto"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Sua perna do flick é uma vara — não dobra, não chuta pra cima. Vai e volta lateral"
+                },
+                {
+                    "category": "ritmo",
+                    "text": "Pop, scoop começa, milésimos depois o flick. Não simultâneo"
+                },
+                {
+                    "category": "ritmo",
+                    "text": "1 segundo de A pra B — A: pé no shape, perna reta. B: pé fora, perna ainda reta. Sem subida"
+                },
+                {
+                    "category": "erro",
+                    "text": "Cai de lixa? Falta heel. Flick MAIS forte aqui que num heelflip normal"
+                },
+                {
+                    "category": "erro",
+                    "text": "Shove só metade? Você cortou o scoop pra coordenar com o flick. Reforça o scoop"
+                },
+                {
+                    "category": "erro",
+                    "text": "Pousa cruzado? Recolhe a perna depois do flick — ela tá lá fora"
+                },
+                {
+                    "category": "experimento",
+                    "text": "10 varials puros + 10 heelflips puros antes de cada série de varial heel"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Filma de cima (segura o celular num pau) — vê se o scoop completou e onde o pé do flick foi"
                 }
             ]
         },

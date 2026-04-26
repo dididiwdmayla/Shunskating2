@@ -7,40 +7,145 @@
             "name": "Rookie",
             "tagline": "aprendendo a pushar",
             "accuracy": 0.65,
-            "stanceBias": { "regular": 0.95, "switch": 0.05, "fakie": 0, "nollie": 0 },
-            "pool": ["ollie", "shove-it", "fs-180", "bs-180", "manual"]
+            "stanceBias": {
+                "regular": 0.95,
+                "switch": 0.05,
+                "fakie": 0,
+                "nollie": 0
+            },
+            "pool": [
+                "ollie",
+                "shove-it",
+                "varial",
+                "fs-180",
+                "bs-180",
+                "manual"
+            ]
         },
         {
             "id": "tecnico",
             "name": "Técnico",
             "tagline": "flatground com cirurgia",
             "accuracy": 0.85,
-            "stanceBias": { "regular": 0.55, "switch": 0.25, "fakie": 0.15, "nollie": 0.05 },
-            "pool": ["ollie", "shove-it", "fs-180", "bs-180", "kickflip", "tre-flip", "manual", "heelflip", "varial-kickflip", "varial-heelflip", "hardflip", "inward-heelflip", "bigspin", "360-shove-it"]
+            "stanceBias": {
+                "regular": 0.55,
+                "switch": 0.25,
+                "fakie": 0.15,
+                "nollie": 0.05
+            },
+            "pool": [
+                "ollie",
+                "shove-it",
+                "varial",
+                "fs-180",
+                "bs-180",
+                "kickflip",
+                "tre-flip",
+                "manual",
+                "heelflip",
+                "varial-kickflip",
+                "varial-heelflip",
+                "hardflip",
+                "inward-heelflip",
+                "bigspin",
+                "360-shove-it"
+            ]
         },
         {
             "id": "durao",
             "name": "Durão",
             "tagline": "só desce no ferro",
             "accuracy": 0.82,
-            "stanceBias": { "regular": 0.70, "switch": 0.20, "fakie": 0.10, "nollie": 0 },
-            "pool": ["ollie", "noseslide", "boardslide", "50-50", "fs-180", "bs-180", "kickflip", "lipslide", "tailslide", "5-0-grind", "smith-grind", "feeble-grind", "crooked-grind", "nosegrind"]
+            "stanceBias": {
+                "regular": 0.7,
+                "switch": 0.2,
+                "fakie": 0.1,
+                "nollie": 0
+            },
+            "pool": [
+                "ollie",
+                "noseslide",
+                "boardslide",
+                "50-50",
+                "fs-180",
+                "bs-180",
+                "kickflip",
+                "lipslide",
+                "tailslide",
+                "5-0-grind",
+                "smith-grind",
+                "feeble-grind",
+                "crooked-grind",
+                "nosegrind"
+            ]
         },
         {
             "id": "estiloso",
             "name": "Estiloso",
             "tagline": "estilo mata habilidade",
             "accuracy": 0.78,
-            "stanceBias": { "regular": 0.50, "switch": 0.25, "fakie": 0.15, "nollie": 0.10 },
-            "pool": ["ollie", "shove-it", "fs-180", "bs-180", "kickflip", "manual", "heelflip", "fs-flip", "bs-flip", "no-comply", "boneless"]
+            "stanceBias": {
+                "regular": 0.5,
+                "switch": 0.25,
+                "fakie": 0.15,
+                "nollie": 0.1
+            },
+            "pool": [
+                "ollie",
+                "shove-it",
+                "varial",
+                "fs-180",
+                "bs-180",
+                "kickflip",
+                "manual",
+                "heelflip",
+                "fs-flip",
+                "bs-flip"
+            ]
         },
         {
             "id": "lendario",
             "name": "Lendário",
             "tagline": "não perde há 12 anos",
             "accuracy": 0.95,
-            "stanceBias": { "regular": 0.40, "switch": 0.30, "fakie": 0.15, "nollie": 0.15 },
-            "pool": ["ollie", "shove-it", "fs-180", "bs-180", "kickflip", "tre-flip", "noseslide", "boardslide", "noseblunt", "50-50", "manual", "heelflip", "varial-kickflip", "varial-heelflip", "hardflip", "inward-heelflip", "laser-flip", "double-kickflip", "fs-flip", "bs-flip", "bigspin", "360-shove-it", "lipslide", "tailslide", "5-0-grind", "smith-grind", "feeble-grind", "crooked-grind", "nosegrind"]
+            "stanceBias": {
+                "regular": 0.4,
+                "switch": 0.3,
+                "fakie": 0.15,
+                "nollie": 0.15
+            },
+            "pool": [
+                "ollie",
+                "shove-it",
+                "varial",
+                "fs-180",
+                "bs-180",
+                "kickflip",
+                "tre-flip",
+                "noseslide",
+                "boardslide",
+                "noseblunt",
+                "50-50",
+                "manual",
+                "heelflip",
+                "varial-kickflip",
+                "varial-heelflip",
+                "hardflip",
+                "inward-heelflip",
+                "laser-flip",
+                "double-kickflip",
+                "fs-flip",
+                "bs-flip",
+                "bigspin",
+                "360-shove-it",
+                "lipslide",
+                "tailslide",
+                "5-0-grind",
+                "smith-grind",
+                "feeble-grind",
+                "crooked-grind",
+                "nosegrind"
+            ]
         }
     ]
 }
