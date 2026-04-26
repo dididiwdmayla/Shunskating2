@@ -644,7 +644,7 @@ function renderSetPick(state, central) {
                 addLog(state, 'neutral', 'todas as manobras já foram puxadas · liberado repetir');
             }
             // remove exhausted flag antes de usar
-            m.currentTrick = { trick: pick.trick, stance: pick.stance, side: pick.side };
+            m.currentTrick = { trick: pick.trick, stance: pick.stance, side: pick.side, modifiers: pick.modifiers || [] };
             m.subphase = 'set-attempt';
             renderSubphase(state);
         }, 900);
@@ -970,10 +970,15 @@ function effectiveDifficulty(pick) {
 /** Rola se o bot acerta baseado em accuracy efetiva (ajustada por difficulty efetiva). */
 function rollBotAccuracy(bot, pick) {
     const diff = effectiveDifficulty(pick);
-    // Curva: cada ponto de difficulty acima de 2 reduz 0.05 de accuracy
-    // (mais branda que antes, pra Lendário continuar formidável)
-    let acc = bot.accuracy - (diff - 2) * 0.05;
-    if (acc < 0.10) acc = 0.10;
+    // Curva por nível: bots fracos sofrem mais com manobras difíceis.
+    // Lendário: penalidade leve (0.04). Rookie: penalidade alta (0.10).
+    // Isso mantém o Rookie acessível em manobras simples mas ruim em difíceis.
+    const penalty = bot.accuracy >= 0.85 ? 0.04
+                  : bot.accuracy >= 0.75 ? 0.06
+                  : bot.accuracy >= 0.65 ? 0.08
+                  : 0.10;
+    let acc = bot.accuracy - (diff - 2) * penalty;
+    if (acc < 0.05) acc = 0.05;
     if (acc > 0.98) acc = 0.98;
     return Math.random() < acc;
 }
@@ -1039,7 +1044,25 @@ function botPickTrick(bot, tricksData, mode = 'all', usedCombos = new Set()) {
         r -= c.weight;
         if (r <= 0) { chosen = c; break; }
     }
-    return { ...chosen.combo, exhausted };
+
+    // Variação espontânea: bots avançados (>= 0.78 accuracy) têm 15% de chance
+    // de adicionar um modifier random quando puxam manobra simples (diff <= 2).
+    // Manobras simples só — pra não inflacionar dificuldade absurda.
+    const result = { ...chosen.combo, exhausted };
+    if (bot.accuracy >= 0.78 && (chosen.combo.trick.difficulty || 2) <= 2) {
+        if (Math.random() < 0.15) {
+            const availMods = availableModifiersFor(chosen.combo.trick);
+            // só pega modifiers de baixa-média dificuldade extra (sem grabs duros)
+            const safeMods = availMods.filter(m =>
+                ['ollie-north', 'ollie-south', 'late-shove', 'body-varial', 'grab-indy'].includes(m.id)
+            );
+            if (safeMods.length > 0) {
+                const pickedMod = safeMods[Math.floor(Math.random() * safeMods.length)];
+                result.modifiers = [pickedMod.id];
+            }
+        }
+    }
+    return result;
 }
 
 function weightedPick(bias) {

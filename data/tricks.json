@@ -320,7 +320,7 @@
             "id": "heelflip",
             "name": "Heelflip",
             "category": "flatground",
-            "difficulty": 3,
+            "difficulty": 4,
             "prerequisites": [
                 "ollie",
                 "kickflip"
@@ -379,7 +379,7 @@
             "difficulty": 4,
             "prerequisites": [
                 "heelflip",
-                "varial"
+                "shove-it"
             ],
             "tags": [
                 "flip",
@@ -389,8 +389,8 @@
                 "heel",
                 "composta"
             ],
-            "tips": "<h2>Varial Heelflip</h2><p>Varial heelflip é varial (BS shove) + heelflip <em>simultâneos</em>. O shape rota 180° horizontal pelas suas costas <strong>enquanto</strong> faz um flip vertical pelo lado heelside. Duas rotações, dois pés, um pop só.</p><p>É a manobra que mais expõe se você sabe coordenar shape e corpo. Quem aprende rapido é quem domina varial e heelflip <em>separados</em> antes — tentando direto vira frustrante.</p><h3>Biomecânica</h3><p><strong>Pé traseiro</strong> faz duas coisas ao mesmo tempo: pop + scoop em arco pra trás (igual ao varial). O scoop precisa ser <em>completo</em>, igual quando você faz varial sozinho. Não dá pra economizar aqui.</p><p><strong>Pé dianteiro</strong> faz o flick do calcanhar pra fora. <mark>A grande pegadinha: o pé dianteiro precisa estar quase esticado, com a perna mais reta que num heelflip normal.</mark></p><h3>O grande choque mental</h3><p>Quem já tem heelflip bom <strong>vai sofrer com o varial heel até entender uma coisa:</strong> a perna do flick aqui é diferente.</p><p>No heelflip normal, você dobra o joelho pra subir o pé bem alto, chuta com a perna ainda dobrando pra cima. É um chute <em>vertical</em> com perna comprimida.</p><p>No varial heel, isso não funciona — porque enquanto você está dobrando a perna pra subir, o shape já passou pela rotação do varial e foi embora. <mark>Você não tem tempo de chutar lá em cima.</mark> Tem que chutar mais baixo, com a perna quase reta, num movimento <em>lateral</em>.</p><p><em>Movimento totalmente diferente.</em> Repete: o flick aqui é com perna esticada, lateral, rápido. Não tenta replicar o heelflip vertical — esse é o erro número 1.</p><h3>Os erros mais comuns</h3><h4>1. Shove não completa 180°</h4><p>Sintoma: shape rota só uns 90° e cai meio cruzado. Você ainda assim consegue \"recuperar\" e cair em cima, mas a manobra não foi.</p><p><strong>Causa raíz:</strong> pop muito puxado pra cima, sem scoop horizontal. Quando você tenta coordenar pop + scoop + flick, o cérebro corta o scoop primeiro porque é o que parece \"opcional\".</p><p><strong>Correção:</strong> faz o scoop como prioridade. Pratica scoop sem flick (varial puro) 10x antes de cada série de tentativas. <mark>Confirma que o scoop está completo antes de adicionar o flick.</mark></p><h4>2. Heelflip não completa (cai de lixa pra baixo)</h4><p>Sintoma: o shape rota o varial certinho, mas o flip vertical fica pela metade — você pousa em cima da lixa.</p><p><strong>Causa raíz principal:</strong> falta de heel. Quando o pé traseiro está fazendo o scoop forte, o cérebro \"economiza\" no flick do pé dianteiro pra não atrapalhar a rotação do shape. Resultado: chute fraco, flip incompleto.</p><p><strong>Causa raíz secundária:</strong> dessincronia. Se o flick acontece muito cedo, o shape rotaciona menos varial. Se acontece muito tarde, o shape já passou pelo seu pé. <mark>O timing certo é: pop, scoop começa, e MILÉSIMOS depois o flick acontece.</mark></p><p><strong>Correção principal:</strong> aceita que <em>o flick aqui precisa ser MAIS forte que num heelflip normal</em>, não menos. Compensar a tendência de economizar.</p><p><strong>Correção do timing:</strong> grava de cima ou de lado. Se o shape já passou pelo seu pé quando você flickou — você está atrasado. Se o shape mal saiu da posição quando você flickou — adiantado.</p><h4>3. Cai com perna esticada e desequilibra</h4><p>Sintoma: você completa a manobra mas cai cruzado, peso todo num pé.</p><p><strong>Causa raíz:</strong> a perna do flick ficou esticada lá fora e não voltou pra recolher pro pouso.</p><p><strong>Correção:</strong> depois do flick, <em>recolhe a perna ativamente</em>. O catch é com os dois pés simultâneos — perna esticada não pousa no shape.</p><h3>Hack mental — perna reta, gesto rápido</h3><blockquote>Pensa que sua perna do flick é uma vara — não dobra pra cima, não chuta pra baixo. <em>Vai pra fora rápido e volta.</em> Esse \"vai e volta\" no movimento lateral substitui todo o gesto vertical do heelflip normal.</blockquote><p>O hack do \"1 segundo de A pra B\" funciona ainda melhor aqui. <mark>Define A como \"pé encostado no shape, perna esticada\" e B como \"pé fora, perna ainda esticada, na lateral\".</mark> Sem subida, sem chute pra cima.</p><h3>Diagnóstico</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shove só meia volta</td><td>Pop puxou demais, scoop sumiu</td><td>Reforça o scoop, perna do trás como prioridade</td></tr><tr><td>Pousa de lixa pra cima</td><td>Falta de heel</td><td>Flick mais forte, perna esticada lateral</td></tr><tr><td>Pousa cruzado</td><td>Perna do flick não voltou</td><td>Recolhe ativamente depois do flick</td></tr><tr><td>Tenta lá em cima como heelflip normal</td><td>Mecânica errada</td><td>Esquece o heelflip vertical — esse flick é lateral</td></tr><tr><td>Shape voa pra trás</td><td>Empurrão reto, sem arco no scoop</td><td>Scoop em arco, mesmo do varial puro</td></tr></tbody></table><h3>Progressão</h3><ol><li>Varial puro consistente. Heelflip puro consistente. <mark>Não pula isso.</mark></li><li>Varial heelflip parado no gramado, foco em pop+scoop+flick com perna esticada. 50x.</li><li>Mesmo no concreto, parado.</li><li>Movimento muito lento.</li><li>Em velocidade — primeiro caindo de tail, depois zerado.</li></ol><blockquote>O varial heelflip não é \"varial mais heelflip\". É uma terceira manobra com sensação própria. Aceita isso desde o começo e a curva fica mais curta.</blockquote>",
-            "tipsFakie": "<h2>Fakie / Nollie Varial Heelflip</h2><h3>Fakie</h3><p>Anda de costas. O scoop continua sendo BS (pras suas costas no sentido do andar = pra frente do movimento). O shape rota mais fácil — o momentum colabora com o scoop. <mark>Mas o flick continua difícil — perna do trás (no sentido do movimento) precisa estar esticada.</mark></p><h3>Nollie</h3><p>Scoop com pé traseiro no nose. Flick com calcanhar do pé dianteiro. Goofy faz com pé esquerdo no nose. É a versão mais técnica da família varial heel — todo mundo que faz nollie varial heel sabe o que tá fazendo.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> não confia demais no momentum — ainda precisa de flick forte. Só o scoop fica mais leve.</li><li><strong>Nollie:</strong> não tente sem ter nollie heelflip estabilizado primeiro. A combinação \"pé não-dominante fazendo flick lateral perna esticada\" é exigente.</li></ul>",
+            "tips": "<h2>Varial Heelflip</h2><p>Varial Heelflip é <strong>shove-it (FS shove) + heelflip simultâneos</strong>. O tail vai pra frente do skatista (pro peito) enquanto o shape faz um flip vertical pelo lado heelside.</p><blockquote><strong>Não confunde com inward heelflip.</strong> Inward heelflip = varial (BS shove) + heelflip — é a combinação cruzada, que vai contra o movimento natural. O varial heelflip é a combinação <em>fluida</em>: shove-it e heelflip rotam pra direções compatíveis.</blockquote><p>Por que a combinação é fluida? O heelflip rota o shape pra um lado (toeside levanta, heelside desce). O shove-it também joga o shape em direção ao corpo. Os dois movimentos somam — não competem.</p><h3>Biomecânica</h3><p><strong>Pé traseiro</strong> faz pop + scoop em arco para os dedos do próprio pé (pra frente, em direção ao peito). <em>Igual ao shove-it puro.</em> O scoop tem que ser completo — economizar aqui é o erro número 1.</p><p><strong>Pé dianteiro</strong> faz o flick do calcanhar pra fora, em diagonal pelo canto toeside do nose. <mark>A grande pegadinha: o pé dianteiro precisa estar quase esticado, com a perna mais reta que num heelflip normal.</mark></p><h3>O grande choque mental — perna esticada</h3><p>Quem já tem heelflip bom <strong>vai sofrer com o varial heel até entender uma coisa:</strong> a perna do flick aqui é diferente.</p><p>No heelflip normal, você dobra o joelho pra subir o pé bem alto, chuta com a perna ainda dobrando pra cima. É um chute <em>vertical</em> com perna comprimida.</p><p>No varial heel, isso não funciona — porque enquanto você dobra a perna pra subir, o shape já passou pela rotação do shove e foi embora. <mark>Não tem tempo de chutar lá em cima.</mark> Tem que chutar mais baixo, com a perna quase reta, num movimento <em>lateral rápido</em>.</p><p><em>Movimento totalmente diferente do heelflip puro.</em> Não tenta replicar a sensação vertical — esse é o erro mais comum.</p><h3>Os erros mais comuns</h3><h4>1. Shove não completa 180°</h4><p>Sintoma: shape rota só uns 90° e cai meio cruzado. Você ainda assim pode \"recuperar\" e cair em cima, mas a manobra não foi.</p><p><strong>Causa raíz:</strong> pop muito puxado pra cima, sem scoop horizontal. Quando você tenta coordenar pop + scoop + flick, o cérebro corta o scoop primeiro porque parece \"opcional\".</p><p><strong>Correção:</strong> faz o scoop como prioridade. Pratica shove-it sem flick 10x antes de cada série. <mark>Confirma que o scoop está completo antes de adicionar o flick.</mark></p><h4>2. Heelflip não completa (cai de lixa pra baixo)</h4><p>Sintoma: o shape rota o shove certinho, mas o flip vertical fica pela metade — você pousa em cima da lixa.</p><p><strong>Causa raíz principal — falta de heel:</strong> quando o pé traseiro está fazendo o scoop forte, o cérebro \"economiza\" no flick do pé dianteiro pra não atrapalhar a rotação do shape. Resultado: chute fraco, flip incompleto.</p><p><strong>Causa raíz secundária — dessincronia:</strong> se o flick acontece muito cedo, o shape mal rotacionou e seu pé já saiu. Se acontece muito tarde, o shape já passou pelo seu pé. <mark>O timing certo é: pop, scoop começa, e MILÉSIMOS depois o flick acontece.</mark></p><p><strong>Correção principal:</strong> aceita que <em>o flick aqui precisa ser MAIS forte que num heelflip normal</em>, não menos. Compensar a tendência de economizar.</p><p><strong>Correção do timing:</strong> grava de cima ou de lado. Se o shape já passou pelo seu pé quando flickou — atrasado. Se mal saiu da posição — adiantado.</p><h4>3. Cai com perna esticada e desequilibra</h4><p>Sintoma: completa a manobra mas cai cruzado, peso todo num pé.</p><p><strong>Causa raíz:</strong> a perna do flick ficou esticada lá fora e não recolheu pro pouso.</p><p><strong>Correção:</strong> depois do flick, <em>recolhe a perna ativamente</em>. O catch é com os dois pés simultâneos.</p><h3>Hack mental — perna como vara</h3><blockquote>Pensa que sua perna do flick é uma vara — não dobra pra cima, não chuta pra baixo. <em>Vai pra fora rápido e volta.</em> Esse \"vai e volta\" lateral substitui todo o gesto vertical do heelflip normal.</blockquote><p>O hack do \"1 segundo de A pra B\" funciona aqui também. <mark>A: pé encostado no shape, perna esticada. B: pé fora na lateral, perna ainda esticada.</mark> Sem subida, sem chute pra cima.</p><h3>Diagnóstico</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Shove só meia volta</td><td>Pop puxou demais, scoop sumiu</td><td>Reforça o scoop, perna do trás como prioridade</td></tr><tr><td>Pousa de lixa pra cima</td><td>Falta de heel — economizou flick</td><td>Flick MAIS forte aqui que num heelflip puro</td></tr><tr><td>Pousa cruzado</td><td>Perna do flick não voltou</td><td>Recolhe ativamente depois do flick</td></tr><tr><td>Tentou lá em cima como heelflip normal</td><td>Mecânica errada</td><td>Esquece o vertical — esse flick é lateral</td></tr><tr><td>Shape voa pra frente</td><td>Empurrão reto, sem arco no scoop</td><td>Scoop em arco, igual ao shove-it puro</td></tr></tbody></table><h3>Progressão</h3><ol><li>Shove-it (FS) consistente. Heelflip consistente. <mark>Não pula essa etapa.</mark></li><li>Varial heelflip parado no gramado, foco em pop+scoop+flick com perna esticada. 50x.</li><li>Mesmo no concreto, parado.</li><li>Movimento muito lento.</li><li>Em velocidade — primeiro caindo de tail, depois zerado.</li></ol>",
+            "tipsFakie": "<h2>Fakie / Nollie Varial Heelflip</h2><h3>Fakie</h3><p>Anda de costas. O scoop continua sendo o shove-it (na direção dos dedos do pé traseiro = pra trás do movimento). O shape rota mais fácil — momentum colabora. <mark>Mas o flick continua difícil — perna esticada, lateral.</mark></p><h3>Nollie</h3><p>Scoop com pé traseiro no nose, flick com calcanhar do pé dianteiro. Pé não-dominante fazendo um gesto de precisão — é a versão mais técnica da família.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> não confia demais no momentum — ainda precisa de flick forte. Só o scoop fica mais leve.</li><li><strong>Nollie:</strong> não tente sem ter nollie heelflip estabilizado primeiro.</li></ul>",
             "bombIdeas": [
                 {
                     "category": "pe",
@@ -407,6 +407,10 @@
                 {
                     "category": "reframe",
                     "text": "Sua perna do flick é uma vara — não dobra, não chuta pra cima. Vai e volta lateral"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Varial heel = shove-it + heelflip. NÃO é varial puro + heelflip (esse seria o inward)"
                 },
                 {
                     "category": "ritmo",
@@ -430,11 +434,135 @@
                 },
                 {
                     "category": "experimento",
-                    "text": "10 varials puros + 10 heelflips puros antes de cada série de varial heel"
+                    "text": "10 shove-its puros + 10 heelflips puros antes de cada série de varial heel"
                 },
                 {
                     "category": "experimento",
                     "text": "Filma de cima (segura o celular num pau) — vê se o scoop completou e onde o pé do flick foi"
+                }
+            ]
+        },
+        {
+            "id": "varial-kickflip",
+            "name": "Varial Flip",
+            "category": "flatground",
+            "difficulty": 4,
+            "prerequisites": [
+                "kickflip",
+                "varial"
+            ],
+            "tags": [
+                "flip",
+                "vertical",
+                "horizontal",
+                "varial",
+                "composta"
+            ],
+            "tips": "<h2>Varial Flip</h2><p>Varial Flip é <strong>varial (BS shove) + kickflip simultâneos</strong>. O tail vai pras suas costas enquanto o shape faz um flip vertical pelo lado toeside.</p><blockquote><strong>Não confunde com hardflip.</strong> Hardflip = shove-it (FS) + kickflip — é a combinação cruzada, dura. O varial flip é a combinação <em>fluida</em>: a rotação do varial casa naturalmente com a rotação do kickflip.</blockquote><p>Por que é a fluida? O kickflip rota o shape pra heelside (toeside levanta). O varial joga o shape pras suas costas. Os dois movimentos vão na mesma direção rotacional — somam, não competem.</p><h3>Biomecânica</h3><p><strong>Pé traseiro</strong> faz pop + scoop em arco pra trás (em direção ao calcanhar do próprio pé). <em>Igual ao varial puro.</em> Scoop completo. Sem economia.</p><p><strong>Pé dianteiro</strong> faz o flick do dedão pra fora, em diagonal pelo canto heelside do nose. <mark>Mesma pegadinha do varial heel: a perna do flick precisa estar mais esticada que num kickflip normal.</mark></p><h3>O erro central — flip incompleto</h3><p>O <strong>erro mais comum disparado</strong> é o flip não girar inteiro. Cai meio flipado, com o grip pro lado, parecendo um pop shove desajeitado.</p><h4>Causa raíz: economia do flick</h4><p>É o mesmo padrão mental do varial heel. Quando o pé traseiro está fazendo o scoop forte, o cérebro <em>economiza</em> energia no flick do pé dianteiro pra não atrapalhar a rotação do shape.</p><p>O cérebro pensa: \"se eu chutar com força, o shape vai rotar demais\". Mas isso é falso. O shove e o flip rotam em <strong>direções diferentes</strong> (um horizontal, outro vertical), eles não competem por energia. Mesmo assim, o instinto economiza.</p><p><strong>Correção:</strong> chuta o flick <em>mais forte</em> que num kickflip puro. Sente que está \"exagerando\" — provavelmente está só compensando.</p><h4>Causa raíz secundária: dessincronia</h4><p>Mesmo problema do varial heel. <mark>Pop, scoop começa, MILÉSIMOS depois o flick.</mark> Se flicka simultâneo ao pop, o shape ainda não começou a rotar e seu pé sai cedo demais. Se flicka muito tarde, o shape já passou.</p><h3>O segundo erro: shove não completa</h3><p>Mesma lógica do varial heel — pop puxou demais, scoop ficou curto. Treina varial puro 10x antes da série pra confirmar que o scoop tá automático.</p><h3>O terceiro erro: catch errado</h3><p>Sintoma: completa o flip e o shove, mas pousa de lixa ou pisa no meio do shape.</p><p><strong>Causa:</strong> você tentou catch precoce porque o shape pareceu \"pronto\" — mas só uma das duas rotações terminou.</p><p><strong>Correção:</strong> espera <em>as duas rotações</em>. Catch quando o grip estiver de volta pra cima E o shape estiver na posição certa em relação ao seu corpo.</p><h3>Hack mental</h3><blockquote>Aceita que o flick precisa ser <em>mais forte</em>, não menos. Seu instinto vai mandar economizar — ignora.</blockquote><p>Outra coisa que ajuda: pensa no varial flip como <em>kickflip primeiro, varial segundo</em>. Não simultâneos — kickflip prioritário. O scoop acontece sozinho se você fizer pop forte; o flick é o que falha por economia.</p><h3>Diagnóstico</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Flip não fecha</td><td>Economizou no flick</td><td>Flick mais forte que num kickflip puro</td></tr><tr><td>Cai com grip pro lado</td><td>Flick reto em vez de diagonal</td><td>Diagonal pelo canto heelside, igual kickflip</td></tr><tr><td>Shove só meia volta</td><td>Pop puxou demais</td><td>Reforça o scoop, varial puro 10x antes</td></tr><tr><td>Pousa em cima do meio</td><td>Catch precoce</td><td>Espera as duas rotações fecharem</td></tr><tr><td>Sai foguete</td><td>Ombros pra frente</td><td>Tronco centrado, peso nos parafusos</td></tr></tbody></table><h3>Progressão</h3><ol><li>Kickflip consistente. Varial puro consistente. <mark>Sem atalho.</mark></li><li>Varial flip parado no gramado. 50x focando no flick forte.</li><li>Mesmo no concreto, parado.</li><li>Movimento muito lento.</li><li>Velocidade normal.</li></ol>",
+            "tipsFakie": "<h2>Fakie / Nollie Varial Flip</h2><h3>Fakie</h3><p>Anda de costas. O scoop é BS no sentido do andar — ou seja, vai pra frente do movimento. Shape rota leve. <mark>Flick continua igual ao regular: forte, perna mais reta.</mark></p><h3>Nollie</h3><p>Scoop com pé traseiro no nose, flick com pé dianteiro (pé não-dominante pra goofy). Versão técnica que exige nollie kickflip estável antes.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> momentum colabora com o scoop, mas o flick continua sendo o ponto crítico. Não confia.</li><li><strong>Nollie:</strong> 100x parado de nollie kickflip antes de tentar adicionar o scoop.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé da frente mais pra trás que no kickflip — perna mais esticada natural"
+                },
+                {
+                    "category": "reframe",
+                    "text": "O flick precisa ser MAIS forte aqui, não menos. Seu instinto vai economizar — ignora"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa kickflip primeiro, varial segundo. Prioriza o flip"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Varial Flip = varial + kickflip. NÃO é shove-it + kickflip (esse seria o hardflip)"
+                },
+                {
+                    "category": "ritmo",
+                    "text": "Pop, scoop começa, milésimos depois o flick. Não simultâneo"
+                },
+                {
+                    "category": "erro",
+                    "text": "Não fecha o flip? Economizou. Chuta mais forte"
+                },
+                {
+                    "category": "erro",
+                    "text": "Cai com grip pro lado? Flick foi reto. Tem que ser diagonal pelo canto heelside"
+                },
+                {
+                    "category": "erro",
+                    "text": "Shove curto? Pop puxou demais. Foca no scoop"
+                },
+                {
+                    "category": "experimento",
+                    "text": "10 kickflips + 10 varials puros antes de cada série de varial flip"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Filma de baixo (celular no chão) — vê exatamente quão forte o flick foi"
+                }
+            ]
+        },
+        {
+            "id": "double-kickflip",
+            "name": "Double Kickflip",
+            "category": "flatground",
+            "difficulty": 5,
+            "prerequisites": [
+                "kickflip"
+            ],
+            "tags": [
+                "flip",
+                "vertical",
+                "duplo",
+                "técnica"
+            ],
+            "tips": "<h2>Double Kickflip</h2><p>Double kickflip é um kickflip que rota <strong>duas vezes</strong> antes do catch. Tecnicamente é o mesmo movimento de um kickflip simples, com duas variáveis críticas mudadas: <mark>velocidade do flick e altura do pop</mark>.</p><blockquote><strong>O erro mais comum disparado:</strong> não conseguir girar dois flips. A intuição é \"flickar mais forte\" — e essa intuição está errada.</blockquote><h3>O insight central — velocidade, não força</h3><p>Quem tem kickflip bom tenta double aplicando força extra no flick. Resultado: o shape rota uma vez e meia, parece sobrerotar, mas para. <strong>Força não traduz em rotações extras.</strong></p><p>O que rotaciona o shape é a <em>velocidade angular</em> — quão rápido o flick passa pelo canto heelside do nose. Um flick forte mas lento dá um flip alto e único. Um flick rápido mas leve dá dois flips baixos.</p><h3>O outro insight — altura</h3><p>Mesmo com flick rápido, se o pop for igual ao do kickflip, o shape não tem tempo no ar pra rotar duas vezes. <strong>O double precisa de pop mais forte que o kickflip.</strong> Mais altura = mais tempo aéreo = mais rotações possíveis.</p><p>Combinação: <mark>pop mais alto + flick mais rápido (não mais forte).</mark> Essa é a fórmula.</p><h3>Biomecânica</h3><p>Pé traseiro: <em>pop com mais ênfase de altura</em>. Joelho dobra mais antes do snap. Você quer ouvir um snap mais alto que num kickflip normal — e sentir o shape subir mais.</p><p>Pé dianteiro: flick em diagonal igual ao kickflip, mas com <strong>movimento de chicote — partida rápida, fim solto</strong>. Não é um chute; é um relax tenso. Pensa que seu pé é uma toalha sendo sacudida — começa rápido, termina solta.</p><h3>O grande erro mecânico: \"chutar mais forte\"</h3><p>Sintoma: kickflip e meio. O shape rota uma vez completa, começa a segunda, e o seu pé já está descendo pra fazer catch.</p><p><strong>Causa:</strong> você aplicou força no flick em vez de velocidade. A perna ficou tensa, o pé saiu lento.</p><p><strong>Correção:</strong> relaxa o pé do flick. Pensa em <em>rapidez</em>, não em força. Pratica fazendo kickflips parados focando só na velocidade do pé pra fora — vai sentir o shape querer flipar duas vezes naturalmente quando o flick fica rápido.</p><h3>O segundo erro: pouco pop</h3><p>Sintoma: shape começa a fazer dois flips mas você cai antes do segundo terminar.</p><p><strong>Causa:</strong> você focou no flick e esqueceu o pop. Resultado: tempo aéreo curto.</p><p><strong>Correção:</strong> agacha mais antes do pop. Compressão profunda. <mark>Pop mais alto que num kickflip normal — sente que está exagerando.</mark></p><h3>O terceiro erro: catch precoce</h3><p>Sintoma: você sente que pode dar dois flips, o shape começa, e seu pé ataca antes da hora.</p><p><strong>Causa:</strong> instinto. Cérebro tem o tempo do kickflip simples gravado.</p><p><strong>Correção:</strong> espera um beat extra. Pensa \"flip... flip... catch\" em vez de \"flip... catch\". Esse pause mental é a chave do timing.</p><h3>Hack mental — chicote</h3><blockquote>Pé do flick é uma toalha molhada sendo sacudida. <em>Não bate, sacode.</em> Movimento que começa explosivo e termina solto.</blockquote><p>E pra altura: <strong>agacha 30% mais que pra kickflip normal</strong>. Compressão profunda é o que destrava o pop alto.</p><h3>Diagnóstico</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Kickflip e meio</td><td>Flick com força em vez de velocidade</td><td>Relaxa o pé, pensa rapidez</td></tr><tr><td>Dois flips mas pouso ruim</td><td>Pop fraco, sem tempo aéreo</td><td>Pop mais alto, agacha mais</td></tr><tr><td>Catch antes do segundo flip</td><td>Timing do kickflip simples</td><td>Espera um beat extra antes do catch</td></tr><tr><td>Triple acidental</td><td>Flick rápido demais com altura sobrando</td><td>Aceita o triple ou reduz a velocidade</td></tr><tr><td>Sai pra um lado</td><td>Ombros giraram com o pop forte</td><td>Tronco congelado, só os pés trabalham</td></tr></tbody></table><h3>Progressão</h3><ol><li>Kickflip alto e consistente — não tente double sem isso.</li><li>Kickflip parado focando em velocidade do flick (não força). 50x até sentir o shape querer dar dois.</li><li>Double kickflip parado no gramado. 30x.</li><li>Mesmo no concreto.</li><li>Movimento lento, depois normal.</li></ol><blockquote>Quando o double clica, parece mais fácil que kickflip. A diferença é só timing e velocidade — quem entende, manda. Quem força, não passa de um kickflip e meio.</blockquote>",
+            "tipsFakie": "<h2>Fakie / Nollie Double Kickflip</h2><h3>Fakie</h3><p>Momentum a favor ajuda a rotação — fakie double é levemente mais fácil que regular pra muita gente. <mark>Mesma fórmula: velocidade > força, pop mais alto.</mark></p><h3>Nollie</h3><p>Pé traseiro (não-dominante na maioria dos casos) fazendo flick rápido no nose. Combinação \"pé não-dominante + velocidade angular alta\" exige domínio total do nollie kickflip simples antes.</p><h3>Viradas de chave</h3><ul><li><strong>Fakie:</strong> mesma fórmula, sensação ligeiramente mais leve.</li><li><strong>Nollie:</strong> não tente sem nollie kickflip alto e consistente.</li></ul>",
+            "bombIdeas": [
+                {
+                    "category": "pe",
+                    "text": "Pé da frente igual ao kickflip — não muda posição. Muda só a sensação"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Velocidade > força. Sempre. Pé como toalha sacudida"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pop mais alto, não flick mais forte. A altura dá o tempo pras 2 rotações"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Pensa flip... flip... catch. Não flip... catch"
+                },
+                {
+                    "category": "ritmo",
+                    "text": "Agacha 30% mais profundo antes do pop. Compressão é o que destrava altura"
+                },
+                {
+                    "category": "ritmo",
+                    "text": "O flick começa explosivo e termina solto — não é um chute travado"
+                },
+                {
+                    "category": "erro",
+                    "text": "Kickflip e meio? Você forçou. Relaxa o pé, foca rapidez"
+                },
+                {
+                    "category": "erro",
+                    "text": "Não tem tempo aéreo? Pop fraco. Agacha mais antes"
+                },
+                {
+                    "category": "erro",
+                    "text": "Catch antes da hora? Espera um beat. flip... flip... catch"
+                },
+                {
+                    "category": "experimento",
+                    "text": "10 kickflips parados focando SÓ em velocidade do pé — sem se preocupar com altura"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Filma do lado — conta quantos flips o shape faz. Visualizar o número ajuda"
                 }
             ]
         },
