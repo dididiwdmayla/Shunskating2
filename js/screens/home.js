@@ -115,6 +115,11 @@ function render(container) {
             title:   'Dicas',
             stat:    'FUNDAMENTOS',
             action:  () => navigate('dicas')
+        },
+        {
+            title:   'Som',
+            stat:    'SUA TRILHA',
+            action:  () => navigate('music')
         }
     ];
 

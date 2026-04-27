@@ -14,6 +14,8 @@ import metas from './screens/metas.js';
 import dicas from './screens/dicas.js';
 import game from './screens/game.js';
 import skatistas from './screens/skatistas.js';
+import music from './screens/music.js';
+import * as musicMini from './screens/music-mini.js';
 
 /* --- registra telas --- */
 registerScreen('home', home);
@@ -23,6 +25,10 @@ registerScreen('metas', metas);
 registerScreen('dicas', dicas);
 registerScreen('game', game);
 registerScreen('skatistas', skatistas);
+registerScreen('music', music);
+
+/* --- mini-player persistente --- */
+musicMini.init();
 
 /* --- monta bottom nav --- */
 function buildBottomNav() {
@@ -129,49 +135,60 @@ start();
    ========================================================= */
 
 (function installSwipeGesture() {
-    const EDGE_FRACTION = 0.5;  // começa a partir da metade direita da tela
+    const EDGE_FRACTION = 0.5;  // metade da tela
     const MIN_DX = 80;          // px de movimento horizontal mínimo
     const MAX_DY = 80;          // vertical tolerado
     const MAX_DURATION = 800;   // ms do swipe em si
     const DOUBLE_WINDOW = 1200; // ms entre dois swipes pra contar como duplo
 
     let tStart = null;
-    let lastSwipeAt = 0;
+    let tStartSide = null;      // 'right' ou 'left' — qual metade originou
+    let lastRightSwipeAt = 0;
 
     document.addEventListener('touchstart', (e) => {
         if (!e.touches || e.touches.length !== 1) return;
         const t = e.touches[0];
         const vw = window.innerWidth;
-        // tem que começar na metade direita da tela
-        if (t.clientX < vw * EDGE_FRACTION) return;
+        // metade direita = candidato a Skatistas (duplo)
+        // metade esquerda = candidato a Música (único)
+        if (t.clientX >= vw * EDGE_FRACTION) {
+            tStartSide = 'right';
+        } else {
+            tStartSide = 'left';
+        }
         tStart = { x: t.clientX, y: t.clientY, time: Date.now() };
     }, { passive: true });
 
     document.addEventListener('touchend', (e) => {
         if (!tStart) return;
         const end = (e.changedTouches && e.changedTouches[0]);
-        if (!end) { tStart = null; return; }
+        if (!end) { tStart = null; tStartSide = null; return; }
         const dx = end.clientX - tStart.x;
         const dy = Math.abs(end.clientY - tStart.y);
         const elapsed = Date.now() - tStart.time;
+        const side = tStartSide;
         tStart = null;
-        // swipe válido: esquerda, pequena variação vertical, rápido
-        if (dx < -MIN_DX && dy < MAX_DY && elapsed < MAX_DURATION) {
+        tStartSide = null;
+        if (dy >= MAX_DY || elapsed >= MAX_DURATION) return;
+
+        if (side === 'right' && dx < -MIN_DX) {
+            // metade direita + swipe pra esquerda = Skatistas (duplo)
             const now = Date.now();
-            if (now - lastSwipeAt < DOUBLE_WINDOW) {
-                lastSwipeAt = 0;
+            if (now - lastRightSwipeAt < DOUBLE_WINDOW) {
+                lastRightSwipeAt = 0;
                 navigate('skatistas');
             } else {
-                lastSwipeAt = now;
-                // feedback visual sutil — mostra que primeiro swipe foi detectado
-                showSwipeFirstFeedback();
+                lastRightSwipeAt = now;
+                showSwipeFirstFeedback('right');
             }
+        } else if (side === 'left' && dx > MIN_DX) {
+            // metade esquerda + swipe pra direita = Música (único)
+            navigate('music');
         }
     }, { passive: true });
 
-    function showSwipeFirstFeedback() {
-        // flash curto na borda direita pra indicar "reconheci, faz de novo"
-        const flash = el('div', { className: 'swipe-first-flash' });
+    function showSwipeFirstFeedback(side) {
+        const flash = el('div', { className: `swipe-first-flash swipe-flash-${side}` });
         document.body.appendChild(flash);
         setTimeout(() => flash.remove(), 600);
     }
@@ -187,11 +204,14 @@ start();
     setTimeout(() => {
         const overlay = el('div', { className: 'swipe-hint-overlay' });
         overlay.appendChild(el('div', { className: 'swipe-hint-arrow' }, '← ←'));
-        overlay.appendChild(el('h2', { className: 'swipe-hint-title' }, 'ARRASTA 2 VEZES'));
+        overlay.appendChild(el('h2', { className: 'swipe-hint-title' }, 'GESTOS SECRETOS'));
         overlay.appendChild(el('p', { className: 'swipe-hint-text' },
-            'da borda direita pra esquerda, duas vezes seguidas, pra abrir a galeria de ',
-            el('strong', {}, 'SKATISTAS'),
-            '. duas vezes porque o android usa um swipe só pra voltar.'
+            el('strong', {}, 'metade direita → esquerda 2x'),
+            ': abre a galeria de SKATISTAS. duas vezes porque o android usa um swipe só pra voltar.'
+        ));
+        overlay.appendChild(el('p', { className: 'swipe-hint-text' },
+            el('strong', {}, 'metade esquerda → direita 1x'),
+            ': abre a tela de MÚSICA.'
         ));
         overlay.appendChild(el('button', {
             className: 'swipe-hint-btn',
