@@ -31,7 +31,9 @@ export async function render(container) {
 
     /* área importar */
     const importRow = el('div', { className: 'music-import-row' });
-    const importBtn = el('button', { className: 'music-import-btn', type: 'button' }, '+ IMPORTAR ARQUIVOS');
+    const btnGroup = el('div', { className: 'music-import-btngroup' });
+
+    const importBtn = el('button', { className: 'music-import-btn', type: 'button' }, '+ ARQUIVOS');
     const fileInput = el('input', {
         type: 'file',
         accept: 'audio/*',
@@ -40,8 +42,17 @@ export async function render(container) {
         onChange: (e) => handleImport(e.target.files)
     });
     importBtn.addEventListener('click', () => fileInput.click());
-    importRow.appendChild(importBtn);
-    importRow.appendChild(fileInput);
+    btnGroup.appendChild(importBtn);
+    btnGroup.appendChild(fileInput);
+
+    const urlBtn = el('button', {
+        className: 'music-import-btn music-import-url-btn',
+        type: 'button',
+        onClick: () => openUrlDialog()
+    }, '+ URL');
+    btnGroup.appendChild(urlBtn);
+
+    importRow.appendChild(btnGroup);
 
     const usageInfo = el('p', { className: 'music-usage', id: 'music-usage' }, '');
     importRow.appendChild(usageInfo);
@@ -67,10 +78,22 @@ export async function render(container) {
 
     await refresh();
 
-    // re-renderiza player quando estado muda
-    _unsubPlayer = player.subscribe(() => {
+    // re-renderiza player + lista (pra badge "tocando" mover) quando estado muda
+    let lastPlayingId = null;
+    _unsubPlayer = player.subscribe((s) => {
         renderPlayerHost();
+        if (s.currentId !== lastPlayingId) {
+            lastPlayingId = s.currentId;
+            refreshListOnly();
+        }
     });
+}
+
+/** Re-renderiza só a lista (sem refazer fetch do DB se não precisar). */
+async function refreshListOnly() {
+    const list = document.getElementById('music-list');
+    if (!list) return;
+    await refresh();
 }
 
 export function destroy() {
@@ -127,6 +150,93 @@ function getAudioDuration(file) {
     });
 }
 
+/** Lê duração de uma URL externa. Pode falhar (CORS) e retornar 0. */
+function getUrlDuration(url) {
+    return new Promise((resolve) => {
+        const a = new Audio();
+        a.preload = 'metadata';
+        a.crossOrigin = 'anonymous';
+        let done = false;
+        a.onloadedmetadata = () => {
+            if (done) return;
+            done = true;
+            resolve(a.duration || 0);
+        };
+        a.onerror = () => {
+            if (done) return;
+            done = true;
+            resolve(0);
+        };
+        // timeout de 8s — se não carregar, segue sem duração
+        setTimeout(() => {
+            if (done) return;
+            done = true;
+            resolve(0);
+        }, 8000);
+        a.src = url;
+    });
+}
+
+/** Modal pra adicionar uma URL. */
+function openUrlDialog() {
+    const overlay = el('div', {
+        className: 'music-edit-overlay',
+        onClick: (e) => { if (e.target === overlay) overlay.remove(); }
+    });
+    const card = el('div', { className: 'music-edit-card' });
+    card.appendChild(el('h3', {}, 'adicionar URL'));
+    card.appendChild(el('p', { className: 'music-url-hint' },
+        'cole o link direto de um arquivo de áudio. funciona com bandcamp, soundcloud (links diretos), e MP3s públicos. não funciona com YouTube nem todo servidor (CORS).'));
+
+    const urlInput = el('input', { type: 'url', placeholder: 'https://...mp3', className: 'music-edit-input' });
+    const titleInput = el('input', { type: 'text', placeholder: 'título (opcional)', className: 'music-edit-input' });
+    const artistInput = el('input', { type: 'text', placeholder: 'artista (opcional)', className: 'music-edit-input' });
+
+    card.appendChild(urlInput);
+    card.appendChild(titleInput);
+    card.appendChild(artistInput);
+
+    const status = el('p', { className: 'music-url-status' }, '');
+    card.appendChild(status);
+
+    const btnRow = el('div', { className: 'music-edit-btnrow' });
+    btnRow.appendChild(el('button', {
+        className: 'music-edit-cancel', type: 'button',
+        onClick: () => overlay.remove()
+    }, 'CANCELAR'));
+    const saveBtn = el('button', {
+        className: 'music-edit-save', type: 'button',
+        onClick: async () => {
+            const url = urlInput.value.trim();
+            if (!url || !/^https?:\/\//.test(url)) {
+                status.textContent = 'URL inválida';
+                return;
+            }
+            saveBtn.setAttribute('disabled', '');
+            status.textContent = 'verificando...';
+            const duration = await getUrlDuration(url);
+            // não bloqueia se duration = 0 (algumas URLs não dão metadata mas tocam)
+            const titleFromUrl = url.split('/').pop().replace(/\.[^/.]+$/, '').replace(/[_-]+/g, ' ').slice(0, 60);
+            await db.addTrack({
+                title: titleInput.value.trim() || titleFromUrl || 'URL externa',
+                artist: artistInput.value.trim(),
+                album: '',
+                duration,
+                type: 'audio/url',
+                url
+            });
+            overlay.remove();
+            flashToast('URL adicionada');
+            await refresh();
+        }
+    }, 'ADICIONAR');
+    btnRow.appendChild(saveBtn);
+    card.appendChild(btnRow);
+
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+}
+
 /** Re-renderiza a lista e a info de uso. */
 async function refresh() {
     const list = document.getElementById('music-list');
@@ -148,13 +258,28 @@ async function refresh() {
         return;
     }
 
+    const playerState = player.getState();
+    const playingId = playerState.currentId;
+
     tracks.forEach((t, i) => {
-        const card = el('div', { className: 'music-card', dataset: { id: t.id } });
+        const isPlaying = playingId === t.id;
+        const card = el('div', {
+            className: `music-card${isPlaying ? ' is-now-playing' : ''}`,
+            dataset: { id: t.id }
+        });
         card.appendChild(renderCover(t));
         const info = el('div', { className: 'music-card-info' });
-        info.appendChild(el('div', { className: 'music-card-title' }, t.title));
+        const titleRow = el('div', { className: 'music-card-title-row' });
+        if (isPlaying) {
+            titleRow.appendChild(el('span', { className: 'music-card-now', 'aria-label': 'tocando' }, '♪'));
+        }
+        titleRow.appendChild(el('span', { className: 'music-card-title' }, displayTitle(t)));
+        if (t.isUrl) {
+            titleRow.appendChild(el('span', { className: 'music-card-url-tag' }, 'URL'));
+        }
+        info.appendChild(titleRow);
         info.appendChild(el('div', { className: 'music-card-meta' },
-            `${t.artist || 'desconhecido'} · ${formatTime(t.duration)}`));
+            `${t.artist || (t.isUrl ? 'externa' : 'desconhecido')} · ${formatTime(t.duration)}`));
         card.appendChild(info);
 
         const actions = el('div', { className: 'music-card-actions' });
@@ -162,7 +287,6 @@ async function refresh() {
             className: 'music-card-btn music-card-play', type: 'button',
             'aria-label': 'tocar',
             onClick: () => {
-                // toca essa, e o resto da lista vira a fila
                 const rest = tracks.slice(i + 1).concat(tracks.slice(0, i));
                 player.playTrackNow(t, rest);
             }
@@ -178,7 +302,7 @@ async function refresh() {
             className: 'music-card-btn music-card-delete', type: 'button',
             'aria-label': 'deletar',
             onClick: async () => {
-                if (!confirm(`deletar "${t.title}"?`)) return;
+                if (!confirm(`deletar "${displayTitle(t)}"?`)) return;
                 await db.deleteTrack(t.id);
                 await refresh();
             }
@@ -187,6 +311,13 @@ async function refresh() {
         card.appendChild(actions);
         list.appendChild(card);
     });
+}
+
+/** Trata título vazio com fallback. */
+function displayTitle(t) {
+    const raw = (t.title || '').trim();
+    if (!raw || raw === 'Sem título') return t.isUrl ? 'URL externa' : 'Sem título';
+    return raw;
 }
 
 /** Render do player full quando tem track tocando. */
@@ -201,9 +332,9 @@ function renderPlayerHost() {
     host.innerHTML = '';
     const card = el('div', { className: 'music-fullplayer' });
     card.appendChild(renderCover(s.currentTrack, 120));
-    card.appendChild(el('div', { className: 'music-fullplayer-title' }, s.currentTrack.title));
+    card.appendChild(el('div', { className: 'music-fullplayer-title' }, displayTitle(s.currentTrack)));
     card.appendChild(el('div', { className: 'music-fullplayer-meta' },
-        s.currentTrack.artist || 'desconhecido'));
+        s.currentTrack.artist || (s.currentTrack.isUrl ? 'URL externa' : 'desconhecido')));
 
     /* progresso */
     const progRow = el('div', { className: 'music-prog-row' });
@@ -221,6 +352,13 @@ function renderPlayerHost() {
     /* controles */
     const ctrl = el('div', { className: 'music-controls' });
     ctrl.appendChild(el('button', {
+        className: `music-ctrl-btn music-ctrl-shuffle${s.shuffle ? ' is-active' : ''}`,
+        type: 'button',
+        'aria-label': 'shuffle',
+        'aria-pressed': s.shuffle ? 'true' : 'false',
+        onClick: () => player.toggleShuffle()
+    }, '⇄'));
+    ctrl.appendChild(el('button', {
         className: 'music-ctrl-btn', type: 'button',
         'aria-label': 'anterior', onClick: () => player.playPrev()
     }, '⏮'));
@@ -233,6 +371,8 @@ function renderPlayerHost() {
         className: 'music-ctrl-btn', type: 'button',
         'aria-label': 'próxima', onClick: () => player.playNext()
     }, '⏭'));
+    /* placeholder simétrico (vazio) pra centralizar play */
+    ctrl.appendChild(el('div', { className: 'music-ctrl-spacer' }));
     card.appendChild(ctrl);
 
     /* fila */
@@ -240,14 +380,38 @@ function renderPlayerHost() {
         card.appendChild(el('h3', { className: 'music-queue-header' }, 'PRÓXIMAS'));
         const qList = el('div', { className: 'music-queue' });
         s.queue.forEach((t, i) => {
-            qList.appendChild(el('div', { className: 'music-queue-item' },
-                el('span', { className: 'music-queue-title' }, t.title),
-                el('button', {
-                    className: 'music-queue-remove', type: 'button',
-                    'aria-label': 'remover',
-                    onClick: () => player.removeFromQueue(i)
-                }, '×')
-            ));
+            const item = el('div', {
+                className: 'music-queue-item',
+                draggable: 'true',
+                dataset: { idx: i },
+                onDragstart: (e) => {
+                    e.dataTransfer.setData('text/plain', String(i));
+                    e.dataTransfer.effectAllowed = 'move';
+                    item.classList.add('is-dragging');
+                },
+                onDragend: () => item.classList.remove('is-dragging'),
+                onDragover: (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    item.classList.add('is-drag-over');
+                },
+                onDragleave: () => item.classList.remove('is-drag-over'),
+                onDrop: (e) => {
+                    e.preventDefault();
+                    item.classList.remove('is-drag-over');
+                    const from = parseInt(e.dataTransfer.getData('text/plain'), 10);
+                    const to = i;
+                    if (!isNaN(from) && from !== to) player.moveInQueue(from, to);
+                }
+            });
+            item.appendChild(el('span', { className: 'music-queue-handle', 'aria-hidden': 'true' }, '⋮⋮'));
+            item.appendChild(el('span', { className: 'music-queue-title' }, displayTitle(t)));
+            item.appendChild(el('button', {
+                className: 'music-queue-remove', type: 'button',
+                'aria-label': 'remover',
+                onClick: () => player.removeFromQueue(i)
+            }, '×'));
+            qList.appendChild(item);
         });
         card.appendChild(qList);
     }

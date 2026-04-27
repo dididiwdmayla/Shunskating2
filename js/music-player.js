@@ -21,6 +21,7 @@ const state = {
     currentTime: 0,
     duration: 0,
     volume: 1.0,
+    shuffle: false,        // true = fila foi embaralhada
     miniHidden: false,     // true = esconde mini-player, áudio segue
     objectUrl: null        // URL.createObjectURL atual, pra revogar depois
 };
@@ -72,6 +73,7 @@ export function getState() {
         currentTime: state.currentTime,
         duration: state.duration,
         volume: state.volume,
+        shuffle: state.shuffle,
         miniHidden: state.miniHidden
     };
 }
@@ -98,13 +100,24 @@ export async function loadAndPlay(trackId) {
         state.objectUrl = null;
     }
 
-    const url = URL.createObjectURL(track.blob);
-    state.objectUrl = url;
-    audio.src = url;
+    let src;
+    if (track.url) {
+        // track de URL externa — toca direto
+        src = track.url;
+    } else if (track.blob) {
+        src = URL.createObjectURL(track.blob);
+        state.objectUrl = src;
+    } else {
+        console.warn('[player] track sem blob nem URL:', trackId);
+        return false;
+    }
+
+    audio.src = src;
     state.currentId = track.id;
     state.currentTrack = {
         id: track.id, title: track.title, artist: track.artist,
-        album: track.album, duration: track.duration, type: track.type
+        album: track.album, duration: track.duration, type: track.type,
+        isUrl: !!track.url
     };
     state.currentTime = 0;
     state.duration = track.duration || 0;
@@ -172,9 +185,17 @@ export function setQueue(tracks) {
     notify();
 }
 
-/** Toca uma track imediatamente. Demais entram na fila. */
+/** Toca uma track imediatamente. Demais entram na fila.
+ *  Se shuffle estiver ativo, embaralha o resto. */
 export function playTrackNow(track, restOfQueue = []) {
-    state.queue = restOfQueue.slice();
+    let q = restOfQueue.slice();
+    if (state.shuffle && q.length > 1) {
+        for (let i = q.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [q[i], q[j]] = [q[j], q[i]];
+        }
+    }
+    state.queue = q;
     if (state.currentTrack) state.history.push(state.currentTrack);
     loadAndPlay(track.id);
 }
@@ -201,6 +222,21 @@ export function removeFromQueue(index) {
 export function moveInQueue(from, to) {
     const item = state.queue.splice(from, 1)[0];
     if (item) state.queue.splice(to, 0, item);
+    notify();
+}
+
+/** Alterna shuffle. Quando ativa, embaralha a fila imediatamente.
+ *  Quando desativa, NÃO desfaz o embaralhamento (a fila atual é o que é). */
+export function toggleShuffle() {
+    state.shuffle = !state.shuffle;
+    if (state.shuffle && state.queue.length > 1) {
+        // embaralha (Fisher-Yates)
+        const q = state.queue;
+        for (let i = q.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [q[i], q[j]] = [q[j], q[i]];
+        }
+    }
     notify();
 }
 

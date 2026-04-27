@@ -76,9 +76,15 @@ function render(state) {
     tap.appendChild(cover);
 
     const info = el('div', { className: 'music-mini-info' });
-    info.appendChild(el('div', { className: 'music-mini-title' }, state.currentTrack.title));
-    if (state.currentTrack.artist) {
-        info.appendChild(el('div', { className: 'music-mini-artist' }, state.currentTrack.artist));
+    const t = state.currentTrack;
+    const titleText = (t.title && t.title.trim() && t.title !== 'Sem título')
+        ? t.title
+        : (t.isUrl ? 'URL externa' : 'Sem título');
+    info.appendChild(el('div', { className: 'music-mini-title' }, titleText));
+    if (t.artist) {
+        info.appendChild(el('div', { className: 'music-mini-artist' }, t.artist));
+    } else if (t.isUrl) {
+        info.appendChild(el('div', { className: 'music-mini-artist' }, 'externa'));
     }
     tap.appendChild(info);
 

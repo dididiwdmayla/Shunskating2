@@ -39,7 +39,7 @@ function tx(mode = 'readonly') {
 }
 
 /** Adiciona uma track. Retorna o id criado. */
-export async function addTrack({ title, artist, album, duration, type, blob }) {
+export async function addTrack({ title, artist, album, duration, type, blob, url }) {
     const id = crypto.randomUUID ? crypto.randomUUID() : 't_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
     const track = {
         id,
@@ -48,9 +48,10 @@ export async function addTrack({ title, artist, album, duration, type, blob }) {
         album: album || '',
         duration: duration || 0,
         type: type || 'audio/mpeg',
-        addedAt: Date.now(),
-        blob
+        addedAt: Date.now()
     };
+    if (blob) track.blob = blob;
+    if (url) track.url = url;
     const store = await tx('readwrite');
     return new Promise((res, rej) => {
         const r = store.add(track);
@@ -83,7 +84,9 @@ export async function listTracks() {
                 out.push({
                     id: t.id, title: t.title, artist: t.artist, album: t.album,
                     duration: t.duration, type: t.type, addedAt: t.addedAt,
-                    size: t.blob && t.blob.size ? t.blob.size : 0
+                    size: t.blob && t.blob.size ? t.blob.size : 0,
+                    isUrl: !!t.url,
+                    url: t.url || null
                 });
                 cursor.continue();
             } else {

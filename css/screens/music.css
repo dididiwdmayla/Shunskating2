@@ -574,3 +574,137 @@ body.has-mini-player {
     left: auto;
     width: 100px;
 }
+
+/* =========================================================
+   RODADA B — adições
+   ========================================================= */
+
+/* Botões de import lado a lado */
+.music-import-btngroup {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--sp-2);
+}
+
+.music-import-url-btn {
+    background: var(--zine-paper);
+    color: var(--zine-ink);
+    box-shadow: 4px 4px 0 var(--zine-ink);
+}
+
+/* Hint do modal de URL */
+.music-url-hint {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: var(--zine-ink-faded);
+    margin: 0 0 var(--sp-2);
+    line-height: 1.4;
+}
+
+.music-url-status {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--zine-red);
+    margin: var(--sp-1) 0 0;
+    min-height: 1em;
+}
+
+/* Botão shuffle ativo */
+.music-ctrl-shuffle {
+    font-size: 1.2rem;
+    transition: background 0.15s, color 0.15s;
+}
+
+.music-ctrl-shuffle.is-active {
+    background: var(--zine-red);
+    color: var(--zine-paper);
+    border-color: var(--zine-ink);
+}
+
+.music-ctrl-spacer {
+    width: 56px;
+    height: 56px;
+    visibility: hidden;
+    flex-shrink: 0;
+}
+
+/* Drag-and-drop visual */
+.music-queue-item {
+    cursor: grab;
+    transition: background 0.15s, transform 0.1s;
+}
+
+.music-queue-item.is-dragging {
+    opacity: 0.4;
+    cursor: grabbing;
+}
+
+.music-queue-item.is-drag-over {
+    background: rgba(200, 32, 31, 0.15);
+    border-left-color: var(--zine-red);
+    border-left-width: 5px;
+}
+
+.music-queue-handle {
+    display: inline-block;
+    color: var(--zine-ink-faded);
+    margin-right: var(--sp-2);
+    font-family: var(--font-mono, monospace);
+    cursor: grab;
+    user-select: none;
+}
+
+/* Card "tocando" — destaque na lista */
+.music-card.is-now-playing {
+    border-color: var(--zine-red);
+    border-width: 2px;
+    box-shadow: 4px 4px 0 var(--zine-red);
+}
+
+.music-card-title-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden;
+}
+
+.music-card-now {
+    color: var(--zine-red);
+    font-size: 1rem;
+    flex-shrink: 0;
+    animation: now-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes now-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.music-card-url-tag {
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--zine-paper);
+    background: var(--zine-ink-faded);
+    padding: 2px 6px;
+    flex-shrink: 0;
+}
+
+/* Animação suave de entrada do mini-player */
+.music-mini {
+    transform: translateY(0);
+    transition: transform 0.25s ease-out;
+}
+
+.music-mini[hidden] {
+    display: none;
+}
+
+@keyframes mini-slide-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.music-mini:not([hidden]) {
+    animation: mini-slide-up 0.3s ease-out;
+}
