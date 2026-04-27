@@ -6,32 +6,32 @@
     position: relative;
     min-height: 100vh;
     padding-bottom: calc(var(--bottom-nav-h, 64px) + 80px);
-}
-
-/* fundo de revista — placeholder enquanto não existe music-bg.jpg */
-.music-screen {
-    background: var(--zine-paper, #ecd9b3);
-}
-
-.music-screen::before {
-    content: '';
-    position: fixed;
-    inset: 0;
+    /* Imagem de fundo aplicada direto aqui */
     background-image: url('../../assets/textures/music-bg.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: -1;
+    background-attachment: scroll;
+}
+
+/* Overlay claro por cima da imagem pra texto legível */
+.music-screen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(236, 217, 179, 0.55);
     pointer-events: none;
-    opacity: 0.85;
+    z-index: 0;
+}
+
+/* Conteúdo da tela acima do overlay */
+.music-screen > * {
+    position: relative;
+    z-index: 1;
 }
 
 .music-bg-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(236, 217, 179, 0.4);
-    z-index: -1;
-    pointer-events: none;
+    display: none;
 }
 
 .music-header {
@@ -497,18 +497,20 @@ body.has-mini-player {
 
 .music-mini-ctrls {
     display: flex;
-    gap: var(--sp-1);
+    gap: 4px;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .music-mini-btn {
-    width: 36px;
+    width: 32px;
     height: 36px;
     background: transparent;
     border: 1px solid var(--zine-ink);
     color: var(--zine-ink);
-    font-size: 1rem;
+    font-size: 0.9rem;
     cursor: pointer;
+    padding: 0;
 }
 
 .music-mini-hide {

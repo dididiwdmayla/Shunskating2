@@ -89,6 +89,12 @@ function render(state) {
 
     ctrls.appendChild(el('button', {
         className: 'music-mini-btn', type: 'button',
+        'aria-label': 'anterior',
+        onClick: (e) => { e.stopPropagation(); player.playPrev(); }
+    }, '⏮'));
+
+    ctrls.appendChild(el('button', {
+        className: 'music-mini-btn', type: 'button',
         'aria-label': state.isPlaying ? 'pausar' : 'tocar',
         onClick: (e) => { e.stopPropagation(); player.togglePlay(); }
     }, state.isPlaying ? '⏸' : '▶'));
