@@ -16,6 +16,7 @@ import dicas from './screens/dicas.js';
 import game from './screens/game.js';
 import skatistas from './screens/skatistas.js';
 import music from './screens/music.js';
+import historicTricks from './screens/historic-tricks.js';
 import * as musicMini from './screens/music-mini.js';
 
 /* --- registra telas --- */
@@ -27,6 +28,7 @@ registerScreen('dicas', dicas);
 registerScreen('game', game);
 registerScreen('skatistas', skatistas);
 registerScreen('music', music);
+registerScreen('historicTricks', historicTricks);
 
 /* --- Som global em cliques de botão.
  *

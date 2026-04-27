@@ -1,0 +1,56 @@
+{
+    "version": "1.0",
+    "updated": "2026-04-27",
+    "lines": [
+        {
+            "id": "suciu-verso-final",
+            "skater": "Mark Suciu",
+            "video": "Verso",
+            "year": 2019,
+            "spot": "Pier Seven, San Francisco",
+            "tricks": [
+                "frontside 50-50",
+                "nollie frontside heelflip fakie 5-0 revert",
+                "nollie crook",
+                "...sequência espelhada (chiasmus)...",
+                "fakie crook",
+                "nollie backside heelflip fakie nosegrind revert",
+                "frontside 50-50"
+            ],
+            "context": "A última seção de Verso é uma sequência espelhada (chiasmus). 13 manobras onde a primeira e a última são iguais (frontside 50-50), a segunda e a penúltima são pares invertidos, e assim por diante até o centro. Mark e Justin Albert filmaram durante anos pra completar a sequência. Foi a parte que cravou o status de SOTY.",
+            "tribute": "transformou a parte de skate em poesia formal"
+        },
+        {
+            "id": "rodney-mullen-1990s",
+            "skater": "Rodney Mullen",
+            "video": "Almost: Round 3",
+            "year": 2004,
+            "spot": "flatground em garagem",
+            "tricks": [
+                "kickflip underflip",
+                "casper flip",
+                "darkslide",
+                "primo flip",
+                "ghetto bird"
+            ],
+            "context": "Linha de flatground filmada em garagem. Rodney transformou o flat numa linguagem própria, encadeando tricks que ele inventou em sequências impossíveis de replicar. Não tem obstáculo — só pé, shape e milhares de horas.",
+            "tribute": "criou metade das manobras de flat que existem"
+        },
+        {
+            "id": "daewon-flat-line",
+            "skater": "Daewon Song",
+            "video": "Cheese & Crackers",
+            "year": 2006,
+            "spot": "miniaturas e obstáculos caseiros",
+            "tricks": [
+                "kickflip body varial",
+                "manual em mini quarter",
+                "noseslide em pequeno corrimão",
+                "switch flip out",
+                "fakie nosegrind"
+            ],
+            "context": "Daewon e Chris Haslam mandaram linhas de obstáculos pequenos, caseiros, alguns colocados a mão. A ideia: virtuosismo não precisa de spot grande. Cada combinação de pé é única. Inspirou uma geração inteira a tratar qualquer obstáculo como digno.",
+            "tribute": "skate técnico não tem tamanho mínimo"
+        }
+    ]
+}

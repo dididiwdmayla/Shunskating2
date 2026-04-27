@@ -211,3 +211,102 @@
 @media (prefers-reduced-motion: reduce) {
     .home-card.is-crushing { animation: none; }
 }
+
+/* =========================================================
+   MANDA HOJE — sugestão diária
+   ========================================================= */
+
+.home-daily {
+    margin-top: var(--sp-3, 12px);
+    margin-bottom: var(--sp-3, 12px);
+}
+
+.home-daily-card {
+    background: var(--zine-paper, #ecd9b3);
+    border: 2px solid var(--zine-ink, #1a1a1a);
+    box-shadow: 5px 5px 0 var(--zine-red, #c8201f);
+    padding: var(--sp-3, 12px);
+}
+
+.home-daily-title {
+    font-family: var(--font-display, sans-serif);
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    margin: 0;
+    color: var(--zine-red, #c8201f);
+}
+
+.home-daily-sub {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.78rem;
+    color: var(--zine-ink-faded, #888);
+    margin: 0 0 var(--sp-2, 8px);
+}
+
+.home-daily-tricks {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2, 8px);
+}
+
+.home-daily-trick {
+    background: rgba(255, 255, 255, 0.5);
+    padding: var(--sp-2, 8px);
+    border-left: 4px solid var(--zine-ink, #1a1a1a);
+    transition: opacity 0.2s;
+}
+
+.home-daily-trick.is-attempted {
+    opacity: 0.6;
+    border-left-color: var(--zine-red, #c8201f);
+    background: rgba(200, 32, 31, 0.08);
+}
+
+.home-daily-trick-name {
+    font-family: var(--font-display, sans-serif);
+    font-size: 1.1rem;
+    color: var(--zine-ink, #1a1a1a);
+}
+
+.home-daily-trick-diff {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.75rem;
+    color: var(--zine-ink-faded, #888);
+    margin-bottom: var(--sp-1, 4px);
+}
+
+.home-daily-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: var(--sp-1, 4px);
+    align-items: center;
+}
+
+.home-daily-btn {
+    padding: 5px 12px;
+    font-family: var(--font-display, sans-serif);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    border: 1.5px solid var(--zine-ink, #1a1a1a);
+    cursor: pointer;
+    background: var(--zine-paper, #ecd9b3);
+    color: var(--zine-ink, #1a1a1a);
+}
+
+.home-daily-open {
+    background: var(--zine-ink, #1a1a1a);
+    color: var(--zine-paper, #ecd9b3);
+}
+
+.home-daily-tried-btn {
+    background: var(--zine-red, #c8201f);
+    color: var(--zine-paper, #ecd9b3);
+    border-color: var(--zine-ink, #1a1a1a);
+}
+
+.home-daily-tried {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.78rem;
+    color: var(--zine-red, #c8201f);
+    font-style: italic;
+}

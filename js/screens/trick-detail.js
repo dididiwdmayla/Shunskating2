@@ -57,6 +57,7 @@ async function render(container, params) {
             onClick: () => navigate('tricks'),
             'aria-label': 'Voltar ao catálogo'
         }, '← VOLTAR'),
+        renderTutorialButton(trick),
         renderFavoriteStar(state)
     ));
 
@@ -188,6 +189,54 @@ function wrapTablesForScroll(contentEl) {
 }
 
 /* ---------------- FAVORITO ---------------- */
+
+function renderTutorialButton(trick) {
+    const url = (trick.tutorialUrl || '').trim();
+    const urlAlt = (trick.tutorialUrlAlt || '').trim();
+    if (!url && !urlAlt) {
+        return document.createTextNode('');
+    }
+
+    const wrap = el('div', { className: 'tutorial-btn-wrap' });
+
+    if (url) {
+        const btn = el('a', {
+            className: 'tutorial-btn',
+            href: url,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            'aria-label': urlAlt ? 'Tutorial BS' : 'Tutorial em vídeo',
+            title: urlAlt ? 'Tutorial BS' : 'Tutorial em vídeo'
+        });
+        btn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <polygon points="6,4 6,20 20,12"/>
+            </svg>
+            ${urlAlt ? '<span class="tutorial-btn-label">BS</span>' : ''}
+        `;
+        wrap.appendChild(btn);
+    }
+
+    if (urlAlt) {
+        const btnAlt = el('a', {
+            className: 'tutorial-btn tutorial-btn-alt',
+            href: urlAlt,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            'aria-label': 'Tutorial FS',
+            title: 'Tutorial FS'
+        });
+        btnAlt.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <polygon points="6,4 6,20 20,12"/>
+            </svg>
+            <span class="tutorial-btn-label">FS</span>
+        `;
+        wrap.appendChild(btnAlt);
+    }
+
+    return wrap;
+}
 
 function renderFavoriteStar(state) {
     const btn = el('button', {

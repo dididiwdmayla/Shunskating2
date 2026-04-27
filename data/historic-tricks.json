@@ -1,0 +1,206 @@
+{
+    "version": "1.0",
+    "updated": "2026-04-27",
+    "comment": "Manobras históricas — registros imutáveis de skatistas que marcaram cada manobra. Atribuições conservadoras: 'criou' só quando documentado, senão 'famoso por', 'marca registrada', etc.",
+    "byTrick": {
+        "ollie": [
+            {
+                "skater": "Rodney Mullen",
+                "year": 1982,
+                "role": "criador",
+                "note": "Adaptou o ollie de Alan Gelfand (que era em rampa) para o flat ground. Sem essa adaptação, o street skate não existiria."
+            }
+        ],
+        "shove-it": [
+            {
+                "skater": "Rodney Mullen",
+                "year": "anos 80",
+                "role": "popularizador",
+                "note": "Pop shove-it em flat ground virou parte do vocabulário moderno através do Mullen, que o transformou de freestyle em street."
+            }
+        ],
+        "varial": [
+            {
+                "skater": "Rodney Mullen",
+                "year": "anos 80",
+                "role": "popularizador",
+                "note": "BS shove-it (varial no Brasil) — assim como o FS, foi através da virada do Mullen pro street que virou trick comum."
+            }
+        ],
+        "kickflip": [
+            {
+                "skater": "Rodney Mullen",
+                "year": 1982,
+                "role": "criador",
+                "note": "Originalmente chamado de 'Magic Flip'. Foi a primeira de muitas manobras modernas onde shape e skatista se separam. Abriu o caminho pra todos os flips que existem."
+            },
+            {
+                "skater": "Daewon Song",
+                "year": "anos 90-2000",
+                "role": "estilo definitivo",
+                "note": "Junto com Ronnie Creager e outros do World Industries, definiu como kickflips são feitos em sequência e com estilo. Daewon levou a consistência do flip a um nível absurdo."
+            }
+        ],
+        "heelflip": [
+            {
+                "skater": "Rodney Mullen",
+                "year": 1982,
+                "role": "criador",
+                "note": "Criado junto com o kickflip. Mesma mecânica, lado oposto. Sem o heelflip, não existiria varial heel, inward heel, laser flip nem nenhuma família heelside."
+            }
+        ],
+        "fs-180": [
+            {
+                "skater": "Luan Oliveira",
+                "year": "década 2010+",
+                "role": "marca registrada",
+                "note": "Luan tem um dos FS 180 mais altos e estilosos da geração. Combina o trick com flips e bordas com fluidez raríssima."
+            }
+        ],
+        "bs-180": [
+            {
+                "skater": "Dylan Rieder",
+                "year": "anos 2010",
+                "role": "estilo definitivo",
+                "note": "Dylan transformou o BS 180 em poesia visual — pernas longas estendidas, catch limpo, um dos visualmente mais perfeitos. Faleceu em 2016 e deixou esse padrão estético."
+            }
+        ],
+        "tre-flip": [
+            {
+                "skater": "Rodney Mullen",
+                "year": 1983,
+                "role": "criador",
+                "note": "360 Flip / Tre Flip. Combinação de kickflip + 360 BS shove. Veio logo depois do kickflip e até hoje é a manobra-trofeú do flatground técnico."
+            },
+            {
+                "skater": "Luan Oliveira",
+                "year": "década 2010+",
+                "role": "marca registrada",
+                "note": "Luan é uma das referências mundiais de tre flip — limpeza absurda do flick, altura, estilo. Manobra que ele manda em qualquer obstáculo."
+            }
+        ],
+        "double-kickflip": [
+            {
+                "skater": "Rodney Mullen",
+                "year": "anos 80",
+                "role": "criador",
+                "note": "Mullen documentou os primeiros double flips em flat. A técnica de chicote (velocidade > força) que torna a manobra possível é parte do legado dele."
+            }
+        ],
+        "varial-kickflip": [
+            {
+                "skater": "Rodney Mullen",
+                "year": "anos 80",
+                "role": "primeiro a documentar",
+                "note": "Combinação varial (BS shove) + kickflip apareceu junto com a expansão dos flips por Mullen. Hoje é base pra entender a mecânica das compostas fluidas."
+            }
+        ],
+        "varial-heelflip": [
+            {
+                "skater": "Rodney Mullen",
+                "year": "anos 80",
+                "role": "primeiro a documentar",
+                "note": "Shove-it (FS) + heelflip. A combinação fluida do lado heelside. Mullen foi o primeiro a expandir a árvore de flips compostos."
+            }
+        ],
+        "noseslide": [
+            {
+                "skater": "Daewon Song",
+                "year": "anos 90-2000",
+                "role": "estilo definitivo",
+                "note": "Daewon transformou noseslides em conexões impossíveis — entrar de switch flip, sair de bigspin, fazer em obstáculos minúsculos. Influenciou tudo que veio depois."
+            }
+        ],
+        "boardslide": [
+            {
+                "skater": "Ryan Sheckler",
+                "year": "anos 2000-2010",
+                "role": "estilo competitivo",
+                "note": "Sheckler foi um dos primeiros prodígios mainstream. Boardslides longos em corrimãos enormes — manobra que ele consagrou em vídeos da Plan B e Red Bull."
+            }
+        ],
+        "noseblunt": [
+            {
+                "skater": "Mark Suciu",
+                "year": 2019,
+                "role": "encerramento de Verso",
+                "note": "Mark Suciu fechou Blubba noseblunt como uma das possíveis enders de Verso. Manobra extremamente difícil em ledges altos. Sucesso técnico mítico."
+            }
+        ],
+        "50-50": [
+            {
+                "skater": "Ryan Sheckler",
+                "year": "anos 2000",
+                "role": "vocabulário competitivo",
+                "note": "Sheckler popularizou o 50-50 em corrimãos gigantes ainda muito jovem. Marco da era em que skate de competição virou TV mainstream."
+            }
+        ],
+        "manual": [
+            {
+                "skater": "Daewon Song",
+                "year": "Cheese & Crackers (2006)",
+                "role": "manual em qualquer obstáculo",
+                "note": "Daewon e Chris Haslam mandam manuais em obstáculos pequenos, caseiros, transformando qualquer coisa em desafio. Cheese & Crackers redefiniu o que conta como spot."
+            }
+        ],
+        "ollie-manual": [
+            {
+                "skater": "Daewon Song",
+                "year": "2000s",
+                "role": "encadeamento",
+                "note": "Daewon encadeia ollie manual em sequências longas, geralmente saindo em flip out. A consistência do equilíbrio dele é referência."
+            }
+        ],
+        "ollie-nose-manual": [
+            {
+                "skater": "Daewon Song",
+                "year": "2000s",
+                "role": "encadeamento",
+                "note": "Mesma família do ollie manual, mas no nose. Daewon e Rodney são as referências históricas — ambos vieram do freestyle e dominam equilíbrio fino."
+            }
+        ]
+    },
+    "byPro": {
+        "rodney-mullen": {
+            "name": "Rodney Mullen",
+            "subtitle": "the godfather of street skating",
+            "born": 1966,
+            "from": "Gainesville, Florida (EUA)",
+            "bio": "Praticamente criou o street skate moderno. Adaptou o ollie do vert pro flat (1982), inventou kickflip, heelflip, 360 flip, impossible, casper slide, darkslide, e dezenas de outras manobras. 14 anos quando ganhou o primeiro mundial freestyle; 34 títulos em 35 competições. Quando o freestyle morreu, levou o vocabulário dele pro street e mudou tudo de novo. Toda família de flips compostos que existe (varial flip, hardflip, inward heel, double flip) descende do trabalho dele.",
+            "tricks": ["ollie", "kickflip", "heelflip", "tre-flip", "shove-it", "varial", "varial-kickflip", "varial-heelflip", "double-kickflip"]
+        },
+        "luan-oliveira": {
+            "name": "Luan Oliveira",
+            "subtitle": "o brasileiro que mandou tudo bonito",
+            "born": 1990,
+            "from": "Porto Alegre, RS (Brasil)",
+            "bio": "Um dos skatistas brasileiros mais influentes da geração. Pro pela Plan B, Flip e outras. Combina técnica de flatground com fluidez em obstáculos — tre flip, switch flip, FS 180 são marca dele. Estilo que inspirou uma geração inteira no Brasil a buscar limpeza ao invés de força bruta.",
+            "tricks": ["tre-flip", "fs-180", "kickflip"]
+        },
+        "daewon-song": {
+            "name": "Daewon Song",
+            "subtitle": "técnico até o último parafuso",
+            "born": 1975,
+            "from": "Seul (Coreia do Sul) → Los Angeles",
+            "bio": "Daewon é a definição de skatista técnico. Carreira longa começando nos anos 90 com World Industries, depois Almost. 'Cheese & Crackers' (com Chris Haslam, 2006) redefiniu o que é spot — qualquer obstáculo serve, qualquer combinação é possível. Manuais, slides, flips concatenados em sequências impensáveis. Influência sobre toda escola técnica moderna.",
+            "tricks": ["manual", "noseslide", "kickflip", "ollie-manual", "ollie-nose-manual"]
+        },
+        "dylan-rieder": {
+            "name": "Dylan Rieder",
+            "subtitle": "estilo é tudo",
+            "born": 1988,
+            "died": 2016,
+            "from": "Westminster, Califórnia (EUA)",
+            "bio": "Dylan transformou o skate em poesia visual. Pernas longas estendidas no flick, catch impecável, BS 180 e impossible que pareciam dança. Pro pela Gravis e Alien Workshop. Faleceu em 2016 com 28 anos por leucemia. Deixou um padrão estético que ainda referencia toda discussão sobre estilo.",
+            "tricks": ["bs-180", "kickflip"]
+        },
+        "ryan-sheckler": {
+            "name": "Ryan Sheckler",
+            "subtitle": "o prodígio do street competitivo",
+            "born": 1989,
+            "from": "San Clemente, Califórnia (EUA)",
+            "bio": "Ganhou o X Games aos 13 anos. Pro pela Plan B, Red Bull, etc. Define a era em que skate virou esporte mainstream — corrimãos gigantes, gaps grandes, boardslides e 50-50 em obstáculos absurdos. Estilo competitivo de bater alto, ousar primeiro, refinar depois.",
+            "tricks": ["boardslide", "50-50", "fs-180"]
+        }
+    }
+}

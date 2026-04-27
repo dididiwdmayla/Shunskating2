@@ -3,9 +3,10 @@
  * Tela inicial — capa do zine.
  */
 
-import { el, pick } from '../utils.js';
+import { el, pick, fetchJson } from '../utils.js';
 import { navigate } from '../navigation.js';
 import { getFavorites, get, STORAGE_KEYS } from '../storage.js';
+import * as daily from '../daily-suggestion.js';
 
 const QUOTES = [
     { text: 'Tudo que vale a pena, dói um pouco pra aprender.', author: 'Luan Oliveira' },
@@ -141,6 +142,11 @@ function render(container) {
     });
     screen.appendChild(grid);
 
+    /* --- MANDA HOJE — sugestão diária --- */
+    const dailyBox = el('div', { className: 'home-daily', id: 'home-daily' });
+    screen.appendChild(dailyBox);
+    renderDailySuggestion(dailyBox);
+
     /* --- CITAÇÃO --- */
     const quoteBox = el('div', { className: 'home-quote' },
         document.createTextNode(quote.text),
@@ -263,6 +269,61 @@ function toggleStickerFall(slotEl, pos) {
             slotEl.classList.add('is-fallen');
         }, 700);
     }
+}
+
+/* =========================================================
+   MANDA HOJE — sugestão diária na home
+   ========================================================= */
+
+async function renderDailySuggestion(container) {
+    let tricksData;
+    try {
+        tricksData = await fetchJson('data/tricks.json');
+    } catch (e) {
+        return;
+    }
+
+    const sugg = daily.getOrGenerateDaily(tricksData);
+    container.innerHTML = '';
+
+    if (!sugg.trickIds || sugg.trickIds.length === 0) {
+        return;
+    }
+
+    const wrap = el('div', { className: 'home-daily-card' });
+    wrap.appendChild(el('h2', { className: 'home-daily-title' }, 'MANDA HOJE'));
+    wrap.appendChild(el('p', { className: 'home-daily-sub' }, 'sugestão pra quebrar a estagnação'));
+
+    const tricks = sugg.trickIds.map(id => tricksData.tricks.find(t => t.id === id)).filter(Boolean);
+    const list = el('div', { className: 'home-daily-tricks' });
+    tricks.forEach(t => {
+        const tried = daily.attemptedToday(t.id);
+        const card = el('div', { className: `home-daily-trick${tried ? ' is-attempted' : ''}` });
+        card.appendChild(el('div', { className: 'home-daily-trick-name' }, t.name));
+        if (t.difficulty) {
+            card.appendChild(el('div', { className: 'home-daily-trick-diff' }, 'dificuldade ' + t.difficulty));
+        }
+        const acts = el('div', { className: 'home-daily-actions' });
+        acts.appendChild(el('button', {
+            className: 'home-daily-btn home-daily-open', type: 'button',
+            onClick: () => navigate('trickDetail', { id: t.id })
+        }, 'ABRIR'));
+        if (tried) {
+            acts.appendChild(el('span', { className: 'home-daily-tried' }, '✓ tentei hoje'));
+        } else {
+            acts.appendChild(el('button', {
+                className: 'home-daily-btn home-daily-tried-btn', type: 'button',
+                onClick: () => {
+                    daily.markAttempt(t.id);
+                    renderDailySuggestion(container);
+                }
+            }, 'TENTEI HOJE'));
+        }
+        card.appendChild(acts);
+        list.appendChild(card);
+    });
+    wrap.appendChild(list);
+    container.appendChild(wrap);
 }
 
 export default { render };

@@ -21,6 +21,9 @@ export const STORAGE_KEYS = {
     myIdentity: `${STORAGE_VERSION}.myIdentity`, // { nick, id, created, stance, city, favTrick, favPro }
     crew:       `${STORAGE_VERSION}.crew`,       // [ { id, nick, stance, city, favTrick, favPro, stampedAt } ]
     crews:      `${STORAGE_VERSION}.crews`,      // [ { id, name, memberIds: [...], createdAt } ]
+    userLines:  `${STORAGE_VERSION}.userLines`,  // [ { id, name, trickIds, createdAt, completedAt|null } ]
+    suggestedLine: `${STORAGE_VERSION}.suggestedLine`, // { date, trickIds, regenCount, completedAt|null }
+    dailySugg:  `${STORAGE_VERSION}.dailySugg`,  // { date, trickIds, attempts: { [trickId]: lastAttemptDate } }
     onboardingSkatistasDone: `${STORAGE_VERSION}.onboardingSkatistasDone`,
     swipeHintShown:          `${STORAGE_VERSION}.swipeHintShown`
 };
@@ -537,4 +540,59 @@ export function isSwipeHintShown() {
 
 export function markSwipeHintShown() {
     set(STORAGE_KEYS.swipeHintShown, true);
+}
+
+/* =========================================================
+   USER LINES + LINHA RECOMENDADA + SUGESTÃO DIÁRIA
+   ========================================================= */
+
+/** Lista de linhas criadas pelo usuário. */
+export function getUserLines() {
+    return get(STORAGE_KEYS.userLines, []);
+}
+
+/** Salva uma linha (cria se id ausente, atualiza se existente). */
+export function saveUserLine(line) {
+    const lines = getUserLines();
+    if (!line.id) line.id = 'ul_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+    if (!line.createdAt) line.createdAt = new Date().toISOString();
+    const idx = lines.findIndex(l => l.id === line.id);
+    if (idx >= 0) lines[idx] = line;
+    else lines.push(line);
+    set(STORAGE_KEYS.userLines, lines);
+    return line.id;
+}
+
+/** Remove linha do usuário pelo id. */
+export function deleteUserLine(id) {
+    const lines = getUserLines().filter(l => l.id !== id);
+    set(STORAGE_KEYS.userLines, lines);
+}
+
+/** Marca uma linha como completada agora. */
+export function markUserLineCompleted(id) {
+    const lines = getUserLines();
+    const l = lines.find(x => x.id === id);
+    if (l) {
+        l.completedAt = new Date().toISOString();
+        set(STORAGE_KEYS.userLines, lines);
+    }
+}
+
+/** Linha recomendada do dia (gerada pelo algoritmo). */
+export function getSuggestedLine() {
+    return get(STORAGE_KEYS.suggestedLine, null);
+}
+
+export function setSuggestedLine(line) {
+    set(STORAGE_KEYS.suggestedLine, line);
+}
+
+/** Sugestão diária de manobras pra mandar hoje. */
+export function getDailySuggestion() {
+    return get(STORAGE_KEYS.dailySugg, null);
+}
+
+export function setDailySuggestion(s) {
+    set(STORAGE_KEYS.dailySugg, s);
 }

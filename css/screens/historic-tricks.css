@@ -1,0 +1,225 @@
+/* =========================================================
+   MANOBRAS HISTÓRICAS — tela própria
+   ========================================================= */
+
+.historic-screen {
+    padding: var(--sp-2, 8px);
+    padding-bottom: calc(var(--bottom-nav-h, 64px) + 60px);
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.historic-header {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2, 8px);
+    margin-bottom: var(--sp-2, 8px);
+    flex-wrap: wrap;
+}
+
+.historic-title {
+    font-family: var(--font-display, sans-serif);
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+    margin: 0;
+    color: var(--zine-ink, #1a1a1a);
+    flex: 1;
+}
+
+.historic-intro {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.85rem;
+    color: var(--zine-ink-faded, #888);
+    line-height: 1.5;
+    margin: 0 0 var(--sp-3, 12px);
+    padding: var(--sp-2, 8px);
+    background: rgba(255, 255, 255, 0.4);
+    border-left: 3px solid #1f3a6e;
+}
+
+/* tabs */
+.historic-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-bottom: var(--sp-3, 12px);
+}
+
+.historic-tab {
+    padding: var(--sp-2, 8px);
+    font-family: var(--font-display, sans-serif);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    background: var(--zine-paper, #ecd9b3);
+    color: var(--zine-ink-faded, #888);
+    border: 2px solid var(--zine-ink-faded, #888);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.historic-tab.is-active {
+    background: var(--zine-ink, #1a1a1a);
+    color: var(--zine-paper, #ecd9b3);
+    border-color: var(--zine-ink, #1a1a1a);
+}
+
+.historic-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3, 12px);
+}
+
+/* card de manobra */
+.historic-trick-card {
+    background: var(--zine-paper, #ecd9b3);
+    border: 2px solid var(--zine-ink, #1a1a1a);
+    box-shadow: 4px 4px 0 #1f3a6e;
+    padding: var(--sp-2, 8px);
+}
+
+.historic-trick-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--sp-2, 8px);
+    border-bottom: 1px dashed var(--zine-ink-faded, #888);
+    padding-bottom: var(--sp-1, 4px);
+}
+
+.historic-trick-name {
+    font-family: var(--font-display, sans-serif);
+    font-size: 1.2rem;
+    margin: 0;
+    color: var(--zine-ink, #1a1a1a);
+}
+
+.historic-trick-open {
+    background: transparent;
+    border: 1px solid var(--zine-ink-faded, #888);
+    color: var(--zine-ink-faded, #888);
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.historic-entry {
+    margin-bottom: var(--sp-2, 8px);
+    padding-left: var(--sp-2, 8px);
+    border-left: 3px solid var(--zine-red, #c8201f);
+}
+
+.historic-entry-head {
+    margin-bottom: 4px;
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.85rem;
+}
+
+.historic-entry-skater {
+    font-family: var(--font-display, sans-serif);
+    color: #1f3a6e;
+}
+
+.historic-entry-year {
+    color: var(--zine-ink-faded, #888);
+    font-size: 0.78rem;
+}
+
+.historic-entry-role {
+    color: var(--zine-red, #c8201f);
+    font-style: italic;
+    font-size: 0.78rem;
+}
+
+.historic-entry-note {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+    color: var(--zine-ink, #1a1a1a);
+}
+
+.historic-missing {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.78rem;
+    color: var(--zine-ink-faded, #888);
+    font-style: italic;
+    padding: var(--sp-2, 8px);
+    background: rgba(0, 0, 0, 0.04);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* card de skatista */
+.historic-pro-card {
+    background: var(--zine-paper, #ecd9b3);
+    border: 2px solid var(--zine-ink, #1a1a1a);
+    box-shadow: 4px 4px 0 var(--zine-red, #c8201f);
+    padding: var(--sp-3, 12px);
+}
+
+.historic-pro-head {
+    margin-bottom: var(--sp-2, 8px);
+}
+
+.historic-pro-name {
+    font-family: var(--font-display, sans-serif);
+    font-size: 1.4rem;
+    margin: 0;
+    color: var(--zine-ink, #1a1a1a);
+    letter-spacing: 0.05em;
+}
+
+.historic-pro-subtitle {
+    font-family: var(--font-body, sans-serif);
+    font-style: italic;
+    color: var(--zine-red, #c8201f);
+    font-size: 0.9rem;
+    margin: 2px 0;
+}
+
+.historic-pro-meta {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.78rem;
+    color: var(--zine-ink-faded, #888);
+    margin: 4px 0 0;
+}
+
+.historic-pro-bio {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin: var(--sp-2, 8px) 0;
+    color: var(--zine-ink, #1a1a1a);
+}
+
+.historic-pro-tricks-header {
+    font-family: var(--font-display, sans-serif);
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    color: var(--zine-red, #c8201f);
+    margin: var(--sp-2, 8px) 0 var(--sp-1, 4px);
+    border-top: 1px dashed var(--zine-ink-faded, #888);
+    padding-top: var(--sp-1, 4px);
+}
+
+.historic-pro-tricks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.historic-pro-trick {
+    background: var(--zine-paper, #ecd9b3);
+    border: 1.5px solid var(--zine-ink, #1a1a1a);
+    color: var(--zine-ink, #1a1a1a);
+    padding: 4px 10px;
+    font-family: var(--font-display, sans-serif);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.historic-pro-trick:active {
+    transform: scale(0.95);
+}

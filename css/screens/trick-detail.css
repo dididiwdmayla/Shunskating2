@@ -402,3 +402,66 @@
     outline: 3px solid var(--zine-highlight);
     outline-offset: 3px;
 }
+
+/* botão tutorial no header */
+.tutorial-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--zine-red, #c8201f);
+    color: var(--zine-paper, #ecd9b3);
+    border: 1.5px solid var(--zine-ink, #1a1a1a);
+    box-shadow: 2px 2px 0 var(--zine-ink, #1a1a1a);
+    text-decoration: none;
+    margin-left: auto;
+    margin-right: 8px;
+    transition: transform 0.1s;
+}
+
+.tutorial-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--zine-ink, #1a1a1a);
+}
+
+.tutorial-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.tutorial-btn-wrap {
+    display: flex;
+    gap: 6px;
+    margin-left: auto;
+    margin-right: 8px;
+}
+
+.tutorial-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 36px;
+    padding: 0 8px;
+    background: var(--zine-red, #c8201f);
+    color: var(--zine-paper, #ecd9b3);
+    border: 1.5px solid var(--zine-ink, #1a1a1a);
+    box-shadow: 2px 2px 0 var(--zine-ink, #1a1a1a);
+    text-decoration: none;
+    margin-left: 0;
+    margin-right: 0;
+    transition: transform 0.1s;
+    font-family: var(--font-display, sans-serif);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+}
+
+.tutorial-btn-alt {
+    background: var(--zine-paper, #ecd9b3);
+    color: var(--zine-red, #c8201f);
+}
+
+.tutorial-btn-label {
+    line-height: 1;
+}

@@ -67,7 +67,9 @@
                     "category": "experimento",
                     "text": "Tenta sem olhar pros pés, olha pra frente 3m — cérebro relaxa"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/eoDOC7bwF2c",
+            "lineRole": "solo"
         },
         {
             "id": "shove-it",
@@ -106,7 +108,9 @@
                     "category": "experimento",
                     "text": "Scoop parado 30x sem pular — só pra ver o shape rodando debaixo"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/l2apdm5UPqw",
+            "lineRole": "solo"
         },
         {
             "id": "varial",
@@ -146,7 +150,9 @@
                     "category": "experimento",
                     "text": "Faz 10 varials parado só pra confirmar que o shape rota completo sem você precisar pular"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/ug1DFKYfoMw",
+            "lineRole": "solo"
         },
         {
             "id": "fs-180",
@@ -187,7 +193,9 @@
                     "category": "experimento",
                     "text": "Treina olhando por cima do ombro traseiro na aproximação — corpo segue o olhar"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/3a0GrvyhujY",
+            "lineRole": "solo"
         },
         {
             "id": "bs-180",
@@ -224,7 +232,9 @@
                     "category": "experimento",
                     "text": "Olha por cima do ombro traseiro na aproximação — dá referência"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/-qQVXBSUubI",
+            "lineRole": "solo"
         },
         {
             "id": "kickflip",
@@ -270,7 +280,9 @@
                     "category": "experimento",
                     "text": "Kickflip parado com o shape numa grama — sem medo, só o gesto 30x"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/IuA9rztHMPQ",
+            "lineRole": "solo"
         },
         {
             "id": "tre-flip",
@@ -314,7 +326,9 @@
                     "category": "experimento",
                     "text": "Filma do lado — dá pra ver se o problema é o scoop ou o flick em 1 vídeo"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/L_xJRCIDvG4",
+            "lineRole": "solo"
         },
         {
             "id": "heelflip",
@@ -370,7 +384,9 @@
                     "category": "experimento",
                     "text": "Filma de baixo (camera no chão) — você vê exatamente onde o calcanhar sai"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/qLLYOQyLJpQ",
+            "lineRole": "solo"
         },
         {
             "id": "varial-heelflip",
@@ -440,7 +456,9 @@
                     "category": "experimento",
                     "text": "Filma de cima (segura o celular num pau) — vê se o scoop completou e onde o pé do flick foi"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/URzuKOmLqAs",
+            "lineRole": "solo"
         },
         {
             "id": "varial-kickflip",
@@ -501,7 +519,9 @@
                     "category": "experimento",
                     "text": "Filma de baixo (celular no chão) — vê exatamente quão forte o flick foi"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/ryzDlVSj82M",
+            "lineRole": "solo"
         },
         {
             "id": "double-kickflip",
@@ -564,7 +584,9 @@
                     "category": "experimento",
                     "text": "Filma do lado — conta quantos flips o shape faz. Visualizar o número ajuda"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/uqW_MNzYfV0",
+            "lineRole": "solo"
         },
         {
             "id": "noseslide",
@@ -614,7 +636,10 @@
                     "category": "experimento",
                     "text": "Pratica parado numa meia-guia baixa — só a posição, sem deslizar"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/oo-FW_XVjaw",
+            "lineRole": "edge",
+            "tutorialUrlAlt": "https://youtu.be/bSMmuU_CZqo"
         },
         {
             "id": "boardslide",
@@ -660,7 +685,10 @@
                     "category": "experimento",
                     "text": "Pratica FS 90 no chão primeiro — só a rotação, sem obstáculo"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/-Bq1zemlGYk",
+            "lineRole": "edge",
+            "tutorialUrlAlt": "https://youtu.be/cVf4IA2pJeg"
         },
         {
             "id": "noseblunt",
@@ -739,7 +767,10 @@
                     "category": "experimento",
                     "text": "Tenta fakie BS noseblunt antes do regular — pode travar primeiro"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/AzayZnfd3dI",
+            "lineRole": "edge",
+            "tutorialUrlAlt": "https://youtu.be/c0LymbbWAm4"
         },
         {
             "id": "50-50",
@@ -786,7 +817,9 @@
                     "category": "experimento",
                     "text": "Olha pra onde vai SAIR, não pra onde vai entrar — corpo se prepara pro exit"
                 }
-            ]
+            ],
+            "tutorialUrl": "https://youtu.be/OWF1xsSHU4w",
+            "lineRole": "edge"
         },
         {
             "id": "manual",
@@ -832,47 +865,116 @@
                     "category": "experimento",
                     "text": "Treina em linha reta mirando numa rachadura — foco fora do shape"
                 }
-            ]
+            ],
+            "tutorialUrl": "",
+            "lineRole": "manual"
         },
         {
             "id": "ollie-manual",
             "name": "Ollie Manual",
             "category": "connected",
             "difficulty": 3,
-            "prerequisites": ["ollie", "manual"],
+            "prerequisites": [
+                "ollie",
+                "manual"
+            ],
             "noStanceVariations": true,
-            "tags": ["conectada", "manual", "controle"],
+            "tags": [
+                "conectada",
+                "manual",
+                "controle"
+            ],
             "tips": "<h2>Ollie Manual</h2><p>Ollie e cair direto em manual. Parece duas manobras independentes mas é uma coisa só: o pouso do ollie <em>já é</em> a entrada do manual. Quem trata como duas manobras separadas falha porque o tempo entre o pouso e o pivot do tail é zero.</p><h3>Biomecânica</h3><p>Faz um ollie normal, mas com o pé dianteiro um pouco mais atrás que de costume — bem em cima do parafuso dianteiro, não na parte de trás do nose. Isso encurta a distância que o pé tem que percorrer pra equilibrar depois.</p><p><strong>O pouso é diferente.</strong> Em vez de cair com peso distribuído, você cai com o peso já indo pra trás. <mark>O quadril começa a recuar antes do shape tocar o chão.</mark> Isso é o que transforma um ollie em ollie manual.</p><h3>O erro principal — \"jogar peso pra trás com vontade\"</h3><p>Sintoma: você caiu do ollie, o nose levantou, mas o tail tocou o chão e raspou. A manobra acabou no impacto.</p><p><strong>Causa raíz:</strong> o peso foi pra trás <em>tarde demais</em>, e quando foi, foi violento. O tronco inteiro caiu pra trás e o tail bateu.</p><p><strong>Correção:</strong> o peso vai pra trás <em>antes</em> do pouso, durante a queda do ollie. E vai gradual, não em bloco. <mark>Pivota pelo quadril, não pelo tronco inteiro.</mark> Tronco fica mais ereto; só a cintura recua.</p><h3>O segundo erro — tail raspando</h3><p>Sintoma comum mesmo pra quem já manda manual normal: faz o ollie manual mas o tail raspa o chão pelo menos uma vez antes de equilibrar.</p><p><strong>Causa provável:</strong> você deixou o quadril ir pra trás demais ou tarde demais. O nose levantou demais, o tail desceu até raspar.</p><p><strong>Correção:</strong> mira um ponto fixo no chão na altura do horizonte. Quando o nose tampar esse ponto, é hora de relaxar a pressão no tail. Esse \"alvo visual\" calibra automaticamente o ângulo de inclinação.</p><p>Outras causas possíveis: tail muito gasto (raspa mais fácil), velocidade muito baixa (sem inércia o tail não tem como ficar suspenso), pop muito alto (quanto mais alto o ollie, mais tempo pra perder controle do peso).</p><h3>O terceiro erro — pé dianteiro inativo</h3><p>Quem foca demais no recuo do peso esquece que o <strong>pé dianteiro tem trabalho ativo durante o manual</strong>. Ele não fica só lá em cima — ele <em>puxa</em> o nose pra cima de leve, contrabalançando a pressão do tail.</p><p>Pratica sentindo: dedos do pé dianteiro fazendo uma puxada sutil pra cima durante todo o tempo aéreo do nose. Isso estabiliza.</p><h3>Hack mental</h3><blockquote>Não é \"ollie depois manual\". É \"ollie que já tá em manual no momento do pouso\". O recuo do quadril começa enquanto você ainda está no ar.</blockquote><h3>Diagnóstico</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Tail raspa</td><td>Quadril foi pra trás demais ou tarde</td><td>Pivota pelo quadril, gradual, antes do pouso</td></tr><tr><td>Cai e nose volta pro chão</td><td>Não recuou peso o suficiente</td><td>Pousa já com o quadril atrás do centro</td></tr><tr><td>Tropeça no pouso</td><td>Pé dianteiro descoordenado</td><td>Pé dianteiro mais perto do parafuso, não na ponta</td></tr><tr><td>Manual dura 1 segundo só</td><td>Pé dianteiro inativo após pouso</td><td>Puxa o nose ativamente, não só equilibra</td></tr></tbody></table><h3>Progressão</h3><ol><li>Ollie alto e consistente.</li><li>Manual longo (5+ segundos) na velocidade de pushada.</li><li>Ollie pequeno + manual curto. 50x.</li><li>Ollie normal + manual de 3 segundos.</li><li>Ollie grande + manual longo.</li></ol>",
             "bombIdeas": [
-                { "category": "pe", "text": "Pé da frente um pouco mais atrás que num ollie normal — em cima do parafuso, não na ponta" },
-                { "category": "reframe", "text": "Não é ollie + manual. É um ollie que já está em manual quando pousa" },
-                { "category": "reframe", "text": "O quadril vai pra trás ANTES do pouso, não depois" },
-                { "category": "ritmo", "text": "Recuo gradual, não em bloco. Pivota pelo quadril, tronco ereto" },
-                { "category": "erro", "text": "Tail raspa? Você foi pra trás demais ou tarde demais. Mira um ponto fixo na altura do horizonte" },
-                { "category": "erro", "text": "Manual dura nada? Pé dianteiro inativo. Puxa o nose ativamente" },
-                { "category": "experimento", "text": "Faz manual sem ollie 10x antes de tentar a versão conectada — refresca o equilíbrio" }
-            ]
+                {
+                    "category": "pe",
+                    "text": "Pé da frente um pouco mais atrás que num ollie normal — em cima do parafuso, não na ponta"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Não é ollie + manual. É um ollie que já está em manual quando pousa"
+                },
+                {
+                    "category": "reframe",
+                    "text": "O quadril vai pra trás ANTES do pouso, não depois"
+                },
+                {
+                    "category": "ritmo",
+                    "text": "Recuo gradual, não em bloco. Pivota pelo quadril, tronco ereto"
+                },
+                {
+                    "category": "erro",
+                    "text": "Tail raspa? Você foi pra trás demais ou tarde demais. Mira um ponto fixo na altura do horizonte"
+                },
+                {
+                    "category": "erro",
+                    "text": "Manual dura nada? Pé dianteiro inativo. Puxa o nose ativamente"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Faz manual sem ollie 10x antes de tentar a versão conectada — refresca o equilíbrio"
+                }
+            ],
+            "tutorialUrl": "",
+            "lineRole": "connected"
         },
         {
             "id": "ollie-nose-manual",
             "name": "Ollie Nose Manual",
             "category": "connected",
             "difficulty": 4,
-            "prerequisites": ["ollie", "manual"],
+            "prerequisites": [
+                "ollie",
+                "manual"
+            ],
             "noStanceVariations": true,
-            "tags": ["conectada", "manual", "nose", "controle"],
+            "tags": [
+                "conectada",
+                "manual",
+                "nose",
+                "controle"
+            ],
             "tips": "<h2>Ollie Nose Manual</h2><p>Ollie caindo direto em nose manual. Mais difícil que o ollie manual normal porque o equilíbrio é em cima de duas rodas pequenas no nose, e seu centro de massa precisa ir <em>pra frente</em> em vez de pra trás — direção contra-intuitiva pra quem aprendeu manual primeiro.</p><h3>Biomecânica</h3><p>Faz o ollie. Durante a queda, o pé dianteiro <em>já está</em> indo em direção à <strong>curvatura do nose, entre o parafuso dianteiro e o canto da ponta</strong>. <mark>Não vai em cima do parafuso — vai pra frente dele, naquela parte curva.</mark> O peso vai pra frente E pra baixo, não só pra baixo. Esse \"pra frente\" é o detalhe que muda tudo.</p><p>Pé traseiro pousa nos parafusos traseiros mas não fica passivo — ele faz <em>contrapeso ativo</em>, empurrando levemente pra baixo pra equilibrar a pressão do nose.</p><h3>O erro principal — empurrar nose só pra baixo</h3><p>Sintoma: cai do ollie, força o nose pra baixo, o nose toca, e o skate trava. Ou pior: o nose mergulha e você é jogado pra frente.</p><p><strong>Causa raíz:</strong> você empurrou o nose <em>só pra baixo</em>. O movimento certo é pra <em>baixo e pra frente</em>. Sem o componente \"pra frente\", o nose toca o chão num ângulo morto e trava.</p><p><strong>Correção:</strong> visualiza que você tá empurrando o nose como se quisesse <em>raspar de leve</em> pra frente, não chutar pra baixo. <mark>É um deslize, não uma estampada.</mark> O peso do tronco vai junto pra frente.</p><h3>O segundo erro — perna de trás inativa</h3><p>Sintoma: equilíbrio dura 1 segundo, o tail desce e o skate volta pro chão.</p><p><strong>Causa raíz:</strong> a perna de trás esqueceu da própria existência. Ela ficou lá só pousando, sem trabalho ativo.</p><p><strong>Correção:</strong> a perna de trás precisa estar <em>ativa a todo instante</em>. Faz contrapeso constante — uma pressão suave pra baixo no tail que mantém o nose equilibrado em cima das rodinhas. Se você relaxar essa perna, o tail desce e o nose levanta — e perde o nose manual.</p><p>Pratica imaginando que o tail está suspenso por um fio invisível no seu pé traseiro. Você tem que segurar o fio o tempo todo.</p><h3>O terceiro erro — pé dianteiro em cima do parafuso</h3><p>Sintoma: o nose toca o chão mas você não consegue levantar e equilibrar nas rodinhas — o skate fica neutro, parado, como se estivesse fundido no chão.</p><p><strong>Causa:</strong> o pé dianteiro caiu <em>em cima do parafuso dianteiro</em>. Pé no parafuso é o mesmo que pé no centro do skate — não dá alavanca pra levantar nada.</p><p><strong>Correção:</strong> pé dianteiro pousa <em>entre o parafuso e o canto do nose</em>, naquela parte curva. <mark>Mira na curvatura, não no parafuso.</mark> É de lá que vem a alavanca pra erguer o tail.</p><h3>Hack mental — perna de trás como contrapeso constante</h3><blockquote>Pé de trás não é passageiro. É co-piloto. Pressão suave pra baixo no tail durante todo o nose manual — relaxou, perdeu.</blockquote><h3>Diagnóstico</h3><table><thead><tr><th>Sintoma</th><th>Causa provável</th><th>Correção</th></tr></thead><tbody><tr><td>Skate trava no pouso</td><td>Empurrou nose só pra baixo</td><td>Pra baixo E pra frente — raspar, não estampar</td></tr><tr><td>Mergulha pra frente</td><td>Peso foi muito pra frente, nose mergulhou</td><td>O tronco vai junto, mas controlado. Não joga peso</td></tr><tr><td>Nose manual dura 1 segundo</td><td>Perna de trás inativa</td><td>Pressão constante no tail durante todo o nose manual</td></tr><tr><td>Não consegue levantar nas rodinhas</td><td>Pé dianteiro em cima do parafuso</td><td>Vai pra frente do parafuso, na curvatura do nose</td></tr></tbody></table><h3>Progressão</h3><ol><li>Nose manual sem ollie consistente — pelo menos 3 segundos.</li><li>Ollie pequeno + nose manual curto. 50x.</li><li>Ollie médio + nose manual de 2-3 segundos.</li><li>Em velocidade.</li></ol>",
             "bombIdeas": [
-                { "category": "pe", "text": "Pé dianteiro pousa entre o parafuso e o canto do nose, na curvatura — não em cima do parafuso" },
-                { "category": "pe", "text": "Pé no parafuso = pé no centro do skate. Não dá alavanca. Vai pra frente" },
-                { "category": "reframe", "text": "Empurra o nose pra baixo E pra frente — raspar de leve, não estampar" },
-                { "category": "reframe", "text": "Perna de trás é co-piloto, não passageira. Pressão constante no tail" },
-                { "category": "ritmo", "text": "Peso vai pra frente durante a queda, não depois do pouso" },
-                { "category": "erro", "text": "Trava no pouso? Empurrou só pra baixo. Tem que ter componente pra frente" },
-                { "category": "erro", "text": "Não levanta? Pé tá no parafuso. Vai pra curvatura do nose" },
-                { "category": "erro", "text": "Dura nada? Perna de trás relaxou. Imagina um fio invisível segurando o tail" },
-                { "category": "experimento", "text": "Nose manual sem ollie 10x antes de cada série — refresca o equilíbrio nas rodinhas" }
-            ]
+                {
+                    "category": "pe",
+                    "text": "Pé dianteiro pousa entre o parafuso e o canto do nose, na curvatura — não em cima do parafuso"
+                },
+                {
+                    "category": "pe",
+                    "text": "Pé no parafuso = pé no centro do skate. Não dá alavanca. Vai pra frente"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Empurra o nose pra baixo E pra frente — raspar de leve, não estampar"
+                },
+                {
+                    "category": "reframe",
+                    "text": "Perna de trás é co-piloto, não passageira. Pressão constante no tail"
+                },
+                {
+                    "category": "ritmo",
+                    "text": "Peso vai pra frente durante a queda, não depois do pouso"
+                },
+                {
+                    "category": "erro",
+                    "text": "Trava no pouso? Empurrou só pra baixo. Tem que ter componente pra frente"
+                },
+                {
+                    "category": "erro",
+                    "text": "Não levanta? Pé tá no parafuso. Vai pra curvatura do nose"
+                },
+                {
+                    "category": "erro",
+                    "text": "Dura nada? Perna de trás relaxou. Imagina um fio invisível segurando o tail"
+                },
+                {
+                    "category": "experimento",
+                    "text": "Nose manual sem ollie 10x antes de cada série — refresca o equilíbrio nas rodinhas"
+                }
+            ],
+            "tutorialUrl": "",
+            "lineRole": "connected"
         }
     ],
     "bombIdeasGeneric": {
