@@ -6,6 +6,7 @@
 import { registerScreen, navigate, start } from './navigation.js';
 import { el } from './utils.js';
 import { getSettings, isSwipeHintShown, markSwipeHintShown } from './storage.js';
+import * as sfx from './sfx.js';
 
 import home from './screens/home.js';
 import tricks from './screens/tricks.js';
@@ -26,6 +27,22 @@ registerScreen('dicas', dicas);
 registerScreen('game', game);
 registerScreen('skatistas', skatistas);
 registerScreen('music', music);
+
+/* --- Som global em cliques de botão.
+ *
+ *  Hook único no document que dispara sfx.click() em qualquer button clicado.
+ *  Filtramos sliders, inputs etc — só botões grandes ganham som.
+ *  Botões com data-no-click-sound podem optar por não emitir. */
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    if (btn.dataset.noClickSound !== undefined) return;
+    // ignora botões pequenos repetitivos (queue items, edit/delete cards) por classe
+    if (btn.classList.contains('music-queue-remove')) return;
+    if (btn.classList.contains('music-card-edit')) return;
+    if (btn.classList.contains('music-card-delete')) return;
+    sfx.click();
+}, true);
 
 /* --- mini-player persistente --- */
 musicMini.init();
@@ -176,13 +193,16 @@ start();
             const now = Date.now();
             if (now - lastRightSwipeAt < DOUBLE_WINDOW) {
                 lastRightSwipeAt = 0;
+                sfx.whoosh();
                 navigate('skatistas');
             } else {
                 lastRightSwipeAt = now;
+                sfx.whoosh();
                 showSwipeFirstFeedback('right');
             }
         } else if (side === 'left' && dx > MIN_DX) {
             // metade esquerda + swipe pra direita = Música (único)
+            sfx.whoosh();
             navigate('music');
         }
     }, { passive: true });

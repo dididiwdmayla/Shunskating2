@@ -17,6 +17,7 @@
  */
 
 import { el, fetchJson, escapeHtml, stanceLabel } from '../utils.js';
+import * as sfx from '../sfx.js';
 import {
     getBases, toggleBase, isBase,
     getMatchHistory, saveMatch,
@@ -1371,6 +1372,8 @@ function flashStamp(kind) {
     const stamp = central.querySelector('.game-trick-stamp');
     if (!stamp) return;
     stamp.classList.add(kind === 'hit' ? 'is-hit' : 'is-miss');
+    if (kind === 'hit') sfx.clickPositive();
+    else sfx.stampMiss();
     setTimeout(() => stamp.classList.remove('is-hit', 'is-miss'), 600);
 }
 

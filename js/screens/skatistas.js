@@ -11,6 +11,7 @@
  */
 
 import { el, escapeHtml } from '../utils.js';
+import * as sfx from '../sfx.js';
 import {
     getMyIdentity, setMyIdentity,
     getCrew, addToCrew, removeFromCrew,
@@ -391,6 +392,7 @@ function showCarimbouAnimation(skatista, onDone) {
     overlay.appendChild(el('h1', { className: 'skat-carimbou-title' }, 'CARIMBOU!'));
     overlay.appendChild(el('p', { className: 'skat-carimbou-nick' }, skatista.nick));
     document.body.appendChild(overlay);
+    sfx.stamp();
     setTimeout(() => {
         overlay.classList.add('is-leaving');
         setTimeout(() => {

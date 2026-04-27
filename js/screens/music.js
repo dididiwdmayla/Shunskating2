@@ -13,6 +13,8 @@
 import { el } from '../utils.js';
 import * as db from '../music-db.js';
 import * as player from '../music-player.js';
+import * as fx from '../audio-fx.js';
+import * as sfx from '../sfx.js';
 
 let _screen = null;
 let _unsubPlayer = null;
@@ -31,9 +33,8 @@ export async function render(container) {
 
     /* área importar */
     const importRow = el('div', { className: 'music-import-row' });
-    const btnGroup = el('div', { className: 'music-import-btngroup' });
 
-    const importBtn = el('button', { className: 'music-import-btn', type: 'button' }, '+ ARQUIVOS');
+    const importBtn = el('button', { className: 'music-import-btn', type: 'button' }, '+ IMPORTAR ARQUIVOS');
     const fileInput = el('input', {
         type: 'file',
         accept: 'audio/*',
@@ -42,17 +43,8 @@ export async function render(container) {
         onChange: (e) => handleImport(e.target.files)
     });
     importBtn.addEventListener('click', () => fileInput.click());
-    btnGroup.appendChild(importBtn);
-    btnGroup.appendChild(fileInput);
-
-    const urlBtn = el('button', {
-        className: 'music-import-btn music-import-url-btn',
-        type: 'button',
-        onClick: () => openUrlDialog()
-    }, '+ URL');
-    btnGroup.appendChild(urlBtn);
-
-    importRow.appendChild(btnGroup);
+    importRow.appendChild(importBtn);
+    importRow.appendChild(fileInput);
 
     const usageInfo = el('p', { className: 'music-usage', id: 'music-usage' }, '');
     importRow.appendChild(usageInfo);
@@ -60,6 +52,26 @@ export async function render(container) {
     const warn = el('p', { className: 'music-warn' },
         'atenção: o sistema pode apagar arquivos se faltar espaço. mantém backup do original.');
     importRow.appendChild(warn);
+
+    /* toggle de sons da interface */
+    const sfxRow = el('div', { className: 'music-sfx-row' });
+    const sfxLabel = el('span', { className: 'music-sfx-label' }, 'sons da interface');
+    const sfxToggle = el('button', {
+        className: `music-sfx-toggle${sfx.isEnabled() ? ' is-on' : ''}`,
+        type: 'button',
+        'data-no-click-sound': '',
+        onClick: (e) => {
+            const newVal = !sfx.isEnabled();
+            sfx.setEnabled(newVal);
+            sfxToggle.classList.toggle('is-on', newVal);
+            sfxToggle.textContent = newVal ? 'ON' : 'OFF';
+            // se ligou, faz um click pra confirmar
+            if (newVal) sfx.click();
+        }
+    }, sfx.isEnabled() ? 'ON' : 'OFF');
+    sfxRow.appendChild(sfxLabel);
+    sfxRow.appendChild(sfxToggle);
+    importRow.appendChild(sfxRow);
 
     screen.appendChild(importRow);
 
@@ -148,93 +160,6 @@ function getAudioDuration(file) {
         };
         a.src = url;
     });
-}
-
-/** Lê duração de uma URL externa. Pode falhar (CORS) e retornar 0. */
-function getUrlDuration(url) {
-    return new Promise((resolve) => {
-        const a = new Audio();
-        a.preload = 'metadata';
-        a.crossOrigin = 'anonymous';
-        let done = false;
-        a.onloadedmetadata = () => {
-            if (done) return;
-            done = true;
-            resolve(a.duration || 0);
-        };
-        a.onerror = () => {
-            if (done) return;
-            done = true;
-            resolve(0);
-        };
-        // timeout de 8s — se não carregar, segue sem duração
-        setTimeout(() => {
-            if (done) return;
-            done = true;
-            resolve(0);
-        }, 8000);
-        a.src = url;
-    });
-}
-
-/** Modal pra adicionar uma URL. */
-function openUrlDialog() {
-    const overlay = el('div', {
-        className: 'music-edit-overlay',
-        onClick: (e) => { if (e.target === overlay) overlay.remove(); }
-    });
-    const card = el('div', { className: 'music-edit-card' });
-    card.appendChild(el('h3', {}, 'adicionar URL'));
-    card.appendChild(el('p', { className: 'music-url-hint' },
-        'cole o link direto de um arquivo de áudio. funciona com bandcamp, soundcloud (links diretos), e MP3s públicos. não funciona com YouTube nem todo servidor (CORS).'));
-
-    const urlInput = el('input', { type: 'url', placeholder: 'https://...mp3', className: 'music-edit-input' });
-    const titleInput = el('input', { type: 'text', placeholder: 'título (opcional)', className: 'music-edit-input' });
-    const artistInput = el('input', { type: 'text', placeholder: 'artista (opcional)', className: 'music-edit-input' });
-
-    card.appendChild(urlInput);
-    card.appendChild(titleInput);
-    card.appendChild(artistInput);
-
-    const status = el('p', { className: 'music-url-status' }, '');
-    card.appendChild(status);
-
-    const btnRow = el('div', { className: 'music-edit-btnrow' });
-    btnRow.appendChild(el('button', {
-        className: 'music-edit-cancel', type: 'button',
-        onClick: () => overlay.remove()
-    }, 'CANCELAR'));
-    const saveBtn = el('button', {
-        className: 'music-edit-save', type: 'button',
-        onClick: async () => {
-            const url = urlInput.value.trim();
-            if (!url || !/^https?:\/\//.test(url)) {
-                status.textContent = 'URL inválida';
-                return;
-            }
-            saveBtn.setAttribute('disabled', '');
-            status.textContent = 'verificando...';
-            const duration = await getUrlDuration(url);
-            // não bloqueia se duration = 0 (algumas URLs não dão metadata mas tocam)
-            const titleFromUrl = url.split('/').pop().replace(/\.[^/.]+$/, '').replace(/[_-]+/g, ' ').slice(0, 60);
-            await db.addTrack({
-                title: titleInput.value.trim() || titleFromUrl || 'URL externa',
-                artist: artistInput.value.trim(),
-                album: '',
-                duration,
-                type: 'audio/url',
-                url
-            });
-            overlay.remove();
-            flashToast('URL adicionada');
-            await refresh();
-        }
-    }, 'ADICIONAR');
-    btnRow.appendChild(saveBtn);
-    card.appendChild(btnRow);
-
-    overlay.appendChild(card);
-    document.body.appendChild(overlay);
 }
 
 /** Re-renderiza a lista e a info de uso. */
@@ -371,8 +296,11 @@ function renderPlayerHost() {
         className: 'music-ctrl-btn', type: 'button',
         'aria-label': 'próxima', onClick: () => player.playNext()
     }, '⏭'));
-    /* placeholder simétrico (vazio) pra centralizar play */
-    ctrl.appendChild(el('div', { className: 'music-ctrl-spacer' }));
+    ctrl.appendChild(el('button', {
+        className: 'music-ctrl-btn music-ctrl-eq', type: 'button',
+        'aria-label': 'equalizador',
+        onClick: () => openEqDialog()
+    }, '≡'));
     card.appendChild(ctrl);
 
     /* fila */
@@ -502,6 +430,110 @@ function flashToast(text) {
     document.body.appendChild(t);
     setTimeout(() => t.classList.add('is-fade'), 1500);
     setTimeout(() => t.remove(), 2200);
+}
+
+function openEqDialog() {
+    const overlay = el('div', {
+        className: 'music-edit-overlay music-eq-overlay',
+        onClick: (e) => { if (e.target === overlay) overlay.remove(); }
+    });
+    const card = el('div', { className: 'music-eq-card' });
+
+    card.appendChild(el('h3', { className: 'music-eq-title' }, 'EQ'));
+
+    const fxState = fx.getState();
+    if (!fxState.initialized) {
+        card.appendChild(el('p', { className: 'music-eq-warn' },
+            'toca uma música primeiro pra ativar o equalizador.'));
+        const closeBtn = el('button', {
+            className: 'music-edit-cancel', type: 'button',
+            onClick: () => overlay.remove()
+        }, 'OK');
+        card.appendChild(closeBtn);
+        overlay.appendChild(card);
+        document.body.appendChild(overlay);
+        return;
+    }
+
+    /* on/off toggle */
+    const toggleRow = el('div', { className: 'music-eq-toggle-row' });
+    const toggleBtn = el('button', {
+        className: `music-eq-toggle${fxState.enabled ? ' is-on' : ''}`,
+        type: 'button',
+        onClick: () => {
+            fx.setEnabled(!fx.getState().enabled);
+            redraw();
+        }
+    }, fxState.enabled ? 'ATIVO' : 'DESLIGADO');
+    toggleRow.appendChild(toggleBtn);
+    card.appendChild(toggleRow);
+
+    /* presets */
+    const presetRow = el('div', { className: 'music-eq-presets' });
+    const presetLabels = {
+        flat: 'FLAT', bassBoost: 'GRAVES', vocal: 'VOCAL',
+        lofi: 'LO-FI', bright: 'BRILHO', skate: 'SKATE'
+    };
+    fx.getPresets().forEach(p => {
+        presetRow.appendChild(el('button', {
+            className: 'music-eq-preset', type: 'button',
+            onClick: () => {
+                fx.applyPreset(p);
+                redraw();
+            }
+        }, presetLabels[p] || p.toUpperCase()));
+    });
+    card.appendChild(presetRow);
+
+    /* sliders */
+    const sliders = el('div', { className: 'music-eq-sliders' });
+    fx.EQ_BANDS.forEach((band, i) => {
+        const col = el('div', { className: 'music-eq-col' });
+        const valLabel = el('span', {
+            className: 'music-eq-val',
+            id: `music-eq-val-${i}`
+        }, formatDb(fxState.gains[i]));
+        col.appendChild(valLabel);
+
+        const slider = el('input', {
+            type: 'range',
+            min: -12, max: 12, step: 0.5,
+            value: fxState.gains[i],
+            className: 'music-eq-slider',
+            'aria-label': `${band.label} Hz`,
+            onInput: (e) => {
+                const v = parseFloat(e.target.value);
+                fx.setBandGain(i, v);
+                document.getElementById(`music-eq-val-${i}`).textContent = formatDb(v);
+            }
+        });
+        slider.style.setProperty('writing-mode', 'bt-lr');
+        col.appendChild(slider);
+        col.appendChild(el('span', { className: 'music-eq-freq' }, band.label));
+        sliders.appendChild(col);
+    });
+    card.appendChild(sliders);
+
+    /* fechar */
+    const btnRow = el('div', { className: 'music-edit-btnrow' });
+    btnRow.appendChild(el('button', {
+        className: 'music-edit-save', type: 'button',
+        onClick: () => overlay.remove()
+    }, 'FECHAR'));
+    card.appendChild(btnRow);
+
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+
+    function redraw() {
+        overlay.remove();
+        openEqDialog();
+    }
+}
+
+function formatDb(v) {
+    const sign = v > 0 ? '+' : '';
+    return `${sign}${v.toFixed(1)}`;
 }
 
 export default { render, destroy };

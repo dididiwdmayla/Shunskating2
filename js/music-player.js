@@ -10,6 +10,7 @@
  */
 
 import { getTrack } from './music-db.js';
+import * as fx from './audio-fx.js';
 
 const state = {
     audio: null,           // HTMLAudioElement
@@ -126,6 +127,12 @@ export async function loadAndPlay(trackId) {
 
     try {
         await audio.play();
+        // inicializa EQ na primeira vez que o usuário deu play (Web Audio precisa de gesture)
+        if (!fx.getState().initialized) {
+            fx.init(audio);
+        } else {
+            fx.resume();
+        }
     } catch (e) {
         console.warn('[player] play falhou', e);
     }

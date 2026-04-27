@@ -708,3 +708,171 @@ body.has-mini-player {
 .music-mini:not([hidden]) {
     animation: mini-slide-up 0.3s ease-out;
 }
+
+/* =========================================================
+   EQUALIZADOR
+   ========================================================= */
+
+.music-ctrl-eq {
+    font-size: 1.4rem;
+}
+
+.music-eq-overlay {
+    align-items: flex-end;
+}
+
+.music-eq-card {
+    background: var(--zine-paper);
+    border: 2px solid var(--zine-ink);
+    box-shadow: 6px 6px 0 var(--zine-red);
+    padding: var(--sp-3);
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto var(--sp-3);
+}
+
+.music-eq-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.15em;
+    margin: 0 0 var(--sp-3);
+    text-align: center;
+}
+
+.music-eq-warn {
+    text-align: center;
+    color: var(--zine-ink-faded);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    margin: 0 0 var(--sp-3);
+}
+
+.music-eq-toggle-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--sp-3);
+}
+
+.music-eq-toggle {
+    padding: var(--sp-1) var(--sp-3);
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.85rem;
+    background: var(--zine-paper);
+    color: var(--zine-ink-faded);
+    border: 2px solid var(--zine-ink-faded);
+    cursor: pointer;
+}
+
+.music-eq-toggle.is-on {
+    background: var(--zine-red);
+    color: var(--zine-paper);
+    border-color: var(--zine-ink);
+}
+
+.music-eq-presets {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    margin-bottom: var(--sp-3);
+}
+
+.music-eq-preset {
+    padding: 6px 4px;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    background: var(--zine-paper);
+    color: var(--zine-ink);
+    border: 1px solid var(--zine-ink);
+    cursor: pointer;
+}
+
+.music-eq-sliders {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 4px;
+    height: 220px;
+    margin-bottom: var(--sp-3);
+}
+
+.music-eq-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.music-eq-val {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.65rem;
+    color: var(--zine-ink-faded);
+    height: 14px;
+}
+
+.music-eq-slider {
+    flex: 1;
+    -webkit-appearance: slider-vertical;
+    appearance: slider-vertical;
+    writing-mode: bt-lr;
+    width: 24px;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* fallback pra browsers que não têm vertical: rotaciona */
+@supports not (-webkit-appearance: slider-vertical) {
+    .music-eq-slider {
+        transform: rotate(-90deg);
+        width: 160px;
+        height: 24px;
+        margin: 70px -68px;
+    }
+}
+
+.music-eq-freq {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.65rem;
+    color: var(--zine-ink);
+    text-align: center;
+}
+
+/* =========================================================
+   TOGGLE DE SONS DA INTERFACE
+   ========================================================= */
+
+.music-sfx-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--sp-2);
+    padding: var(--sp-2);
+    background: rgba(255, 255, 255, 0.4);
+    border-left: 3px solid var(--zine-ink);
+}
+
+.music-sfx-label {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--zine-ink);
+}
+
+.music-sfx-toggle {
+    padding: 4px 12px;
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.75rem;
+    background: var(--zine-paper);
+    color: var(--zine-ink-faded);
+    border: 2px solid var(--zine-ink-faded);
+    cursor: pointer;
+    min-width: 60px;
+}
+
+.music-sfx-toggle.is-on {
+    background: var(--zine-red);
+    color: var(--zine-paper);
+    border-color: var(--zine-ink);
+}
