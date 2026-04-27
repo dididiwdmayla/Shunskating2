@@ -972,14 +972,20 @@ function effectiveDifficulty(pick) {
 function rollBotAccuracy(bot, pick) {
     const diff = effectiveDifficulty(pick);
     // Curva por nível: bots fracos sofrem mais com manobras difíceis.
-    // Lendário: penalidade leve (0.04). Rookie: penalidade alta (0.10).
-    // Isso mantém o Rookie acessível em manobras simples mas ruim em difíceis.
+    // Lendário: penalidade leve (0.04). Rookie: penalidade pesada (0.15)
+    // pra que manobras absurdas (nollie late flip etc) sejam praticamente impossíveis.
     const penalty = bot.accuracy >= 0.85 ? 0.04
-                  : bot.accuracy >= 0.75 ? 0.06
-                  : bot.accuracy >= 0.65 ? 0.08
-                  : 0.10;
+                  : bot.accuracy >= 0.75 ? 0.07
+                  : bot.accuracy >= 0.65 ? 0.11
+                  : 0.15;
     let acc = bot.accuracy - (diff - 2) * penalty;
-    if (acc < 0.05) acc = 0.05;
+
+    // Teto de absurdidade: manobras com difficulty efetiva muito alta
+    // (>= 9) ficam quase impossíveis até pro Lendário
+    if (diff >= 9) acc = Math.min(acc, 0.15);
+    if (diff >= 11) acc = Math.min(acc, 0.05);
+
+    if (acc < 0.02) acc = 0.02;
     if (acc > 0.98) acc = 0.98;
     return Math.random() < acc;
 }
