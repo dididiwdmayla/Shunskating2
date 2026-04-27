@@ -71,18 +71,20 @@ async function render(container, params) {
     /* --- AÇÕES DA MANOBRA (tabs de stance + botão-bomba) --- */
     const actionsRow = el('div', { className: 'detail-actions-row' });
 
-    /* tabs de stance */
-    const tabs = el('div', { className: 'stance-tabs', role: 'tablist' });
-    STANCES.forEach((s) => {
-        tabs.appendChild(el('button', {
-            className: `stance-tab${s === state.stance ? ' is-active' : ''}`,
-            role: 'tab',
-            'aria-selected': s === state.stance ? 'true' : 'false',
-            dataset: { stance: s },
-            onClick: () => switchStance(screen, state, s)
-        }, s.toUpperCase()));
-    });
-    actionsRow.appendChild(tabs);
+    /* tabs de stance — escondidas em manobras conectadas com noStanceVariations */
+    if (!trick.noStanceVariations) {
+        const tabs = el('div', { className: 'stance-tabs', role: 'tablist' });
+        STANCES.forEach((s) => {
+            tabs.appendChild(el('button', {
+                className: `stance-tab${s === state.stance ? ' is-active' : ''}`,
+                role: 'tab',
+                'aria-selected': s === state.stance ? 'true' : 'false',
+                dataset: { stance: s },
+                onClick: () => switchStance(screen, state, s)
+            }, s.toUpperCase()));
+        });
+        actionsRow.appendChild(tabs);
+    }
 
     /* botão-bomba de ideias (fica ao lado das tabs, na linha de ações) */
     actionsRow.appendChild(renderBombButton(trick, data));
