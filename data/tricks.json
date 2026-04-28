@@ -329,7 +329,8 @@
                 }
             ],
             "tutorialUrl": "https://youtu.be/L_xJRCIDvG4",
-            "lineRole": "solo"
+            "lineRole": "solo",
+            "videoUrl": "assets/videos/tre-flip.mp4"
         },
         {
             "id": "heelflip",
@@ -387,7 +388,8 @@
                 }
             ],
             "tutorialUrl": "https://youtu.be/qLLYOQyLJpQ",
-            "lineRole": "solo"
+            "lineRole": "solo",
+            "videoUrl": "assets/videos/heelflip.mp4"
         },
         {
             "id": "varial-heelflip",

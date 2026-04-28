@@ -13,7 +13,6 @@ import {
 } from '../storage.js';
 import { renderBombButton } from './bomb-ideas.js';
 import { renderLinksSection, renderVideosSection } from './media-refs.js';
-import * as scrollVideo from '../scroll-video.js';
 
 let tricksData = null;
 const STANCES = ['regular', 'switch', 'fakie', 'nollie'];
@@ -51,8 +50,8 @@ async function render(container, params) {
 
     const screen = el('div', { className: 'screen-trick-detail paper-crumpled-soft' });
 
-    /* --- HEADER + VÍDEO --- */
-    const headerEl = el('div', { className: 'detail-header' },
+    /* --- HEADER --- */
+    screen.appendChild(el('div', { className: 'detail-header' },
         el('button', {
             className: 'btn-back detail-back',
             onClick: () => navigate('tricks'),
@@ -60,20 +59,7 @@ async function render(container, params) {
         }, '← VOLTAR'),
         renderTutorialButton(trick),
         renderFavoriteStar(state)
-    );
-
-    if (trick.videoUrl) {
-        screen.classList.add('detail-with-video');
-        const videoSection = el('div', { className: 'detail-video-section' });
-        // header dentro pra ficar sobreposto
-        videoSection.appendChild(headerEl);
-        screen.appendChild(videoSection);
-        setTimeout(() => {
-            scrollVideo.attach(videoSection, trick.videoUrl, { scrollPx: 1200, smoothing: 0.18 });
-        }, 100);
-    } else {
-        screen.appendChild(headerEl);
-    }
+    ));
 
     /* --- TÍTULO + SUBTÍTULO --- */
     screen.appendChild(el('h1', { className: 'detail-title xerox-tremor' }, trick.name));
@@ -175,11 +161,96 @@ function renderStanceContent(screen, state) {
     // notas
     host.appendChild(renderNotesSection(state));
 
+    // vídeo de referência (manobra acontecendo, se disponível)
+    if (trick.videoUrl) {
+        host.appendChild(renderReferenceVideo(trick));
+    }
+
     // links (URLs externas úteis para a manobra/stance)
     host.appendChild(renderLinksSection(state));
 
     // vídeos (gravações próprias via câmera)
     host.appendChild(renderVideosSection(state));
+}
+
+/** Player de vídeo de referência (manobra real). Tap pra tocar, sem áudio. */
+function renderReferenceVideo(trick) {
+    const section = el('section', { className: 'detail-section ref-video-section' });
+    section.appendChild(el('h2', { className: 'detail-section-title' }, 'VÍDEO DA MANOBRA'));
+
+    const playerWrap = el('div', { className: 'ref-video-wrap' });
+
+    const video = document.createElement('video');
+    video.src = trick.videoUrl;
+    video.preload = 'metadata';
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.setAttribute('disablepictureinpicture', '');
+    video.controls = false;
+    video.loop = false;
+    video.className = 'ref-video';
+
+    const overlay = el('div', { className: 'ref-video-overlay' });
+    const playBtn = el('button', {
+        className: 'ref-video-play',
+        type: 'button',
+        'aria-label': 'tocar vídeo'
+    });
+    playBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <polygon points="6,4 6,20 20,12"/>
+        </svg>
+    `;
+    overlay.appendChild(playBtn);
+
+    let isPlaying = false;
+    function togglePlay() {
+        if (isPlaying) {
+            video.pause();
+        } else {
+            video.play().catch(e => console.warn('[ref-video] play falhou', e));
+        }
+    }
+
+    video.addEventListener('play', () => {
+        isPlaying = true;
+        playerWrap.classList.add('is-playing');
+    });
+    video.addEventListener('pause', () => {
+        isPlaying = false;
+        playerWrap.classList.remove('is-playing');
+    });
+    video.addEventListener('ended', () => {
+        // volta pro início pra mostrar capa de novo
+        video.currentTime = 0;
+    });
+
+    /* tap em qualquer lugar do player toca/pausa */
+    playerWrap.addEventListener('click', togglePlay);
+
+    /* barra de progresso fina embaixo */
+    const progBar = el('div', { className: 'ref-video-prog' });
+    const progFill = el('div', { className: 'ref-video-prog-fill' });
+    progBar.appendChild(progFill);
+
+    video.addEventListener('timeupdate', () => {
+        if (video.duration) {
+            const pct = (video.currentTime / video.duration) * 100;
+            progFill.style.width = pct + '%';
+        }
+    });
+
+    playerWrap.appendChild(video);
+    playerWrap.appendChild(overlay);
+    playerWrap.appendChild(progBar);
+    section.appendChild(playerWrap);
+
+    section.appendChild(el('p', { className: 'ref-video-caption' },
+        'tap pra tocar / pausar · sem áudio'));
+
+    return section;
 }
 
 /* ---------------- WRAP DE TABELAS PRA SCROLL LATERAL ----------------
