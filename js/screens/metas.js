@@ -38,7 +38,6 @@ async function loadHistoricLines() {
     }
     return historicLinesData;
 }
-}
 
 /* =========================================================
    RENDER PRINCIPAL

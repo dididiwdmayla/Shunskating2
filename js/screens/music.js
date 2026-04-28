@@ -507,7 +507,6 @@ function openEqDialog() {
                 document.getElementById(`music-eq-val-${i}`).textContent = formatDb(v);
             }
         });
-        slider.style.setProperty('writing-mode', 'bt-lr');
         col.appendChild(slider);
         col.appendChild(el('span', { className: 'music-eq-freq' }, band.label));
         sliders.appendChild(col);

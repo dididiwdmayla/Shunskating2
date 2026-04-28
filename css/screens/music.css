@@ -814,22 +814,14 @@ body.has-mini-player {
 
 .music-eq-slider {
     flex: 1;
-    -webkit-appearance: slider-vertical;
-    appearance: slider-vertical;
-    writing-mode: bt-lr;
     width: 24px;
     background: transparent;
     cursor: pointer;
-}
-
-/* fallback pra browsers que não têm vertical: rotaciona */
-@supports not (-webkit-appearance: slider-vertical) {
-    .music-eq-slider {
-        transform: rotate(-90deg);
-        width: 160px;
-        height: 24px;
-        margin: 70px -68px;
-    }
+    /* approach moderno: rotação simples, mais previsível */
+    transform: rotate(-90deg);
+    height: 24px;
+    width: 160px;
+    margin: 70px -68px;
 }
 
 .music-eq-freq {
