@@ -467,30 +467,32 @@
 }
 
 /* =========================================================
-   VÍDEO SCROLL-DRIVEN
+   VÍDEO SCROLL-DRIVEN — fullscreen
    ========================================================= */
 
 .detail-video-section {
-    margin: 0 calc(-1 * var(--sp-2, 8px)) var(--sp-3, 12px);
-    /* sangrar até as bordas pra parecer cinematográfico */
+    /* escapa de qualquer padding do container pai pra ocupar viewport inteiro */
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    margin-top: 0;
+    margin-bottom: var(--sp-3, 12px);
 }
 
 .sv-frame {
-    /* altura é definida por JS — scrollPx + 75vh */
+    /* altura definida por JS: scrollPx + 100vh */
     position: relative;
-    width: 100%;
+    width: 100vw;
 }
 
 .sv-sticky {
     position: sticky;
     top: 0;
-    width: 100%;
-    height: 75vh;
-    background: var(--zine-ink, #1a1a1a);
+    width: 100vw;
+    height: 100vh;
+    background: #000;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .sv-video {
@@ -522,7 +524,7 @@
 
 .sv-fallback-btn {
     position: absolute;
-    bottom: var(--sp-3, 12px);
+    bottom: var(--sp-4, 16px);
     left: 50%;
     transform: translateX(-50%);
     padding: var(--sp-2, 8px) var(--sp-3, 12px);
@@ -538,4 +540,29 @@
 
 .sv-fallback-btn[hidden] {
     display: none;
+}
+
+/* Quando tem vídeo, header fica sobreposto ao vídeo */
+.detail-with-video .detail-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: var(--sp-2, 8px);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+    pointer-events: none; /* deixa scroll passar */
+}
+
+.detail-with-video .detail-header > * {
+    pointer-events: auto;
+}
+
+.detail-with-video .detail-header .btn-back {
+    background: rgba(255,255,255,0.9);
+    color: #000;
+}
+
+.detail-with-video .detail-header .favorite-star {
+    background: rgba(255,255,255,0.9);
 }
