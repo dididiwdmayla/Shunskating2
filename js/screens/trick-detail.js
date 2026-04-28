@@ -51,8 +51,8 @@ async function render(container, params) {
 
     const screen = el('div', { className: 'screen-trick-detail paper-crumpled-soft' });
 
-    /* --- HEADER --- */
-    screen.appendChild(el('div', { className: 'detail-header' },
+    /* --- HEADER + VÍDEO --- */
+    const headerEl = el('div', { className: 'detail-header' },
         el('button', {
             className: 'btn-back detail-back',
             onClick: () => navigate('tricks'),
@@ -60,16 +60,19 @@ async function render(container, params) {
         }, '← VOLTAR'),
         renderTutorialButton(trick),
         renderFavoriteStar(state)
-    ));
+    );
 
-    /* --- VÍDEO SCROLL-DRIVEN (se disponível) --- */
     if (trick.videoUrl) {
+        screen.classList.add('detail-with-video');
         const videoSection = el('div', { className: 'detail-video-section' });
+        // header dentro pra ficar sobreposto
+        videoSection.appendChild(headerEl);
         screen.appendChild(videoSection);
-        // attach depois que o screen tiver no DOM, pra findScrollContainer funcionar
         setTimeout(() => {
-            scrollVideo.attach(videoSection, trick.videoUrl, { scrollPx: 600 });
+            scrollVideo.attach(videoSection, trick.videoUrl, { scrollPx: 1200, smoothing: 0.18 });
         }, 100);
+    } else {
+        screen.appendChild(headerEl);
     }
 
     /* --- TÍTULO + SUBTÍTULO --- */
