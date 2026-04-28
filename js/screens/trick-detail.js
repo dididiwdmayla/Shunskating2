@@ -13,6 +13,7 @@ import {
 } from '../storage.js';
 import { renderBombButton } from './bomb-ideas.js';
 import { renderLinksSection, renderVideosSection } from './media-refs.js';
+import * as scrollVideo from '../scroll-video.js';
 
 let tricksData = null;
 const STANCES = ['regular', 'switch', 'fakie', 'nollie'];
@@ -60,6 +61,16 @@ async function render(container, params) {
         renderTutorialButton(trick),
         renderFavoriteStar(state)
     ));
+
+    /* --- VÍDEO SCROLL-DRIVEN (se disponível) --- */
+    if (trick.videoUrl) {
+        const videoSection = el('div', { className: 'detail-video-section' });
+        screen.appendChild(videoSection);
+        // attach depois que o screen tiver no DOM, pra findScrollContainer funcionar
+        setTimeout(() => {
+            scrollVideo.attach(videoSection, trick.videoUrl, { scrollPx: 600 });
+        }, 100);
+    }
 
     /* --- TÍTULO + SUBTÍTULO --- */
     screen.appendChild(el('h1', { className: 'detail-title xerox-tremor' }, trick.name));
