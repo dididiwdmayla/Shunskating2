@@ -241,6 +241,7 @@
             "name": "Kickflip",
             "category": "flatground",
             "difficulty": 3,
+            "videoUrl": "assets/videos/kickflip.mp4",
             "prerequisites": [
                 "ollie"
             ],
