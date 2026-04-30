@@ -165,17 +165,33 @@ function handleLogoClick() {
     clearTimeout(logoClickTimer);
     logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 2000);
 
-    if (logoClickCount >= 5) {
+    if (logoClickCount >= 3) {
         logoClickCount = 0;
-        showEasterEggToast();
+        triggerEasterEgg();
     }
 }
 
-function showEasterEggToast() {
-    // toast especial, mais visível e durando mais que o padrão
-    const t = el('div', { className: 'toast toast-easter-egg' }, 'Wihh, guhh, fehh, pehh. ❤️');
+async function triggerEasterEgg() {
+    const storage = await import('../storage.js');
+    const before = storage.getUnlockedBots();
+    const newOnes = ['guh', 'peh', 'feh'].filter(id => !before.includes(id));
+    if (newOnes.length > 0) {
+        storage.unlockBots(newOnes);
+        showUnlockToast('Wihh, guhh, fehh, pehh. ❤️', 'novos adversários liberados');
+    } else {
+        // já desbloqueou: só mostra a mensagem afetiva
+        showUnlockToast('Wihh, guhh, fehh, pehh. ❤️', null);
+    }
+}
+
+function showUnlockToast(line1, line2) {
+    const t = el('div', { className: 'toast toast-easter-egg' });
+    t.appendChild(el('div', {}, line1));
+    if (line2) {
+        t.appendChild(el('div', { className: 'toast-easter-egg-sub' }, line2));
+    }
     document.body.appendChild(t);
-    setTimeout(() => t.remove(), 3200);
+    setTimeout(() => t.remove(), 3500);
 }
 
 function showToast(text) {

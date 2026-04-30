@@ -1,15 +1,15 @@
 {
-    "version": "1.1",
-    "updated": "2026-04-25",
+    "version": "2.0",
+    "updated": "2026-04-28",
     "bots": [
         {
             "id": "rookie",
             "name": "Rookie",
             "tagline": "aprendendo a pushar",
-            "accuracy": 0.65,
+            "accuracy": 0.55,
             "stanceBias": {
-                "regular": 0.95,
-                "switch": 0.05,
+                "regular": 0.98,
+                "switch": 0.02,
                 "fakie": 0,
                 "nollie": 0
             },
@@ -18,15 +18,35 @@
                 "shove-it",
                 "varial",
                 "fs-180",
+                "bs-180"
+            ]
+        },
+        {
+            "id": "amador",
+            "name": "Amador",
+            "tagline": "aprendeu kickflip semana passada",
+            "accuracy": 0.68,
+            "stanceBias": {
+                "regular": 0.85,
+                "switch": 0.1,
+                "fakie": 0.05,
+                "nollie": 0
+            },
+            "pool": [
+                "ollie",
+                "shove-it",
+                "varial",
+                "fs-180",
                 "bs-180",
-                "manual"
+                "kickflip",
+                "heelflip"
             ]
         },
         {
             "id": "tecnico",
             "name": "Técnico",
             "tagline": "flatground com cirurgia",
-            "accuracy": 0.85,
+            "accuracy": 0.78,
             "stanceBias": {
                 "regular": 0.55,
                 "switch": 0.25,
@@ -41,7 +61,6 @@
                 "bs-180",
                 "kickflip",
                 "tre-flip",
-                "manual",
                 "heelflip",
                 "varial-kickflip",
                 "varial-heelflip",
@@ -52,10 +71,35 @@
             ]
         },
         {
+            "id": "estiloso",
+            "name": "Estiloso",
+            "tagline": "estilo mata habilidade",
+            "accuracy": 0.82,
+            "stanceBias": {
+                "regular": 0.5,
+                "switch": 0.25,
+                "fakie": 0.15,
+                "nollie": 0.1
+            },
+            "pool": [
+                "ollie",
+                "shove-it",
+                "varial",
+                "fs-180",
+                "bs-180",
+                "kickflip",
+                "heelflip",
+                "fs-flip",
+                "bs-flip",
+                "varial-kickflip",
+                "varial-heelflip"
+            ]
+        },
+        {
             "id": "durao",
             "name": "Durão",
             "tagline": "só desce no ferro",
-            "accuracy": 0.82,
+            "accuracy": 0.85,
             "stanceBias": {
                 "regular": 0.7,
                 "switch": 0.2,
@@ -77,30 +121,6 @@
                 "feeble-grind",
                 "crooked-grind",
                 "nosegrind"
-            ]
-        },
-        {
-            "id": "estiloso",
-            "name": "Estiloso",
-            "tagline": "estilo mata habilidade",
-            "accuracy": 0.78,
-            "stanceBias": {
-                "regular": 0.5,
-                "switch": 0.25,
-                "fakie": 0.15,
-                "nollie": 0.1
-            },
-            "pool": [
-                "ollie",
-                "shove-it",
-                "varial",
-                "fs-180",
-                "bs-180",
-                "kickflip",
-                "manual",
-                "heelflip",
-                "fs-flip",
-                "bs-flip"
             ]
         },
         {
@@ -127,6 +147,155 @@
                 "noseblunt",
                 "50-50",
                 "manual",
+                "ollie-manual",
+                "ollie-nose-manual",
+                "heelflip",
+                "varial-kickflip",
+                "varial-heelflip",
+                "hardflip",
+                "inward-heelflip",
+                "laser-flip",
+                "double-kickflip",
+                "fs-flip",
+                "bs-flip",
+                "bigspin",
+                "360-shove-it",
+                "lipslide",
+                "tailslide",
+                "5-0-grind",
+                "smith-grind",
+                "feeble-grind",
+                "crooked-grind",
+                "nosegrind"
+            ]
+        },
+        {
+            "id": "guh",
+            "name": "Guh",
+            "tagline": "heelflip é melhor que flip",
+            "accuracy": 0.86,
+            "locked": true,
+            "special": true,
+            "stanceBias": {
+                "regular": 0.45,
+                "switch": 0.25,
+                "fakie": 0.15,
+                "nollie": 0.15
+            },
+            "pool": [
+                "ollie",
+                "heelflip",
+                "varial-heelflip",
+                "inward-heelflip",
+                "laser-flip",
+                "fs-180",
+                "bs-180",
+                "shove-it",
+                "varial",
+                "kickflip",
+                "tre-flip",
+                "fs-flip",
+                "bs-flip",
+                "bigspin",
+                "360-shove-it"
+            ],
+            "preferredTricks": ["heelflip", "varial-heelflip", "inward-heelflip", "laser-flip"]
+        },
+        {
+            "id": "peh",
+            "name": "Peh",
+            "tagline": "pudimzinho de flip",
+            "accuracy": 0.87,
+            "locked": true,
+            "special": true,
+            "stanceBias": {
+                "regular": 0.45,
+                "switch": 0.25,
+                "fakie": 0.15,
+                "nollie": 0.15
+            },
+            "pool": [
+                "ollie",
+                "kickflip",
+                "tre-flip",
+                "varial-kickflip",
+                "hardflip",
+                "double-kickflip",
+                "fs-flip",
+                "bs-flip",
+                "shove-it",
+                "varial",
+                "fs-180",
+                "bs-180",
+                "heelflip",
+                "bigspin",
+                "360-shove-it"
+            ],
+            "preferredTricks": ["kickflip", "tre-flip", "varial-kickflip", "double-kickflip"]
+        },
+        {
+            "id": "feh",
+            "name": "Feh",
+            "tagline": "22 cm",
+            "accuracy": 0.88,
+            "locked": true,
+            "special": true,
+            "stanceBias": {
+                "regular": 0.4,
+                "switch": 0.3,
+                "fakie": 0.15,
+                "nollie": 0.15
+            },
+            "pool": [
+                "ollie",
+                "shove-it",
+                "varial",
+                "fs-180",
+                "bs-180",
+                "kickflip",
+                "tre-flip",
+                "heelflip",
+                "varial-kickflip",
+                "varial-heelflip",
+                "hardflip",
+                "inward-heelflip",
+                "fs-flip",
+                "bs-flip",
+                "double-kickflip",
+                "laser-flip",
+                "bigspin",
+                "360-shove-it"
+            ]
+        },
+        {
+            "id": "wih",
+            "name": "Wih",
+            "tagline": "começa todo game com ollie · acima do lendário",
+            "accuracy": 0.97,
+            "locked": true,
+            "special": true,
+            "alwaysFirstTrick": "ollie",
+            "stanceBias": {
+                "regular": 0.35,
+                "switch": 0.3,
+                "fakie": 0.15,
+                "nollie": 0.2
+            },
+            "pool": [
+                "ollie",
+                "shove-it",
+                "varial",
+                "fs-180",
+                "bs-180",
+                "kickflip",
+                "tre-flip",
+                "noseslide",
+                "boardslide",
+                "noseblunt",
+                "50-50",
+                "manual",
+                "ollie-manual",
+                "ollie-nose-manual",
                 "heelflip",
                 "varial-kickflip",
                 "varial-heelflip",

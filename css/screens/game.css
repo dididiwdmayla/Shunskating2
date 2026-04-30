@@ -1427,3 +1427,124 @@ body.is-game-overlay-open { overflow: hidden; }
         grid-column: 1 / 3;
     }
 }
+
+/* =========================================================
+   BOTS ESPECIAIS — glitter dourado + destaque
+   ========================================================= */
+
+.game-bot-card.is-special {
+    position: relative;
+    background: linear-gradient(135deg, var(--zine-paper, #ecd9b3) 0%, #fff5d4 100%);
+    border-color: #d4a017;
+    box-shadow: 4px 4px 0 #d4a017, 0 0 24px rgba(212, 160, 23, 0.4);
+    overflow: visible;
+}
+
+.game-bot-card.is-special::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(45deg, #d4a017, #f4c842, #d4a017, #f4c842, #d4a017);
+    background-size: 200% 200%;
+    z-index: -1;
+    animation: glitter-shimmer 3s linear infinite;
+    pointer-events: none;
+}
+
+.game-bot-card.is-special::after {
+    content: '✦';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 28px;
+    height: 28px;
+    background: #d4a017;
+    color: var(--zine-paper, #ecd9b3);
+    border: 2px solid var(--zine-ink, #1a1a1a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    box-shadow: 2px 2px 0 var(--zine-ink, #1a1a1a);
+}
+
+.game-bot-card.is-special .game-bot-name {
+    color: #b8860b;
+    text-shadow: 0 0 8px rgba(212, 160, 23, 0.5);
+}
+
+.game-bot-card.is-wih {
+    background: linear-gradient(135deg, #fff5d4 0%, #ffd966 50%, #fff5d4 100%);
+    box-shadow: 5px 5px 0 #b8860b, 0 0 32px rgba(255, 217, 102, 0.6);
+}
+
+.game-bot-card.is-wih::after {
+    content: '★';
+    background: #b8860b;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+}
+
+.game-bot-card.is-wih .game-bot-name {
+    color: #8a5a00;
+    text-shadow: 0 0 12px rgba(255, 217, 102, 0.8);
+}
+
+@keyframes glitter-shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* =========================================================
+   NOTIFICAÇÃO DE DESBLOQUEIO (no result screen)
+   ========================================================= */
+
+.game-result-unlock {
+    margin: var(--sp-3, 12px) 0;
+    padding: var(--sp-3, 12px);
+    background: linear-gradient(135deg, var(--zine-paper, #ecd9b3) 0%, #fff5d4 100%);
+    border: 2px solid #d4a017;
+    box-shadow: 4px 4px 0 #d4a017;
+    text-align: center;
+    position: relative;
+    overflow: visible;
+}
+
+.game-result-unlock::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(45deg, #d4a017, #f4c842, #d4a017);
+    background-size: 200% 200%;
+    z-index: -1;
+    animation: glitter-shimmer 3s linear infinite;
+}
+
+.game-result-unlock-label {
+    display: block;
+    font-family: var(--font-display, sans-serif);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: #b8860b;
+    margin-bottom: 4px;
+}
+
+.game-result-unlock-name {
+    display: block;
+    font-family: var(--font-display, sans-serif);
+    font-size: 2.5rem;
+    color: #8a5a00;
+    text-shadow: 0 0 16px rgba(255, 217, 102, 0.6);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+}
+
+.game-result-unlock-desc {
+    display: block;
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.85rem;
+    color: var(--zine-ink-faded, #888);
+    font-style: italic;
+}

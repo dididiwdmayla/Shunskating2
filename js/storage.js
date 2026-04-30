@@ -25,7 +25,8 @@ export const STORAGE_KEYS = {
     suggestedLine: `${STORAGE_VERSION}.suggestedLine`, // { date, trickIds, regenCount, completedAt|null }
     dailySugg:  `${STORAGE_VERSION}.dailySugg`,  // { date, trickIds, attempts: { [trickId]: lastAttemptDate } }
     onboardingSkatistasDone: `${STORAGE_VERSION}.onboardingSkatistasDone`,
-    swipeHintShown:          `${STORAGE_VERSION}.swipeHintShown`
+    swipeHintShown:          `${STORAGE_VERSION}.swipeHintShown`,
+    unlockedBots:            `${STORAGE_VERSION}.unlockedBots`     // [botId, ...] — bots especiais desbloqueados
 };
 
 const MATCHES_CAP = 50;
@@ -595,4 +596,27 @@ export function getDailySuggestion() {
 
 export function setDailySuggestion(s) {
     set(STORAGE_KEYS.dailySugg, s);
+}
+
+/* =========================================================
+   BOTS DESBLOQUEADOS (easter egg)
+   ========================================================= */
+
+/** Lista de bot ids desbloqueados via easter egg. */
+export function getUnlockedBots() {
+    return get(STORAGE_KEYS.unlockedBots, []);
+}
+
+/** Desbloqueia um ou mais bots. Idempotente — não duplica. */
+export function unlockBots(botIds) {
+    const current = getUnlockedBots();
+    const ids = Array.isArray(botIds) ? botIds : [botIds];
+    const merged = Array.from(new Set([...current, ...ids]));
+    set(STORAGE_KEYS.unlockedBots, merged);
+    return merged;
+}
+
+/** Verifica se um bot específico foi desbloqueado. */
+export function isBotUnlocked(botId) {
+    return getUnlockedBots().includes(botId);
 }

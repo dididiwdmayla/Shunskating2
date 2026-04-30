@@ -22,7 +22,8 @@ import {
     getBases, toggleBase, isBase,
     getMatchHistory, saveMatch,
     getBotStats, grantMedal, hasMedal, getMedals,
-    getSettings
+    getSettings,
+    getUnlockedBots, unlockBots
 } from '../storage.js';
 
 const LETTERS = ['S', 'K', 'A', 'T', 'E'];
@@ -164,7 +165,12 @@ function renderLobby(state) {
 
 function buildBotGrid(state) {
     const grid = el('div', { className: 'game-bot-grid' });
+    const unlocked = getUnlockedBots();
     state.data.bots.bots.forEach(bot => {
+        // bots locked: só mostra se foi desbloqueado
+        if (bot.locked && !unlocked.includes(bot.id)) {
+            return;
+        }
         // no modo filtrado, oculta bots cujo pool fique com <2 manobras
         const effectivePool = filterPoolByMode(bot.pool, state.mode, state.data.tricks);
         if (effectivePool.length < 2) {
@@ -188,8 +194,12 @@ function filterPoolByMode(poolIds, mode, tricksData) {
 function renderBotCard(bot, state) {
     const stats = getBotStats(bot.id);
     const medal = hasMedal(bot.id);
+    const classes = [`game-bot-card`, `game-bot-${bot.id}`];
+    if (medal) classes.push('has-medal');
+    if (bot.special) classes.push('is-special');
+    if (bot.id === 'wih') classes.push('is-wih');
     const card = el('button', {
-        className: `game-bot-card game-bot-${bot.id}${medal ? ' has-medal' : ''}`,
+        className: classes.join(' '),
         type: 'button',
         onClick: () => startMatch(state, bot)
     });
@@ -640,7 +650,7 @@ function renderSetPick(state, central) {
         central.appendChild(el('p', { className: 'game-phase-label' }, `${m.bot.name.toUpperCase()} ESTÁ ESCOLHENDO...`));
         central.appendChild(el('div', { className: 'game-thinking' }, '. . .'));
         setTimeout(() => {
-            const pick = botPickTrick(m.bot, state.data.tricks, m.mode, m.usedCombos);
+            const pick = botPickTrick(m.bot, state.data.tricks, m.mode, m.usedCombos, m.usedCombos.size);
             if (pick.exhausted) {
                 addLog(state, 'neutral', 'todas as manobras já foram puxadas · liberado repetir');
             }
@@ -861,15 +871,26 @@ function finishMatch(state, result, abandoned) {
     };
     saveMatch(match);
     const firstMedal = result === 'win' ? grantMedal(m.bot.id) : false;
+
+    /* Easter egg: ganhar de qualquer um do trio Guh/Peh/Feh desbloqueia o Wih */
+    let unlockedWih = false;
+    if (result === 'win' && ['guh', 'peh', 'feh'].includes(m.bot.id)) {
+        const before = getUnlockedBots();
+        if (!before.includes('wih')) {
+            unlockBots(['wih']);
+            unlockedWih = true;
+        }
+    }
+
     state.phase = 'result';
-    state.resultData = { match, firstMedal };
+    state.resultData = { match, firstMedal, unlockedWih };
     renderResult(state);
 }
 
 function renderResult(state) {
     const { container } = state;
     container.innerHTML = '';
-    const { match, firstMedal } = state.resultData;
+    const { match, firstMedal, unlockedWih } = state.resultData;
     const bot = state.data.bots.bots.find(b => b.id === match.botId);
 
     const screen = el('div', { className: 'screen-game screen-game-result' });
@@ -887,6 +908,14 @@ function renderResult(state) {
         screen.appendChild(el('div', { className: 'game-result-medal' },
             el('span', { className: 'game-result-medal-label' }, 'NOVA MEDALHA'),
             el('span', { className: 'game-result-medal-name' }, `DERROTOU ${bot.name.toUpperCase()}`)
+        ));
+    }
+
+    if (unlockedWih) {
+        screen.appendChild(el('div', { className: 'game-result-unlock' },
+            el('span', { className: 'game-result-unlock-label' }, '✦ NOVO ADVERSÁRIO ✦'),
+            el('span', { className: 'game-result-unlock-name' }, 'WIH'),
+            el('span', { className: 'game-result-unlock-desc' }, 'acima do lendário · começa todo game com ollie')
         ));
     }
 
@@ -971,17 +1000,29 @@ function effectiveDifficulty(pick) {
 /** Rola se o bot acerta baseado em accuracy efetiva (ajustada por difficulty efetiva). */
 function rollBotAccuracy(bot, pick) {
     const diff = effectiveDifficulty(pick);
-    // Curva por nível: bots fracos sofrem mais com manobras difíceis.
-    // Lendário: penalidade leve (0.04). Rookie: penalidade pesada (0.15)
-    // pra que manobras absurdas (nollie late flip etc) sejam praticamente impossíveis.
-    const penalty = bot.accuracy >= 0.85 ? 0.04
-                  : bot.accuracy >= 0.75 ? 0.07
-                  : bot.accuracy >= 0.65 ? 0.11
-                  : 0.15;
+    /* Curva por accuracy base — diferença ~15% entre níveis em manobras difíceis:
+     *   Wih (0.97):       penalty 0.03 — quase imbatível
+     *   Lendário (0.95):  penalty 0.04
+     *   Feh/Peh/Guh (0.86-0.88): penalty 0.05 — entre lendário e durão
+     *   Durão (0.85):     penalty 0.06
+     *   Estiloso (0.82):  penalty 0.08
+     *   Técnico (0.78):   penalty 0.10
+     *   Amador (0.68):    penalty 0.13
+     *   Rookie (0.55):    penalty 0.18 — sofre muito em qualquer coisa difícil
+     */
+    let penalty;
+    if (bot.accuracy >= 0.95) penalty = 0.03;
+    else if (bot.accuracy >= 0.90) penalty = 0.04;
+    else if (bot.accuracy >= 0.85) penalty = 0.05;
+    else if (bot.accuracy >= 0.80) penalty = 0.08;
+    else if (bot.accuracy >= 0.74) penalty = 0.10;
+    else if (bot.accuracy >= 0.62) penalty = 0.13;
+    else penalty = 0.18;
+
     let acc = bot.accuracy - (diff - 2) * penalty;
 
-    // Teto de absurdidade: manobras com difficulty efetiva muito alta
-    // (>= 9) ficam quase impossíveis até pro Lendário
+    /* Teto de absurdidade: manobras com difficulty efetiva muito alta
+     * ficam quase impossíveis até pros melhores */
     if (diff >= 9) acc = Math.min(acc, 0.15);
     if (diff >= 11) acc = Math.min(acc, 0.05);
 
@@ -996,13 +1037,18 @@ function rollBotAccuracy(bot, pick) {
  *  Retorna { trick, stance, side?, exhausted? } — exhausted=true se teve
  *  que repetir por falta de opção.
  */
-function botPickTrick(bot, tricksData, mode = 'all', usedCombos = new Set()) {
+function botPickTrick(bot, tricksData, mode = 'all', usedCombos = new Set(), turnIndex = 0) {
+    /* Wih sempre abre com ollie regular */
+    if (bot.alwaysFirstTrick && turnIndex === 0) {
+        const t = tricksData.tricks.find(x => x.id === bot.alwaysFirstTrick);
+        if (t) return { trick: t, stance: 'regular', side: t.hasSides ? 'bs' : undefined };
+    }
+
     const effectiveIds = filterPoolByMode(bot.pool, mode, tricksData);
     let pool = effectiveIds
         .map(id => tricksData.tricks.find(t => t.id === id))
         .filter(Boolean);
     if (pool.length === 0) {
-        // fallback: qualquer trick da categoria, ou qualquer trick
         const cand = mode === 'all'
             ? tricksData.tricks
             : tricksData.tricks.filter(t => t.category === mode);
@@ -1012,7 +1058,6 @@ function botPickTrick(bot, tricksData, mode = 'all', usedCombos = new Set()) {
     }
 
     // Gera todos os combos (trick × stance × side) possíveis com peso.
-    // Bot prefere combos onde sua accuracy efetiva (considerando stance) >= 0.5.
     const stances = ['regular', 'switch', 'fakie', 'nollie'];
     const allCombos = [];
     pool.forEach(t => {
@@ -1024,26 +1069,26 @@ function botPickTrick(bot, tricksData, mode = 'all', usedCombos = new Set()) {
                 const combo = { trick: t, stance: st, side: sd };
                 const eDiff = effectiveDifficulty(combo);
                 const acc = bot.accuracy - (eDiff - 2) * 0.05;
-                const trickWeight = acc >= 0.5 ? 3 : 1;
+                let trickWeight = acc >= 0.5 ? 3 : 1;
+                /* preferência por manobras-tema do bot (Guh ama heelflips, Peh ama flips, etc) */
+                if (bot.preferredTricks && bot.preferredTricks.includes(t.id)) {
+                    trickWeight *= 2.2;
+                }
                 allCombos.push({ combo, weight: trickWeight * stW });
             });
         });
     });
 
-    // Filtra combos não usados
     const available = allCombos.filter(c => !usedCombos.has(comboKey(c.combo)));
-
     let exhausted = false;
     let source;
     if (available.length === 0) {
-        // tudo usado — libera geral, marca flag
         source = allCombos;
         exhausted = true;
     } else {
         source = available;
     }
 
-    // Pick ponderado
     const totalW = source.reduce((s, c) => s + c.weight, 0);
     let r = Math.random() * totalW;
     let chosen = source[0];
@@ -1052,23 +1097,42 @@ function botPickTrick(bot, tricksData, mode = 'all', usedCombos = new Set()) {
         if (r <= 0) { chosen = c; break; }
     }
 
-    // Variação espontânea: bots avançados (>= 0.78 accuracy) têm 15% de chance
-    // de adicionar um modifier random quando puxam manobra simples (diff <= 2).
-    // Manobras simples só — pra não inflacionar dificuldade absurda.
+    /* Variação espontânea — REGRAS REVISADAS:
+     *  - Rookie e Amador: NUNCA adicionam variação
+     *  - Técnico/Estiloso/Durão: 8% só em manobras com difficulty <= 2
+     *  - Lendário/Guh/Peh/Feh: 12% em difficulty <= 2, 5% em difficulty 3
+     *  - Wih: 15% em difficulty <= 2, 7% em difficulty 3
+     *  - NINGUÉM adiciona variação em manobras com difficulty >= 4
+     * Variações permitidas: pequenas (ollie-north/south, late-shove, body-varial, grab-indy)
+     * Grabs pesados (mute, stalefish) só pros 3 melhores. */
     const result = { ...chosen.combo, exhausted };
-    if (bot.accuracy >= 0.78 && (chosen.combo.trick.difficulty || 2) <= 2) {
-        if (Math.random() < 0.15) {
+    const baseDiff = chosen.combo.trick.difficulty || 2;
+
+    if (baseDiff < 4) {
+        let chance = 0;
+        let allowedMods = ['ollie-north', 'ollie-south'];
+
+        if (bot.id === 'wih') {
+            chance = baseDiff <= 2 ? 0.15 : 0.07;
+            allowedMods = ['ollie-north', 'ollie-south', 'late-shove', 'body-varial', 'grab-indy', 'grab-melon'];
+        } else if (bot.id === 'lendario' || bot.id === 'guh' || bot.id === 'peh' || bot.id === 'feh') {
+            chance = baseDiff <= 2 ? 0.12 : 0.05;
+            allowedMods = ['ollie-north', 'ollie-south', 'late-shove', 'body-varial', 'grab-indy'];
+        } else if (bot.accuracy >= 0.78 && bot.id !== 'rookie' && bot.id !== 'amador') {
+            chance = baseDiff <= 2 ? 0.08 : 0;
+            allowedMods = ['ollie-north', 'ollie-south', 'late-shove'];
+        }
+
+        if (chance > 0 && Math.random() < chance) {
             const availMods = availableModifiersFor(chosen.combo.trick);
-            // só pega modifiers de baixa-média dificuldade extra (sem grabs duros)
-            const safeMods = availMods.filter(m =>
-                ['ollie-north', 'ollie-south', 'late-shove', 'body-varial', 'grab-indy'].includes(m.id)
-            );
+            const safeMods = availMods.filter(m => allowedMods.includes(m.id));
             if (safeMods.length > 0) {
                 const pickedMod = safeMods[Math.floor(Math.random() * safeMods.length)];
                 result.modifiers = [pickedMod.id];
             }
         }
     }
+
     return result;
 }
 
