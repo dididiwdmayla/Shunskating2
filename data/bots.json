@@ -166,7 +166,8 @@
                 "smith-grind",
                 "feeble-grind",
                 "crooked-grind",
-                "nosegrind"
+                "nosegrind",
+                "double-heelflip"
             ]
         },
         {
@@ -199,7 +200,12 @@
                 "bigspin",
                 "360-shove-it"
             ],
-            "preferredTricks": ["heelflip", "varial-heelflip", "inward-heelflip", "laser-flip"]
+            "preferredTricks": [
+                "heelflip",
+                "varial-heelflip",
+                "inward-heelflip",
+                "laser-flip"
+            ]
         },
         {
             "id": "peh",
@@ -229,9 +235,15 @@
                 "bs-180",
                 "heelflip",
                 "bigspin",
-                "360-shove-it"
+                "360-shove-it",
+                "double-heelflip"
             ],
-            "preferredTricks": ["kickflip", "tre-flip", "varial-kickflip", "double-kickflip"]
+            "preferredTricks": [
+                "kickflip",
+                "tre-flip",
+                "varial-kickflip",
+                "double-kickflip"
+            ]
         },
         {
             "id": "feh",
@@ -264,7 +276,8 @@
                 "double-kickflip",
                 "laser-flip",
                 "bigspin",
-                "360-shove-it"
+                "360-shove-it",
+                "nosegrind"
             ]
         },
         {
@@ -313,7 +326,8 @@
                 "smith-grind",
                 "feeble-grind",
                 "crooked-grind",
-                "nosegrind"
+                "nosegrind",
+                "double-heelflip"
             ]
         }
     ]
