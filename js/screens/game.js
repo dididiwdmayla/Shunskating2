@@ -26,7 +26,13 @@ import {
     getUnlockedBots, unlockBots
 } from '../storage.js';
 
-const LETTERS = ['S', 'K', 'A', 'T', 'E'];
+const LETTERS_BY_WORD = {
+    'SKATE': ['S', 'K', 'A', 'T', 'E'],
+    'SK8':   ['S', 'K', '8']
+};
+function lettersFor(word) {
+    return (LETTERS_BY_WORD[word] || LETTERS_BY_WORD['SKATE']).slice();
+}
 
 let tricksData = null;
 let botsData = null;
@@ -59,7 +65,8 @@ async function render(container, params = {}) {
         phase: 'lobby',
         container,
         data,
-        mode: 'all', // 'all' | 'flatground' | 'slides' | 'grinds' | 'manuals'
+        mode: 'flatground', // 'all' | 'flatground' | 'slides' | 'grinds' | 'slides-grinds'
+        gameWord: 'SKATE', // 'SKATE' (5 letras) | 'SK8' (3 letras)
         // match state (preenchido ao iniciar partida)
         match: null
     };
@@ -90,11 +97,11 @@ function renderLobby(state) {
     ));
     const modeRow = el('div', { className: 'game-mode-row' });
     const modes = [
-        { id: 'all',        label: 'GERAL' },
-        { id: 'flatground', label: 'FLAT' },
-        { id: 'slides',     label: 'SLIDES' },
-        { id: 'grinds',     label: 'GRINDS' },
-        { id: 'manuals',    label: 'MANUALS' }
+        { id: 'all',           label: 'GERAL' },
+        { id: 'flatground',    label: 'FLAT' },
+        { id: 'slides',        label: 'SLIDES' },
+        { id: 'grinds',        label: 'GRINDS' },
+        { id: 'slides-grinds', label: 'SLIDES/GRINDS' }
     ];
     modes.forEach(m => {
         const btn = el('button', {
@@ -106,15 +113,44 @@ function renderLobby(state) {
                 modeRow.querySelectorAll('.game-mode-btn').forEach(b => {
                     b.classList.toggle('is-active', b.dataset.mode === m.id);
                 });
-                // re-render bot grid (pools mudam)
-                const newGrid = buildBotGrid(state);
-                const oldGrid = screen.querySelector('.game-bot-grid');
-                if (oldGrid) oldGrid.replaceWith(newGrid);
+                rebuildBotGrid(state);
             }
         }, m.label);
         modeRow.appendChild(btn);
     });
     screen.appendChild(modeRow);
+
+    function rebuildBotGrid(s) {
+        const newGrid = buildBotGrid(s);
+        const oldGrid = screen.querySelector('.game-bot-grid');
+        if (oldGrid) oldGrid.replaceWith(newGrid);
+    }
+
+    /* === Seção: PALAVRA DO JOGO (SKATE / SK8) === */
+    screen.appendChild(el('h2', { className: 'game-section-title' }, 'PALAVRA'));
+    screen.appendChild(el('p', { className: 'game-section-desc' },
+        'quantas letras você aceita levar antes de perder. na última, tem 2 chances pra mesma manobra.'
+    ));
+    const wordRow = el('div', { className: 'game-mode-row' });
+    const words = [
+        { id: 'SKATE', label: 'S.K.A.T.E. — 5 letras' },
+        { id: 'SK8',   label: 'SK8 — 3 letras' }
+    ];
+    words.forEach(w => {
+        const btn = el('button', {
+            className: `game-mode-btn${state.gameWord === w.id ? ' is-active' : ''}`,
+            type: 'button',
+            dataset: { word: w.id },
+            onClick: () => {
+                state.gameWord = w.id;
+                wordRow.querySelectorAll('.game-mode-btn').forEach(b => {
+                    b.classList.toggle('is-active', b.dataset.word === w.id);
+                });
+            }
+        }, w.label);
+        wordRow.appendChild(btn);
+    });
+    screen.appendChild(wordRow);
 
     // Seção: Escolher oponente
     screen.appendChild(el('h2', { className: 'game-section-title' }, 'ESCOLHE O OPONENTE'));
@@ -185,6 +221,12 @@ function buildBotGrid(state) {
 /** Retorna trickIds do pool filtrados pelo modo (categoria). 'all' não filtra. */
 function filterPoolByMode(poolIds, mode, tricksData) {
     if (mode === 'all') return poolIds.slice();
+    if (mode === 'slides-grinds') {
+        return poolIds.filter(id => {
+            const t = tricksData.tricks.find(x => x.id === id);
+            return t && (t.category === 'slides' || t.category === 'grinds');
+        });
+    }
     return poolIds.filter(id => {
         const t = tricksData.tricks.find(x => x.id === id);
         return t && t.category === mode;
@@ -346,9 +388,12 @@ function closeOverlay(overlay, state) {
 
 function startMatch(state, bot) {
     state.phase = 'match';
+    const lettersList = lettersFor(state.gameWord);
     state.match = {
         bot,
         mode: state.mode, // snapshot do modo no momento que inicia
+        gameWord: state.gameWord, // 'SKATE' | 'SK8'
+        lettersList: lettersList, // ['S','K','A','T','E'] ou ['S','K','8']
         playerLetters: [],
         botLetters: [],
         // 'player' ou 'bot': quem é setter atual
@@ -356,8 +401,8 @@ function startMatch(state, bot) {
         // subfase: 'rps' | 'set-pick' | 'set-attempt' | 'resp-attempt' | 'pass-turn'
         subphase: 'rps',
         currentTrick: null, // { trick, stance, side }
+        lastChance: null, // {responder, trick} quando em última chance da última letra
         // combos já puxados nesta partida (Set de "trickId|stance|side")
-        // não permite repetir; se esgotar, libera com toast.
         usedCombos: new Set(),
         log: [],
         startedAt: new Date().toISOString()
@@ -380,7 +425,11 @@ function markComboUsed(state, trickPick) {
  *  pro jogador no modo atual. Usado pra decidir se bloqueia duplicata ou libera. */
 function hasAnyAvailableCombo(state) {
     const m = state.match;
-    const tricks = state.data.tricks.tricks.filter(t => m.mode === 'all' || t.category === m.mode);
+    const tricks = state.data.tricks.tricks.filter(t => {
+        if (m.mode === 'all') return true;
+        if (m.mode === 'slides-grinds') return t.category === 'slides' || t.category === 'grinds';
+        return t.category === m.mode;
+    });
     const stances = ['regular', 'switch', 'fakie', 'nollie'];
     for (const t of tricks) {
         for (const st of stances) {
@@ -436,7 +485,7 @@ function renderScoreboard(state) {
     // Jogador
     const pSide = el('div', { className: 'game-side game-side-player' });
     pSide.appendChild(el('div', { className: 'game-side-label' }, 'VOCÊ'));
-    pSide.appendChild(renderLetters(m.playerLetters));
+    pSide.appendChild(renderLetters(m.playerLetters, m.lettersList));
     board.appendChild(pSide);
 
     // VS
@@ -445,15 +494,16 @@ function renderScoreboard(state) {
     // Bot
     const bSide = el('div', { className: 'game-side game-side-bot' });
     bSide.appendChild(el('div', { className: 'game-side-label' }, m.bot.name.toUpperCase()));
-    bSide.appendChild(renderLetters(m.botLetters));
+    bSide.appendChild(renderLetters(m.botLetters, m.lettersList));
     board.appendChild(bSide);
 
     return board;
 }
 
-function renderLetters(collected) {
+function renderLetters(collected, lettersList) {
+    const list = lettersList || ['S', 'K', 'A', 'T', 'E'];
     const box = el('div', { className: 'game-letters' });
-    LETTERS.forEach((L, i) => {
+    list.forEach((L, i) => {
         const got = i < collected.length;
         const cell = el('span', {
             className: `game-letter${got ? ' is-got' : ''}`,
@@ -811,22 +861,49 @@ function responderResult(state, success) {
     if (success) {
         addLog(state, 'hit-resp', `${who} respondeu · ACERTOU ${trickLabel}`);
         flashStamp('hit');
+        // limpa flag de last-chance se houvesse
+        m.lastChance = null;
         // regra real: setter MANTÉM a vez quando responder acerta.
-        // vai escolher outra manobra na próxima rodada.
     } else {
-        // dá letra ao responder
+        // Verifica se é last chance (segunda tentativa na letra final, mesma manobra)
+        const isLastChanceAttempt = m.lastChance && m.lastChance.responder === responder;
+
         const letters = responder === 'player' ? m.playerLetters : m.botLetters;
-        const newLetter = LETTERS[letters.length];
+        const lettersList = m.lettersList;
+
+        // Calcula se está em matchpoint: próxima letra seria a final
+        const willBeMatchpoint = letters.length === lettersList.length - 1;
+
+        if (willBeMatchpoint && !isLastChanceAttempt) {
+            // primeira falha na última letra: dá CHANCE EXTRA — mesma manobra de novo
+            m.lastChance = {
+                responder: responder,
+                trick: m.currentTrick // mesma manobra exata
+            };
+            addLog(state, 'miss-resp', `${who} errou · ⚠️ ÚLTIMA CHANCE — tem mais 1 tentativa na mesma manobra`);
+            flashStamp('miss');
+            // mantém current trick, força responder a tentar de novo
+            setTimeout(() => {
+                m.subphase = 'resp-attempt';
+                renderSubphase(state);
+            }, 900);
+            return;
+        }
+
+        // Falha normal (ou segunda falha na última chance) → dá letra
+        const newLetter = lettersList[letters.length];
         letters.push(newLetter);
-        addLog(state, 'miss-resp', `${who} errou · +${newLetter}`);
+        m.lastChance = null;
+
+        const lcSuffix = isLastChanceAttempt ? ' (errou na última chance)' : '';
+        addLog(state, 'miss-resp', `${who} errou · +${newLetter}${lcSuffix}`);
         flashStamp('miss');
-        // re-render scoreboard com nova letra
         setTimeout(() => updateScoreboardLetters(state), 100);
 
         // checa fim de jogo
-        if (letters.length >= LETTERS.length) {
+        if (letters.length >= lettersList.length) {
             setTimeout(() => {
-                // quem completou SKATE perde
+                // quem completou a palavra perde
                 finishMatch(state, responder === 'player' ? 'loss' : 'win', false);
             }, 900);
             return;
@@ -865,6 +942,8 @@ function finishMatch(state, result, abandoned) {
         abandoned: !!abandoned,
         playerLetters: m.playerLetters.slice(),
         botLetters: m.botLetters.slice(),
+        gameWord: m.gameWord || 'SKATE',
+        lettersList: m.lettersList || ['S','K','A','T','E'],
         startedAt: m.startedAt,
         endedAt: new Date().toISOString(),
         log: m.log.slice()
@@ -923,11 +1002,11 @@ function renderResult(state) {
     const finalBoard = el('div', { className: 'game-result-board' });
     finalBoard.appendChild(el('div', { className: 'game-result-side' },
         el('div', { className: 'game-result-side-label' }, 'VOCÊ'),
-        renderLetters(match.playerLetters)
+        renderLetters(match.playerLetters, match.lettersList)
     ));
     finalBoard.appendChild(el('div', { className: 'game-result-side' },
         el('div', { className: 'game-result-side-label' }, bot.name.toUpperCase()),
-        renderLetters(match.botLetters)
+        renderLetters(match.botLetters, match.lettersList)
     ));
     screen.appendChild(finalBoard);
 
@@ -1049,9 +1128,14 @@ function botPickTrick(bot, tricksData, mode = 'all', usedCombos = new Set(), tur
         .map(id => tricksData.tricks.find(t => t.id === id))
         .filter(Boolean);
     if (pool.length === 0) {
-        const cand = mode === 'all'
-            ? tricksData.tricks
-            : tricksData.tricks.filter(t => t.category === mode);
+        let cand;
+        if (mode === 'all') {
+            cand = tricksData.tricks;
+        } else if (mode === 'slides-grinds') {
+            cand = tricksData.tricks.filter(t => t.category === 'slides' || t.category === 'grinds');
+        } else {
+            cand = tricksData.tricks.filter(t => t.category === mode);
+        }
         const source = cand.length > 0 ? cand : tricksData.tricks;
         const t = source[Math.floor(Math.random() * source.length)];
         return { trick: t, stance: 'regular', side: t.hasSides ? 'fs' : undefined };

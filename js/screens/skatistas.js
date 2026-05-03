@@ -18,7 +18,7 @@ import {
     getCrews, createCrew, updateCrew, deleteCrew, toggleCrewMember,
     isOnboardingSkatistasDone, markOnboardingSkatistasDone
 } from '../storage.js';
-import { stampSvgFromId, stampDataFromId } from '../stamp-gen.js';
+import { stampSvgFromId, stampDataFromId, shortCodeFromId } from '../stamp-gen.js';
 import { generateQrSvg } from '../qr-gen.js';
 
 const SIGNATURE_VERSION = 1;
@@ -56,9 +56,9 @@ function renderMain(container) {
     actions.appendChild(el('button', {
         className: 'skat-action-btn skat-action-secondary',
         type: 'button',
-        onClick: () => openScanner(container)
+        onClick: () => openAddOptions(container)
     }, el('span', { className: 'skat-action-icon' }, '⌖'),
-       el('span', {}, 'ESCANEAR PARCEIRO')));
+       el('span', {}, 'ADICIONAR PARCEIRO')));
     screen.appendChild(actions);
 
     // Contagem
@@ -224,6 +224,13 @@ function openMyQr(me) {
 
         card.appendChild(el('p', { className: 'skat-qr-nick' }, me.nick.toUpperCase()));
 
+        // Código de 6 caracteres pra adicionar manualmente
+        const code = shortCodeFromId(me.id);
+        card.appendChild(el('div', { className: 'skat-qr-code-box' },
+            el('div', { className: 'skat-qr-code-label' }, 'OU CÓDIGO:'),
+            el('div', { className: 'skat-qr-code-value' }, code)
+        ));
+
         card.appendChild(el('button', {
             className: 'skat-overlay-close',
             type: 'button',
@@ -262,6 +269,189 @@ function parsePayload(raw) {
     } catch (e) {
         return null;
     }
+}
+
+/**
+ * Tela inicial de adicionar parceiro: escolha entre escanear QR ou digitar código.
+ */
+function openAddOptions(container) {
+    openOverlay(null, (card, close) => {
+        card.appendChild(el('h2', { className: 'skat-overlay-title' }, 'ADICIONAR'));
+        card.appendChild(el('p', { className: 'skat-overlay-desc' },
+            'duas formas de carimbar um parceiro.'
+        ));
+
+        const optionsWrap = el('div', { className: 'skat-add-options' });
+
+        const scanBtn = el('button', {
+            className: 'skat-add-option-btn',
+            type: 'button',
+            onClick: () => {
+                close();
+                openScanner(container);
+            }
+        });
+        scanBtn.appendChild(el('div', { className: 'skat-add-option-icon' }, '⌖'));
+        scanBtn.appendChild(el('div', { className: 'skat-add-option-title' }, 'ESCANEAR QR'));
+        scanBtn.appendChild(el('div', { className: 'skat-add-option-desc' },
+            'usa a câmera. perfil completo (nick, cidade, stance...)'
+        ));
+        optionsWrap.appendChild(scanBtn);
+
+        const codeBtn = el('button', {
+            className: 'skat-add-option-btn',
+            type: 'button',
+            onClick: () => {
+                close();
+                openCodeEntry(container);
+            }
+        });
+        codeBtn.appendChild(el('div', { className: 'skat-add-option-icon' }, '⌨'));
+        codeBtn.appendChild(el('div', { className: 'skat-add-option-title' }, 'DIGITAR CÓDIGO'));
+        codeBtn.appendChild(el('div', { className: 'skat-add-option-desc' },
+            '6 caracteres + nick. perfil simples, mais rápido.'
+        ));
+        optionsWrap.appendChild(codeBtn);
+
+        card.appendChild(optionsWrap);
+
+        card.appendChild(el('button', {
+            className: 'skat-overlay-close',
+            type: 'button',
+            onClick: close
+        }, 'CANCELAR'));
+    });
+}
+
+/**
+ * Tela de digitação manual do código de 6 caracteres.
+ * Cria entrada simples no crew, sem dados ricos do QR.
+ */
+function openCodeEntry(container) {
+    openOverlay(null, (card, close) => {
+        card.classList.add('skat-code-entry-card');
+        card.appendChild(el('h2', { className: 'skat-overlay-title' }, 'DIGITAR CÓDIGO'));
+        card.appendChild(el('p', { className: 'skat-overlay-desc' },
+            'pede o código pro parceiro. tá embaixo do QR dele.'
+        ));
+
+        const form = el('div', { className: 'skat-code-form' });
+
+        const codeLabel = el('label', { className: 'skat-code-label' }, 'CÓDIGO (6 CARACTERES)');
+        const codeInput = el('input', {
+            className: 'skat-code-input',
+            type: 'text',
+            maxlength: '6',
+            autocomplete: 'off',
+            spellcheck: 'false',
+            placeholder: 'EX: H7K9M2'
+        });
+        // força uppercase + filtro alfanumérico em real-time
+        codeInput.addEventListener('input', () => {
+            const v = codeInput.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+            if (codeInput.value !== v) codeInput.value = v;
+        });
+        form.appendChild(codeLabel);
+        form.appendChild(codeInput);
+
+        const nickLabel = el('label', { className: 'skat-code-label' }, 'NICK DO PARCEIRO');
+        const nickInput = el('input', {
+            className: 'skat-code-input',
+            type: 'text',
+            maxlength: '30',
+            autocomplete: 'off',
+            placeholder: 'COMO TU CONHECE ELE'
+        });
+        form.appendChild(nickLabel);
+        form.appendChild(nickInput);
+
+        const stanceLabel = el('label', { className: 'skat-code-label' }, 'STANCE (OPCIONAL)');
+        const stanceRow = el('div', { className: 'skat-code-stance-row' });
+        const stances = ['regular', 'goofy', '', ''];
+        const stanceLabels = { 'regular': 'REGULAR', 'goofy': 'GOOFY' };
+        let pickedStance = '';
+        ['regular', 'goofy'].forEach(s => {
+            const btn = el('button', {
+                type: 'button',
+                className: 'skat-code-stance-btn',
+                onClick: () => {
+                    pickedStance = pickedStance === s ? '' : s;
+                    stanceRow.querySelectorAll('.skat-code-stance-btn').forEach(b => {
+                        b.classList.toggle('is-active', b.dataset.s === pickedStance);
+                    });
+                },
+                dataset: { s: s }
+            }, stanceLabels[s]);
+            stanceRow.appendChild(btn);
+        });
+        form.appendChild(stanceLabel);
+        form.appendChild(stanceRow);
+
+        const errorBox = el('div', { className: 'skat-code-error' });
+        form.appendChild(errorBox);
+
+        const submitBtn = el('button', {
+            className: 'skat-overlay-action skat-code-submit',
+            type: 'button',
+            onClick: () => {
+                const code = codeInput.value.trim().toUpperCase();
+                const nick = nickInput.value.trim();
+                errorBox.textContent = '';
+
+                if (code.length !== 6) {
+                    errorBox.textContent = 'código precisa ter exatamente 6 caracteres';
+                    return;
+                }
+                if (!/^[A-Z0-9]{6}$/.test(code)) {
+                    errorBox.textContent = 'código só pode ter letras maiúsculas e números';
+                    return;
+                }
+                if (!nick) {
+                    errorBox.textContent = 'precisa colocar um nick';
+                    return;
+                }
+
+                /* Cria skatista com id derivado do código.
+                 * O id é "code:" + código, prefixo distingue de UUID real.
+                 * Isso evita colisão com IDs de QR escaneados. */
+                const skatista = {
+                    id: 'code:' + code,
+                    nick: nick,
+                    created: new Date().toISOString(),
+                    stance: pickedStance,
+                    city: '',
+                    favTrick: '',
+                    favPro: ''
+                };
+
+                const ok = addToCrew(skatista);
+                if (!ok) {
+                    errorBox.textContent = 'esse parceiro já tá carimbado';
+                    return;
+                }
+
+                /* sucesso — fecha overlay com efeito de carimbo (igual scanner) */
+                close();
+                showCarimbouAnimation(skatista, () => {
+                    /* re-render principal igual ao scanner faz */
+                    const appRoot = document.getElementById('screen-container');
+                    if (appRoot) renderMain(appRoot);
+                });
+            }
+        }, 'CARIMBAR');
+
+        card.appendChild(form);
+        card.appendChild(submitBtn);
+
+        card.appendChild(el('button', {
+            className: 'skat-overlay-close',
+            type: 'button',
+            onClick: close
+        }, 'CANCELAR'));
+
+        // foco automático no input do código
+        setTimeout(() => codeInput.focus(), 100);
+    });
 }
 
 function openScanner(container) {

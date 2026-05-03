@@ -246,3 +246,35 @@ function escapeXml(str) {
 export function renderStampInto(container, id, opts) {
     container.innerHTML = stampSvgFromId(id, opts);
 }
+
+/**
+ * Gera código de 6 caracteres alfanuméricos (uppercase + dígitos) deterministicamente do UUID.
+ * Usado como código manual de skatista — alternativa ao QR pra adicionar por digitação.
+ *
+ * Mesmo UUID → mesmo código sempre. Quase sem chance de colisão entre IDs diferentes
+ * porque usa hash do UUID inteiro.
+ */
+export function shortCodeFromId(uuid) {
+    const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // 36 chars
+    // Hash determinístico simples: FNV-1a 32 bits
+    let h = 2166136261;
+    for (let i = 0; i < uuid.length; i++) {
+        h ^= uuid.charCodeAt(i);
+        h = (h * 16777619) >>> 0;
+    }
+    // Faz um segundo round pra distribuir mais
+    let h2 = h;
+    for (let i = 0; i < uuid.length; i++) {
+        h2 ^= uuid.charCodeAt(uuid.length - 1 - i) * 31;
+        h2 = (h2 * 16777619) >>> 0;
+    }
+    let n = (h ^ (h2 << 7)) >>> 0;
+
+    let code = '';
+    for (let i = 0; i < 6; i++) {
+        code += ALPHABET[n % 36];
+        // mistura mais a cada char pra não repetir muito
+        n = ((n * 1103515245 + 12345) ^ (n >>> 11)) >>> 0;
+    }
+    return code;
+}

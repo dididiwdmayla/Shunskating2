@@ -1091,3 +1091,155 @@
 .swipe-hint-arrow {
     letter-spacing: 0.15em;
 }
+
+/* =========================================================
+   CÓDIGO DE 6 CARACTERES (manual entry / mostrar QR)
+   ========================================================= */
+
+/* Caixa do código embaixo do QR */
+.skat-qr-code-box {
+    margin-top: var(--sp-3, 12px);
+    padding: var(--sp-2, 8px) var(--sp-3, 12px);
+    background: rgba(0, 0, 0, 0.04);
+    border: 1.5px dashed var(--zine-ink, #1a1a1a);
+    text-align: center;
+}
+
+.skat-qr-code-label {
+    font-family: var(--font-display, sans-serif);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--zine-ink-faded, #888);
+    margin-bottom: 4px;
+}
+
+.skat-qr-code-value {
+    font-family: var(--font-mono, monospace), monospace;
+    font-size: 1.8rem;
+    letter-spacing: 0.2em;
+    color: var(--zine-red, #c8201f);
+    font-weight: bold;
+}
+
+/* Tela de escolha — escanear ou digitar */
+.skat-add-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2, 8px);
+    margin: var(--sp-3, 12px) 0;
+}
+
+.skat-add-option-btn {
+    padding: var(--sp-3, 12px);
+    background: var(--zine-paper, #ecd9b3);
+    border: 2px solid var(--zine-ink, #1a1a1a);
+    box-shadow: 4px 4px 0 var(--zine-ink, #1a1a1a);
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.skat-add-option-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--zine-ink, #1a1a1a);
+}
+
+.skat-add-option-icon {
+    font-size: 1.6rem;
+    color: var(--zine-red, #c8201f);
+    margin-bottom: 4px;
+}
+
+.skat-add-option-title {
+    font-family: var(--font-display, sans-serif);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--zine-ink, #1a1a1a);
+    margin-bottom: 2px;
+}
+
+.skat-add-option-desc {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.78rem;
+    color: var(--zine-ink-faded, #888);
+    line-height: 1.3;
+}
+
+/* Form de digitação do código */
+.skat-code-entry-card {
+    max-width: 380px;
+}
+
+.skat-code-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: var(--sp-3, 12px) 0;
+}
+
+.skat-code-label {
+    font-family: var(--font-display, sans-serif);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--zine-ink-faded, #888);
+    margin-top: var(--sp-1, 4px);
+}
+
+.skat-code-input {
+    padding: var(--sp-2, 8px);
+    border: 2px solid var(--zine-ink, #1a1a1a);
+    background: var(--zine-paper, #ecd9b3);
+    font-family: var(--font-mono, monospace), monospace;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--zine-ink, #1a1a1a);
+    text-transform: uppercase;
+}
+
+.skat-code-input:focus {
+    outline: 2px solid var(--zine-red, #c8201f);
+    outline-offset: 1px;
+}
+
+.skat-code-input::placeholder {
+    color: var(--zine-ink-faded, #888);
+    opacity: 0.6;
+    letter-spacing: 0.1em;
+    font-size: 0.95rem;
+}
+
+.skat-code-stance-row {
+    display: flex;
+    gap: 6px;
+}
+
+.skat-code-stance-btn {
+    flex: 1;
+    padding: var(--sp-2, 8px);
+    background: var(--zine-paper, #ecd9b3);
+    border: 1.5px solid var(--zine-ink-faded, #888);
+    font-family: var(--font-display, sans-serif);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--zine-ink-faded, #888);
+    cursor: pointer;
+}
+
+.skat-code-stance-btn.is-active {
+    background: var(--zine-ink, #1a1a1a);
+    color: var(--zine-paper, #ecd9b3);
+    border-color: var(--zine-ink, #1a1a1a);
+}
+
+.skat-code-error {
+    color: var(--zine-red, #c8201f);
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.85rem;
+    min-height: 1.2em;
+    text-align: center;
+    margin-top: 4px;
+}
+
+.skat-code-submit {
+    width: 100%;
+}
